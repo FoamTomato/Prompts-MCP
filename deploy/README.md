@@ -1,85 +1,70 @@
 # Deployment to 117.72.182.195
 
-The image is built and published by GitHub Actions (`.github/workflows/docker.yml`)
-to `ghcr.io/foamtomato/prompts-mcp:latest` on every push to `main`. The server
-only pulls — no source code or build toolchain is required there beyond what
-docker needs for `docker compose pull`.
+The production server has no outbound proxy, so pulling images from GHCR is
+unreliably slow. The canonical workflow is **build locally, save tar, scp,
+docker load** — fully automated by `scripts/deploy_image.sh`.
 
-A working copy of the repo is still cloned to `/opt/prompts-mcp/` because the
-**skills directory** (`/opt/prompts-mcp/skills`) is mounted into the container
-read-only. Updating skill content = `git pull && docker compose restart prompts-mcp`.
+GitHub Actions still publishes the same image to
+`ghcr.io/foamtomato/prompts-mcp:latest` for any other host with reliable
+outbound internet — but the production server here always goes through scp.
+
+A working copy of the repo is also cloned to `/opt/prompts-mcp/` because the
+**skills directory** (`/opt/prompts-mcp/skills`) is bind-mounted into the
+container read-only. Updating skill content alone is a `git pull` + restart,
+no image rebuild needed.
 
 ## One-time setup
 
 ```bash
-ssh root@117.72.182.195
-cd /opt
-git clone https://github.com/FoamTomato/Prompts-MCP.git prompts-mcp
-```
+# 1. clone the repo on the server (for skills/ volume + reference manifests)
+ssh root@117.72.182.195 'cd /opt && git clone https://github.com/FoamTomato/Prompts-MCP.git prompts-mcp'
 
-Append the `prompts-mcp:` service block from `deploy/docker-compose.prod.yml`
-into `/opt/docker-compose.yml` (inside the existing top-level `services:` map,
-before `networks:`). Back up first:
+# 2. append the prompts-mcp service block from deploy/docker-compose.prod.yml
+#    into /opt/docker-compose.yml (inside the existing top-level services: map,
+#    before networks:). Back up first:
+ssh root@117.72.182.195 'cp /opt/docker-compose.yml /opt/docker-compose.yml.bak.$(date +%Y%m%d-%H%M%S)'
 
-```bash
-cp /opt/docker-compose.yml /opt/docker-compose.yml.bak.$(date +%Y%m%d-%H%M%S)
-```
+# 3. append deploy/nginx-snippet.conf into the
+#    `server { listen 443 ssl; server_name xiaohang.site; ... }`
+#    block of /opt/nginx/conf.d/default.conf. Back up similarly.
 
-Append `deploy/nginx-snippet.conf` into the `server { server_name xiaohang.site; listen 443 ssl; ... }`
-block of `/opt/nginx/conf.d/default.conf` (back up that file similarly).
+# 4. ship the image:
+./scripts/deploy_image.sh
 
-Pull the image and bring the service up:
-
-```bash
-cd /opt
-docker compose pull prompts-mcp
-docker compose up -d prompts-mcp
-docker compose ps prompts-mcp
-docker compose logs --tail=50 prompts-mcp
-```
-
-Reload nginx:
-
-```bash
-docker compose exec nginx nginx -t
-docker compose exec nginx nginx -s reload
+# 5. reload nginx:
+ssh root@117.72.182.195 'cd /opt && docker compose exec nginx nginx -t && docker compose exec nginx nginx -s reload'
 ```
 
 ## Verify
 
 ```bash
 # from the server
-docker exec nginx curl -fsS http://prompts-mcp:8080/health     # internal
-curl -fsS https://xiaohang.site/mcp/health                    # external
+ssh root@117.72.182.195 'docker exec nginx curl -fsS http://prompts-mcp:8080/health'
+# from anywhere
+curl -fsS https://xiaohang.site/mcp/health
 curl -fsSI https://xiaohang.site/skills/ | head -3
 ```
 
 ## Update flow
 
-### Update code
+### Code change (rebuild image)
 
 ```bash
-# locally
-git push
-# GitHub Actions builds and pushes a new image to GHCR
-# then on the server:
-ssh root@117.72.182.195 "cd /opt && docker compose pull prompts-mcp && docker compose up -d prompts-mcp"
+git push                       # CI builds + publishes to GHCR (informational)
+./scripts/deploy_image.sh      # build locally, scp, load, restart
 ```
 
-### Update skill content only (no code change)
+### Skill content only (no code change)
 
 ```bash
 # locally edit skills/*.md
 python scripts/lint_skills.py
 git push
-# on server:
 ssh root@117.72.182.195 \
   "cd /opt/prompts-mcp && git pull && cd /opt && docker compose restart prompts-mcp"
 ```
 
-The skills directory is bind-mounted into the container, so a git pull on the
-server is enough — no image rebuild needed for content-only changes. Restart
-takes <2s; the in-memory index rebuilds on boot.
+Restart takes <2s; the in-memory index rebuilds on boot.
 
 ## Troubleshooting
 
@@ -87,6 +72,5 @@ takes <2s; the in-memory index rebuilds on boot.
 - `docker exec prompts-mcp python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8080/health').read())"`
 - Nginx upstream resolution: containers must share `opt_app-net`. Verify with
   `docker inspect prompts-mcp --format '{{json .NetworkSettings.Networks}}'`.
-- GHCR pull denied: ensure the package visibility is set to **public** in
-  https://github.com/users/FoamTomato/packages/container/prompts-mcp/settings —
-  GHCR images inherit repo visibility for the *first* push only.
+- Nginx `host not found in upstream "prompts-mcp"` after editing default.conf —
+  start the `prompts-mcp` container first, *then* `nginx -s reload`.

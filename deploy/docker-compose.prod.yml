@@ -2,15 +2,23 @@
 # the production server. Same network (app-net → opt_app-net) and same
 # `deploy.resources.limits` style as the rest of the file.
 #
-# Image is built and published by .github/workflows/docker.yml on every push
-# to main → ghcr.io/foamtomato/prompts-mcp:latest. The server only pulls.
+# Image is built **locally on the dev machine** then transferred to the server:
+#   docker build -t prompts-mcp:0.1.0 -t prompts-mcp:latest .
+#   docker save prompts-mcp:0.1.0 prompts-mcp:latest -o /tmp/prompts-mcp.tar
+#   scp /tmp/prompts-mcp.tar root@117.72.182.195:/tmp/
+#   ssh root@117.72.182.195 'docker load -i /tmp/prompts-mcp.tar'
+#
+# The GitHub Actions workflow (.github/workflows/docker.yml) also publishes the
+# same tags to ghcr.io/foamtomato/prompts-mcp for any host with reliable
+# outbound internet. The production server here has no outbound proxy, so the
+# scp-and-load path is the canonical one.
 #
 # Apply with:
-#   cd /opt && docker compose pull prompts-mcp && docker compose up -d prompts-mcp
+#   cd /opt && docker compose up -d prompts-mcp
 #   docker compose exec nginx nginx -s reload   # AFTER applying nginx-snippet.conf
 
   prompts-mcp:
-    image: ghcr.io/foamtomato/prompts-mcp:latest
+    image: prompts-mcp:latest
     container_name: prompts-mcp
     restart: always
     expose:
