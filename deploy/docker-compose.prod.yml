@@ -1,14 +1,16 @@
 # Snippet to append into the `services:` block of /opt/docker-compose.yml on
-# the production server. Uses the same network (`app-net` → opt_app-net) and
-# the same `deploy.resources.limits` style as the existing services there.
+# the production server. Same network (app-net → opt_app-net) and same
+# `deploy.resources.limits` style as the rest of the file.
 #
-# After appending:
-#   cd /opt && docker compose up -d --build prompts-mcp
+# Image is built and published by .github/workflows/docker.yml on every push
+# to main → ghcr.io/foamtomato/prompts-mcp:latest. The server only pulls.
+#
+# Apply with:
+#   cd /opt && docker compose pull prompts-mcp && docker compose up -d prompts-mcp
 #   docker compose exec nginx nginx -s reload   # AFTER applying nginx-snippet.conf
 
   prompts-mcp:
-    build: /opt/prompts-mcp
-    image: prompts-mcp:latest
+    image: ghcr.io/foamtomato/prompts-mcp:latest
     container_name: prompts-mcp
     restart: always
     expose:
