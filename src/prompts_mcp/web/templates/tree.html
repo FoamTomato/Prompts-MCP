@@ -1,0 +1,22 @@
+{% macro render_node(node, depth, base, active_path) -%}
+  {% if node.kind == 'leaf' %}
+    <li class="leaf {% if node.path == active_path %}active{% endif %}">
+      <a href="{{ base }}/skill/{{ node.path|replace('.md', '') }}" title="{{ node.description or '' }}">{{ node.name }}</a>
+    </li>
+  {% else %}
+    <li class="folder">
+      <details {% if depth < 2 or (active_path and active_path.startswith(node.path)) %}open{% endif %}>
+        <summary>{{ node.name }}</summary>
+        {% if node.children %}
+          <ul>
+            {% for ch in node.children %}{{ render_node(ch, depth + 1, base, active_path) }}{% endfor %}
+          </ul>
+        {% endif %}
+      </details>
+    </li>
+  {% endif %}
+{%- endmacro %}
+
+<ul class="tree-root">
+{% for ch in tree.children %}{{ render_node(ch, 1, base, active_path) }}{% endfor %}
+</ul>

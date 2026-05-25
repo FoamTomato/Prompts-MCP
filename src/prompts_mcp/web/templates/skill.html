@@ -1,0 +1,33 @@
+<article class="skill">
+  <header class="skill-head">
+    <div class="crumbs">
+      <span class="dim-pill">{{ skill.dimension or 'root' }}</span>
+      <span class="path">{{ skill.path }}</span>
+      <span class="effort effort-{{ skill.effort }}">{{ skill.effort }}</span>
+    </div>
+    <h1>{{ skill.name }}</h1>
+    {% if skill.description %}<p class="desc">{{ skill.description }}</p>{% endif %}
+    {% if skill.keywords %}
+    <div class="kw-row">
+      {% for kw in skill.keywords %}<span class="kw">{{ kw }}</span>{% endfor %}
+    </div>
+    {% endif %}
+    {% if skill.paths %}
+    <details class="fm-details">
+      <summary>paths</summary>
+      <ul class="paths">
+        {% for p in skill.paths %}<li><code>{{ p }}</code></li>{% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+  </header>
+
+  <div class="markdown-body">
+    {{ rendered_html|safe }}
+  </div>
+
+  <footer class="skill-foot">
+    <span>MCP URI: <code>{{ skill.uri }}</code></span>
+    <span>version: {{ skill.frontmatter.get('version', '—') }}</span>
+  </footer>
+</article>

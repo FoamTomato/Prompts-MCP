@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if skill %}{{ skill.name }} · {% endif %}Prompts-MCP</title>
+  <link rel="stylesheet" href="{{ base }}/static/css/main.css">
+  <script>window.__base = {{ base|tojson }};</script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ base }}/">Prompts-MCP</a>
+    <span class="meta">{{ total }} skills · {{ dimensions|join(' / ') }}</span>
+    <form class="search" onsubmit="event.preventDefault(); doSearch();">
+      <input type="search" id="q" placeholder="搜索 skill (中英文)…" autocomplete="off">
+    </form>
+    <a class="mcp-link" href="/mcp/sse" title="MCP SSE endpoint">/mcp/sse</a>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div id="search-results" class="hidden"></div>
+      <nav class="tree" id="tree-nav">
+        {% include "tree.html" %}
+      </nav>
+    </aside>
+
+    <main class="content">
+      {% if skill %}
+        {% include "skill.html" %}
+      {% else %}
+        <section class="placeholder">
+          <h1>Prompts-MCP Skill Library</h1>
+          <p>左侧树状导航选 skill，或顶部搜索框输入关键词（中英文均可）。按 <code>/</code> 聚焦搜索框。</p>
+          <ul>
+            <li><a href="{{ base }}/skill/framework/antd/form/validator-pattern">framework/antd/form/validator-pattern</a> — antd 表单校验</li>
+            <li><a href="{{ base }}/skill/habit/code-quality/naming-as-doc">habit/code-quality/naming-as-doc</a> — 命名即文档</li>
+            <li><a href="{{ base }}/skill/design-pattern/factory/llm-provider-factory">design-pattern/factory/llm-provider-factory</a> — 工厂模式</li>
+          </ul>
+          <p class="dim">MCP 接入: <code>https://xiaohang.site/mcp/sse</code></p>
+        </section>
+      {% endif %}
+    </main>
+  </div>
+
+  <script src="{{ base }}/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+services:
+  prompts-mcp:
+    build: .
+    container_name: prompts-mcp-dev
+    ports:
+      - "8080:8080"
+    environment:
+      SKILLS_ROOT: /app/skills
+      PORT: "8080"
+      LOG_LEVEL: INFO
+    volumes:
+      - ./skills:/app/skills:ro
+    restart: unless-stopped
