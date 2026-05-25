@@ -1,22 +1,30 @@
-# Snippet to append into /opt/docker-compose.yml on the production server.
-# Assumes the existing `app-net` network defined by the main compose file.
+# Snippet to append into the `services:` block of /opt/docker-compose.yml on
+# the production server. Uses the same network (`app-net` → opt_app-net) and
+# the same `deploy.resources.limits` style as the existing services there.
 #
 # After appending:
 #   cd /opt && docker compose up -d --build prompts-mcp
-#   docker compose exec nginx nginx -s reload
+#   docker compose exec nginx nginx -s reload   # AFTER applying nginx-snippet.conf
 
-services:
   prompts-mcp:
     build: /opt/prompts-mcp
+    image: prompts-mcp:latest
     container_name: prompts-mcp
-    restart: unless-stopped
-    mem_limit: 128m
+    restart: always
+    expose:
+      - "8080"
     environment:
-      SKILLS_ROOT: /app/skills
-      PORT: "8080"
-      BASE_URL_PREFIX: /mcp
-      LOG_LEVEL: INFO
+      - SKILLS_ROOT=/app/skills
+      - PORT=8080
+      - LOG_LEVEL=INFO
     volumes:
       - /opt/prompts-mcp/skills:/app/skills:ro
     networks:
       - app-net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: 192M
+        reservations:
+          memory: 64M
