@@ -96,12 +96,15 @@ jobs:
           path: /tmp
 
       - name: Set up SSH
-        # Loads PROD_SSH_KEY into the agent so subsequent scp/ssh just work.
-        # Host key trust is established via ssh-keyscan rather than disabling
-        # StrictHostKeyChecking (which would mask MITM in CI logs).
+        # Loads PROD_SSH_KEY into a file. Two writes are tried so we tolerate
+        # both "secret has trailing newline" and "secret stripped trailing
+        # newline" cases — the second form would otherwise break ed25519 key
+        # parsing with `error in libcrypto`. Verifies the key actually parses
+        # before continuing.
         env:
           SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
           SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          SSH_USER: ${{ secrets.PROD_SSH_USER }}
         run: |
           set -euo pipefail
           if [ -z "${SSH_KEY:-}" ] || [ -z "${SSH_HOST:-}" ]; then
@@ -111,13 +114,33 @@ jobs:
           fi
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_deploy
+
+          # Write key. printf %s avoids printf's interpretation of \n inside
+          # the secret, then we ensure there's exactly one trailing newline.
+          {
+            printf '%s' "$SSH_KEY"
+            # add a trailing newline only if the secret didn't already end with one
+            [ "$(printf '%s' "$SSH_KEY" | tail -c1 | od -An -c | tr -d ' ')" = "\\n" ] || printf '\n'
+          } > ~/.ssh/id_deploy
           chmod 600 ~/.ssh/id_deploy
+
+          # Verify the key actually parses. If it doesn't, ssh-keygen prints
+          # the real reason (wrong format / corrupted / wrong key type).
+          if ! ssh-keygen -y -f ~/.ssh/id_deploy > ~/.ssh/id_deploy.pub 2>/tmp/keygen.err; then
+            echo "::error::PROD_SSH_KEY did not parse — check the secret has the full key including header/footer and unmodified newlines."
+            cat /tmp/keygen.err
+            exit 1
+          fi
+          echo "Key parses. Fingerprint:"
+          ssh-keygen -lf ~/.ssh/id_deploy.pub
+
+          # Trust the host key for the prod server (ed25519 + rsa).
           ssh-keyscan -t ed25519,rsa "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
           cat >> ~/.ssh/config <<EOF
           Host prod
             HostName $SSH_HOST
-            User ${{ secrets.PROD_SSH_USER }}
+            User $SSH_USER
             IdentityFile ~/.ssh/id_deploy
             IdentitiesOnly yes
             ServerAliveInterval 30
