@@ -37,13 +37,40 @@ def build_index(settings: Settings) -> SkillIndex:
 def _make_mcp(state: AppState):
     """Construct a FastMCP server with all 7 tools + Resources registered."""
     from mcp.server.fastmcp import FastMCP
+    from mcp.server.transport_security import TransportSecuritySettings
 
-    mcp = FastMCP("prompts-mcp", instructions=(
-        "A markdown skill library. Use `get_index_tree` first for orientation, "
-        "then `search_skills` (or `match_task_skills` / `pick_design_skills` "
-        "for Quill-flavored flows). Fetch full content via `get_skill` / "
-        "`get_skill_bundle`. Every skill is also exposed as a `skill://` Resource."
-    ))
+    # DNS-rebinding protection: by default FastMCP only allows
+    # localhost/127.0.0.1 as Host. Behind nginx we need to whitelist the
+    # public hostname(s). Extra hosts may be added via ALLOWED_HOSTS env
+    # (comma-separated). Origins default to https://<each allowed host>.
+    default_hosts = [
+        "127.0.0.1:*", "localhost:*", "[::1]:*",
+        "xiaohang.site", "xiaohang.site:*",
+        "prompts-mcp:*",  # in-cluster name (curl from another container)
+    ]
+    extra = [h.strip() for h in os.environ.get("ALLOWED_HOSTS", "").split(",") if h.strip()]
+    allowed_hosts = default_hosts + extra
+    allowed_origins = [
+        "http://127.0.0.1:*", "http://localhost:*", "http://[::1]:*",
+        "https://xiaohang.site", "https://xiaohang.site:*",
+    ] + [f"https://{h.lstrip('.').rstrip(':*').rstrip(':')}" for h in extra if h]
+
+    security = TransportSecuritySettings(
+        enable_dns_rebinding_protection=True,
+        allowed_hosts=allowed_hosts,
+        allowed_origins=allowed_origins,
+    )
+
+    mcp = FastMCP(
+        "prompts-mcp",
+        instructions=(
+            "A markdown skill library. Use `get_index_tree` first for orientation, "
+            "then `search_skills` (or `match_task_skills` / `pick_design_skills` "
+            "for Quill-flavored flows). Fetch full content via `get_skill` / "
+            "`get_skill_bundle`. Every skill is also exposed as a `skill://` Resource."
+        ),
+        transport_security=security,
+    )
 
     @mcp.tool()
     def list_skills(
