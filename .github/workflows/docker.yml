@@ -81,10 +81,10 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    # Skip the deploy step automatically when secrets are not configured,
-    # so the workflow still passes on a freshly cloned fork and on the
-    # initial commit before secrets are set up.
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    # Run deploy on push to main AND on manual workflow_dispatch (so we can
+    # retrigger after secrets are added without an empty commit). Inner
+    # steps still no-op when secrets are missing.
+    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch' }}
     environment:
       name: production
       url: https://xiaohang.site/skills/
