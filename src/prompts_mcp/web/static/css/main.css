@@ -144,49 +144,66 @@ pre code { background: transparent; padding: 0; }
 .skill-foot { margin-top: 36px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; gap: 18px; color: var(--fg-dim); font-size: 12px; }
 
 .children-card {
-  margin: 24px 0 28px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg-sidebar);
-  padding: 14px 18px 16px;
+  margin: 20px 0 28px;
 }
 .children-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   color: var(--fg-dim);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
-.children-list { list-style: none; margin: 0; padding: 0; }
-.child-row {
-  padding: 8px 10px;
+.children-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  transition: background 0.12s ease;
+  overflow: hidden;
+  background: white;
 }
-.child-row + .child-row { margin-top: 2px; }
-.child-row:hover { background: var(--leaf-hover); }
+.children-table thead th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--fg-dim);
+  background: var(--bg-sidebar);
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.children-table tbody td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border-soft, #f1f5f9);
+  vertical-align: top;
+}
+.children-table tbody tr:last-child td { border-bottom: none; }
+.children-table tbody tr:hover { background: var(--leaf-hover); }
+
+.children-table .col-name { width: 28%; min-width: 180px; white-space: nowrap; }
+.children-table .col-blurb { color: var(--fg); line-height: 1.55; }
+
 .child-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
   font-weight: 600;
   color: var(--accent);
   text-decoration: none;
 }
 .child-link:hover { text-decoration: underline; }
-.child-name { font-size: 14px; }
 .child-tag {
+  margin-left: 6px;
   font-size: 10px;
   font-family: var(--mono);
-  background: white;
+  background: var(--bg-sidebar);
   color: var(--fg-dim);
   padding: 1px 6px;
   border-radius: 8px;
   border: 1px solid var(--border);
   text-transform: lowercase;
+  vertical-align: middle;
 }
 .child-badge-missing {
+  margin-left: 6px;
   font-size: 11px;
   color: #b91c1c;
   background: #fee2e2;
@@ -194,17 +211,4 @@ pre code { background: transparent; padding: 0; }
   padding: 0 6px;
   border-radius: 8px;
 }
-.child-row.child-missing .child-link { color: #b91c1c; }
-.child-note {
-  font-size: 12px;
-  color: var(--fg);
-  margin: 2px 0 0 0;
-}
-.child-desc {
-  /* Primary blurb for each child (prefers the child's own description,
-     falls back to parent's children[].note). Make it readable, not faint. */
-  font-size: 12.5px;
-  color: var(--fg);
-  margin-top: 4px;
-  line-height: 1.5;
-}
+.children-table tbody tr.child-missing .child-link { color: #b91c1c; }

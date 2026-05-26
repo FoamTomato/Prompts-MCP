@@ -25,21 +25,26 @@
   {% if children_view %}
   <section class="children-card">
     <h2 class="children-title">子项索引</h2>
-    <ul class="children-list">
+    <table class="children-table">
+      <thead>
+        <tr>
+          <th class="col-name">子项</th>
+          <th class="col-blurb">一句话</th>
+        </tr>
+      </thead>
+      <tbody>
       {% for ch in children_view %}
-      <li class="child-row {% if not ch.exists %}child-missing{% endif %}">
-        <a href="{{ ch.href }}" class="child-link">
-          <span class="child-name">{{ ch.name }}</span>
-          {% if ch.tag %}<span class="child-tag">{{ ch.tag }}</span>{% endif %}
-          {% if not ch.exists %}<span class="child-badge-missing">缺失</span>{% endif %}
-        </a>
-        {# Prefer the child's own (richer) description; fall back to the
-           shorter note declared in the parent's children[] entry. #}
-        {% set blurb = ch.description if ch.description else ch.note %}
-        {% if blurb %}<div class="child-desc">{{ blurb }}</div>{% endif %}
-      </li>
+        <tr class="{% if not ch.exists %}child-missing{% endif %}">
+          <td class="col-name">
+            <a href="{{ ch.href }}" class="child-link">{{ ch.name }}</a>
+            {% if ch.tag %}<span class="child-tag">{{ ch.tag }}</span>{% endif %}
+            {% if not ch.exists %}<span class="child-badge-missing">缺失</span>{% endif %}
+          </td>
+          <td class="col-blurb">{{ ch.blurb }}</td>
+        </tr>
       {% endfor %}
-    </ul>
+      </tbody>
+    </table>
   </section>
   {% endif %}
 

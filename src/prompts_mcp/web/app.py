@@ -68,9 +68,24 @@ def create_web_app(state) -> FastAPI:
         # Every remaining line must be a table line (starts with `|`).
         return all(l.lstrip().startswith("|") for l in lines)
 
+    def _summarise_description(desc: str, note: str) -> str:
+        """Pick the most informative *short* blurb for a child row.
+
+        Prefer the part of the description before "Use when ..." (which is
+        the trigger half — useful in the child's own page, noisy in a parent
+        table). Fall back to the parent-declared note.
+        """
+        if desc:
+            # Split off Use when …
+            first = re.split(r"\.\s*Use when\b|。\s*Use when\b", desc, maxsplit=1)[0]
+            first = first.rstrip("。").rstrip(".").strip()
+            if first:
+                return first
+        return note
+
     def _build_children_view(rec, idx, base: str) -> list[dict]:
         """For an index/root skill, resolve its frontmatter.children into
-        clickable view objects {name, href, note, kind, exists}.
+        clickable view objects {name, href, blurb, tag, exists}.
 
         Children declared in frontmatter but missing on disk are still shown
         with exists=False so the UI can flag broken references.
@@ -94,13 +109,14 @@ def create_web_app(state) -> FastAPI:
             target = idx.by_path.get(full_path)
             # Build href: strip .md, web router accepts both
             href_path = full_path.removesuffix(".md")
+            note = str(ch.get("note") or "").strip()
+            child_desc = target.description if target else ""
             out.append({
                 "name": name,
                 "href": f"{base}/skill/{href_path}",
-                "note": str(ch.get("note") or "").strip(),
+                "blurb": _summarise_description(child_desc, note),
                 "tag": str(ch.get("tag") or "").strip(),
                 "exists": target is not None,
-                "description": target.description if target else "",
             })
         return out
 
