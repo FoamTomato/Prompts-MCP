@@ -5,7 +5,7 @@ description: Python Service 层禁循环依赖 — 不互相 import，必要时�
 parent: ./index.md
 paths:
 - backend/services/**/*.py
-- py/services/**/*.py
+- '**/services/**/*.py'
 triggers:
   keywords:
   - 循环依赖
@@ -35,11 +35,11 @@ Router → Service → Adapter → Schema/Model
 ## 反例
 
 ```python
-# services/session_manager.py
+# services/tenant_manager.py
 from services.credits_service import deduct_credits
 
 # services/credits_service.py
-from services.session_manager import get_current_session   # ← 循环！
+from services.tenant_manager import get_current_tenant   # ← 循环！
 ```
 
 报错形式：`ImportError: cannot import name 'X' from partially initialized module 'Y'`
@@ -51,14 +51,14 @@ from services.session_manager import get_current_session   # ← 循环！
 把两个 Service 都需要的逻辑下沉到 `core/` 或新增 `services/_shared/`：
 
 ```python
-# services/_shared/auth_session.py
-async def get_active_session(session_id: str) -> Session: ...
+# services/_shared/auth_tenant.py
+async def get_active_tenant(tenant_id: str) -> Tenant: ...
 
-# services/session_manager.py
-from services._shared.auth_session import get_active_session
+# services/tenant_manager.py
+from services._shared.auth_tenant import get_active_tenant
 
 # services/credits_service.py
-from services._shared.auth_session import get_active_session
+from services._shared.auth_tenant import get_active_tenant
 ```
 
 ### 模式 2：依赖注入
@@ -67,18 +67,18 @@ from services._shared.auth_session import get_active_session
 
 ```python
 # services/credits_service.py
-async def deduct(uid: int, amount: int, session_loader):
-    sess = await session_loader(uid)
+async def deduct(uid: int, amount: int, tenant_loader):
+    tenant = await tenant_loader(uid)
     ...
 
-# services/session_manager.py
+# services/tenant_manager.py
 from services.credits_service import deduct
-await deduct(uid, 1, session_loader=load_session_internal)
+await deduct(uid, 1, tenant_loader=load_tenant_internal)
 ```
 
 ### 模式 3：事件 / 信号
 
-完全解耦：发事件，让另一边订阅。Quill 内当前没实现事件总线，规模未到。
+完全解耦：发事件，让另一边订阅。在规模未到事件总线时可暂缓。
 
 ## 工具
 

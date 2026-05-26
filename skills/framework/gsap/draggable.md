@@ -18,16 +18,16 @@ version: '1.0'
 
 ## 何时用
 
-GSAP Draggable 是 Quill 编辑器画布元素拖拽的标准方案。性能优于自写 mousemove handler。
+GSAP Draggable 是编辑器画布元素拖拽的标准方案。性能优于自写 mousemove handler。
 
 ## 适用场景
 
-| 场景 | 模块 |
-|------|------|
-| 编辑器画布元素移动 | ppt_generator M6 |
-| 演示模式画笔绘制 | present_mode P5 |
-| 自定义滑动控件（非 antd Slider） | （较少） |
-| 列表反向拖拽（DnD） | 用 dnd-kit + Flip 更好（见 [`flip-layout.md`](./flip-layout.md)） |
+| 场景 |
+|------|
+| 编辑器画布元素移动 |
+| 演示模式画笔绘制 |
+| 自定义滑动控件（非 antd Slider） |
+| 列表反向拖拽（DnD）— 用 dnd-kit + Flip 更好（见 [`flip-layout.md`](./flip-layout.md)） |
 
 ## 安装
 
@@ -120,4 +120,3 @@ Draggable.create(targets, {   // 数组 → 每个元素独立 drag
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`flip-layout.md`](./flip-layout.md)
-

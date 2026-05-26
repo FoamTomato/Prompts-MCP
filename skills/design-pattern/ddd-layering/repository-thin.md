@@ -4,8 +4,7 @@ description: Repository 薄 — 持久化转译，禁业务。Use when 写 Pytho
   的 PR。
 parent: ./index.md
 paths:
-- backend/repositories/**/*.py
-- py/repositories/**/*.py
+- '**/repositories/**/*.py'
 triggers:
   keywords:
   - Repository
@@ -24,17 +23,17 @@ Repository 是**持久化转译层**。只做 ORM ↔ 领域对象的转换，�
 ## 方法签名
 
 ```python
-class PresentationRepo:
-    async def find_by_id(self, pid: UUID) -> Presentation | None: ...
+class OrderRepo:
+    async def find_by_id(self, oid: UUID) -> Order | None: ...
     async def find_by_owner(
         self,
         owner_id: UUID,
         *,
         limit: int = 20,
         offset: int = 0,
-    ) -> list[Presentation]: ...
-    async def save(self, p: Presentation) -> Presentation: ...
-    async def delete(self, pid: UUID) -> None: ...
+    ) -> list[Order]: ...
+    async def save(self, o: Order) -> Order: ...
+    async def delete(self, oid: UUID) -> None: ...
     async def count_by_owner(self, owner_id: UUID) -> int: ...
 ```
 
@@ -51,52 +50,52 @@ class PresentationRepo:
 ## ORM ↔ Domain 转换
 
 ```python
-class PresentationRepo:
-    async def find_by_id(self, pid: UUID) -> Presentation | None:
-        row = await PresentationModel.filter(id=str(pid)).first()
+class OrderRepo:
+    async def find_by_id(self, oid: UUID) -> Order | None:
+        row = await OrderModel.filter(id=str(oid)).first()
         if not row:
             return None
         return self._to_domain(row)
 
-    async def save(self, p: Presentation) -> Presentation:
+    async def save(self, o: Order) -> Order:
         # 创建 or 更新
-        if p.id is None:
-            row = await PresentationModel.create(
-                title=p.title,
-                owner_id=str(p.owner_id),
-                theme_id=str(p.theme_id) if p.theme_id else None,
+        if o.id is None:
+            row = await OrderModel.create(
+                title=o.title,
+                owner_id=str(o.owner_id),
+                channel_id=str(o.channel_id) if o.channel_id else None,
             )
             return self._to_domain(row)
         else:
-            await PresentationModel.filter(id=str(p.id)).update(
-                title=p.title,
-                theme_id=str(p.theme_id) if p.theme_id else None,
+            await OrderModel.filter(id=str(o.id)).update(
+                title=o.title,
+                channel_id=str(o.channel_id) if o.channel_id else None,
                 updated_at=datetime.now(),
             )
-            row = await PresentationModel.filter(id=str(p.id)).first()
+            row = await OrderModel.filter(id=str(o.id)).first()
             return self._to_domain(row)
 
-    def _to_domain(self, row: PresentationModel) -> Presentation:
-        return Presentation(
+    def _to_domain(self, row: OrderModel) -> Order:
+        return Order(
             id=UUID(row.id),
             title=row.title,
             owner_id=UUID(row.owner_id),
-            theme_id=UUID(row.theme_id) if row.theme_id else None,
+            channel_id=UUID(row.channel_id) if row.channel_id else None,
             created_at=row.created_at,
             updated_at=row.updated_at,
         )
 ```
 
-## Quill 当前简化
+## 小型项目简化
 
-Quill 后端规模小，**不强制 Domain ↔ ORM 转换**，可以让 Repo 直接返回 ORM Model（用 `Adapter` 在 Service 出口转 Pydantic）。
+后端规模较小时**不强制 Domain ↔ ORM 转换**，可以让 Repo 直接返回 ORM Model（用 `Adapter` 在 Service 出口转 Pydantic）。
 
 实际形态：
 
 ```python
-# py/services/textbook.py — 直接用 Tortoise Model 当"领域对象"
-async def list_textbooks_by_subject(subject: str) -> list[Textbook]:
-    return await Textbook.filter(subject=subject).all()
+# services/article.py — 直接用 Tortoise Model 当"领域对象"
+async def list_articles_by_category(category: str) -> list[Article]:
+    return await Article.filter(category=category).all()
 ```
 
 当领域规则复杂时再升级为真正的 Domain 层。
@@ -105,20 +104,20 @@ async def list_textbooks_by_subject(subject: str) -> list[Textbook]:
 
 ```python
 # ❌ Repo 内业务判断
-async def find_publishable_presentations(self, owner_id):
-    rows = await Presentation.filter(owner_id=owner_id)
-    return [r for r in rows if r.slide_count >= 5]   # 业务规则在 Repo
+async def find_publishable_orders(self, owner_id):
+    rows = await Order.filter(owner_id=owner_id)
+    return [r for r in rows if r.item_count >= 5]   # 业务规则在 Repo
 
 # ❌ Repo 返回 dict
-async def find_by_id(self, pid):
-    row = await Presentation.filter(id=pid).first()
+async def find_by_id(self, oid):
+    row = await Order.filter(id=oid).first()
     return row.__dict__   # 丢类型信息
 
 # ❌ Repo 调其他 Repo
-async def find_with_owner(self, pid):
-    p = await Presentation.filter(id=pid).first()
-    owner = await self.user_repo.find_by_id(p.owner_id)   # 跨 Repo 调用
-    return p, owner
+async def find_with_owner(self, oid):
+    o = await Order.filter(id=oid).first()
+    owner = await self.user_repo.find_by_id(o.owner_id)   # 跨 Repo 调用
+    return o, owner
 ```
 
 ## 自检

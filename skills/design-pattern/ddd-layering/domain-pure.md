@@ -4,8 +4,7 @@ description: Domain 纯净 — 不依赖框架，封装业务规则。Use when �
   的 PR。
 parent: ./index.md
 paths:
-- backend/domain/**/*.py
-- py/domain/**/*.py
+- '**/domain/**/*.py'
 triggers:
   keywords:
   - Domain
@@ -91,19 +90,19 @@ def test_credits_deduct_overflow():
 
 ```python
 class CreditsService:
-    def __init__(self, repo: SessionRepo):
+    def __init__(self, repo: AccountRepo):
         self.repo = repo
 
-    async def deduct_for_generation(self, session_id: str, cost: int) -> None:
+    async def deduct_for_action(self, account_id: str, cost: int) -> None:
         # 1. 加载领域对象
-        session = await self.repo.find_or_raise(session_id)
-        credits = Credits(base=session.base_credits, bonus=session.bonus_credits)
+        account = await self.repo.find_or_raise(account_id)
+        credits = Credits(base=account.base_credits, bonus=account.bonus_credits)
 
         # 2. 领域操作
         new_credits = credits.deduct(cost)   # 抛 InsufficientCredits 由 Service 翻译为 ApiException
 
         # 3. 持久化
-        await self.repo.update_credits(session_id, base=new_credits.base, bonus=new_credits.bonus)
+        await self.repo.update_credits(account_id, base=new_credits.base, bonus=new_credits.bonus)
 ```
 
 ## 反例
@@ -130,9 +129,9 @@ class UserService:
         return await self.order_repo.find_by_user(user.id)
 ```
 
-## Quill 现状
+## 小型项目简化
 
-Quill 当前后端规模较小，**没有显式 `domain/` 目录**——业务规则散落在 Service 内。当业务复杂度上升（Credits / Referral 等含核心规则的领域）时再抽 `domain/`。
+小规模后端可以**没有显式 `domain/` 目录**——业务规则散落在 Service 内。当业务复杂度上升（含核心规则的领域）时再抽 `domain/`。
 
 ## 自检
 

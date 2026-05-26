@@ -16,7 +16,7 @@ version: '1.0'
 ---
 # Java · 类命名
 
-> Quill 主栈不用 Java。本文件为未来引入 Spring 服务的扩展点。
+> 本文为引入 Spring 服务时的扩展点。
 
 ## 规则
 

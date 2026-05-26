@@ -18,7 +18,7 @@ version: '1.0'
 ---
 # JS · 函数命名
 
-> Quill 主栈不用 Node/Express。本文件为未来引入 Node 服务的扩展点。
+> 本文为引入 Node 服务时的扩展点。
 
 ## 规则
 

@@ -82,11 +82,11 @@ const { selectedSlideId, zoom } = useEditorStore(useShallow(s => ({
 
 ## 拆分原则
 
-按页面 / 领域拆，**单 store 字段不超过 15 个**。Quill 主要 stores：
+按页面 / 领域拆，**单 store 字段不超过 15 个**。常见 stores：
 
 | Store | 职责 |
 |-------|------|
-| `useSessionStore` | 匿名 session、用户偏好 |
+| `useSessionStore` | 匿名 tenant、用户偏好 |
 | `useEditorStore` | 编辑器选中 / 缩放 / Tab |
 | `useUndoStore` | 撤销栈 |
 | `usePresentStore` | 演示模式状态机 |
@@ -99,7 +99,7 @@ import { persist } from "zustand/middleware";
 export const useSessionStore = create<SessionState>()(
   persist(
     immer((set) => ({ ... })),
-    { name: "quill-session" }
+    { name: "app-session" }
   )
 );
 ```
@@ -114,8 +114,8 @@ export const useGlobalStore = create(() => ({
 
 // ❌ 服务端数据塞进 zustand
 export const useStore = create(() => ({
-  textbooks: [],   // 应该用 useQuery
-  loadTextbooks: async () => { ... }
+  articles: [],   // 应该用 useQuery
+  loadArticles: async () => { ... }
 }));
 ```
 
@@ -130,4 +130,3 @@ export const useStore = create(() => ({
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`server-state-tanstack.md`](./server-state-tanstack.md) · [`local-state-usestate.md`](./local-state-usestate.md)
-

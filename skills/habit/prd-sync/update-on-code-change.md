@@ -26,8 +26,8 @@ version: '1.0'
 ## 操作步骤
 
 ```
-1. 反查：改动文件 → mapping/module_path_map.md → 找到 module + SUB_ID
-2. 编辑 modules/<module>/<SUB_ID>-*.md（文件夹格式）或 modules/<module>.md 对应小节
+1. 反查：改动文件 → mapping/module_path_map.md → 找到 module + MODULE_ID
+2. 编辑 modules/<module>/<MODULE_ID>-*.md（文件夹格式）或 modules/<module>.md 对应小节
    - 刷 status（如 spec-ready → in-progress）
    - 勾产物清单（⬜ → ✅）
    - 加 Change Log 行
@@ -56,21 +56,21 @@ version: '1.0'
 | 层 | 实现 | 强度 |
 |----|------|-----|
 | 软 | CLAUDE.md Step 8 流程契约 | 靠遵守 |
-| 中 | PostToolUse hook (`quill-post-tool.sh`) | stderr 告警 |
-| 硬 | CI workflow (`prd-sync-check.yml`) | PR 时阻断 merge |
+| 中 | PostToolUse hook（项目自有 post-tool 脚本） | stderr 告警 |
+| 硬 | CI workflow（项目自有的 prd-sync 检查） | PR 时阻断 merge |
 
 ## PostToolUse hook 行为
 
 ```bash
 # 检测：源码改了但 PRD 未改 → stderr 警告（不阻断）
 $ vim backend/routers/textbooks.py
-⚠️  Quill PRD-sync 提醒：
+⚠️  PRD-sync 提醒：
    你改了 backend/routers/textbooks.py （归属模块: textbook_data）
    但本会话未更新对应 PRD（project-index/modules/textbook_data/ 或 .md）
    CLAUDE.md Step 8 要求同步更新对应子模块 .md 的 Change Log
 ```
 
-详见 `.claude/hooks/quill-post-tool.sh`。
+详见项目自有的 PostToolUse hook 脚本。
 
 ## CI workflow 行为
 
@@ -86,13 +86,13 @@ PR 标签 `prd-sync-deferred` 可跳过（仅紧急 hotfix）。
 ```bash
 # ❌ 只 commit 代码不动 PRD
 git add backend/routers/textbooks.py
-git commit -m "feat(TD4):新增 textbooks 路由"
+git commit -m "feat(textbook-data):新增 textbooks 路由"
 # CI 阻断：PRD 未同步
 
 # ✅
 git add backend/routers/textbooks.py
 git add project-index/modules/textbook_data.md   # 更新 Change Log + 勾产物
-git commit -m "feat(TD4):新增 textbooks 路由"
+git commit -m "feat(textbook-data):新增 textbooks 路由"
 ```
 
 ## 自检
@@ -106,5 +106,5 @@ git commit -m "feat(TD4):新增 textbooks 路由"
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`manifest-yaml-sync.md`](./manifest-yaml-sync.md) · [`triplet-rule.md`](./triplet-rule.md)
-- 配套：CLAUDE.md Step 8 · `.claude/hooks/quill-post-tool.sh` · `.github/workflows/prd-sync-check.yml`
+- 配套：CLAUDE.md Step 8 · 项目自有的 PostToolUse hook · 项目自有的 prd-sync CI workflow
 

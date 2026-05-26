@@ -100,14 +100,14 @@ function SortableSlides() {
 }
 ```
 
-## Quill 用例
+## 用例
 
-| 场景 | 模块 |
-|------|------|
-| 拖拽换章节顺序 | outline_review O5 |
-| 拖拽换幻灯片 | ppt_generator M4 |
-| 控制台过滤切换布局 | dashboard D8 |
-| 大纲转编辑器（hero 转场） | outline_review O7 → editor M1 |
+| 场景 |
+|------|
+| 拖拽换章节顺序 |
+| 拖拽换幻灯片 |
+| 控制台过滤切换布局 |
+| 大纲转编辑器（hero 转场） |
 
 ## 自检
 
@@ -120,4 +120,3 @@ function SortableSlides() {
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`draggable.md`](./draggable.md) · [`use-gsap-hook.md`](./use-gsap-hook.md)
-

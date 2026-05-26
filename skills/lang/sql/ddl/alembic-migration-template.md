@@ -4,7 +4,7 @@ description: Alembic 迁移文件标准模板（含 upgrade/downgrade 对称）�
   `alembic-migration-template` 的 PR。
 parent: ./index.md
 paths:
-- py/migrations/**/*.py
+- '**/migrations/**/*.py'
 - backend/alembic/versions/**/*.py
 triggers:
   keywords:
@@ -21,24 +21,23 @@ version: '1.0'
 ---
 # SQL · Alembic 迁移模板
 
-## Quill 工具栈
+## 工具栈
 
-Quill **不用 Alembic**，用 Tortoise ORM 的官方迁移工具 **Aerich**（兼容 Tortoise 语义）。本文件标题保留"alembic"是为了和 Python 生态约定俗成。
+本文以 Tortoise ORM 的官方迁移工具 **Aerich** 为例（兼容 Tortoise 语义）。Alembic 项目可参照同样的对称结构。
 
 ## 命名约定
 
 ```
-py/migrations/models/
-├── 0_init_textbooks.py
+migrations/models/
+├── 0_init_articles.py
 ├── 1_init_themes.py
-├── 2_init_outlines.py
-├── 3_init_presentations_slides.py
+├── 2_init_documents.py
+├── 3_init_files.py
 ├── 4_init_tasks.py
-├── 5_init_assets.py
-├── 6_init_llm_logs.py
-├── 7_init_sessions.py
-├── 8_init_papers.py
-└── 9_init_referral.py
+├── 5_init_request_logs.py
+├── 6_init_tenants.py
+├── 7_init_orders.py
+└── 8_init_events.py
 ```
 
 序号 + `init_<语义>.py` 或 `<seq>_alter_<table>_<field>.py`。
@@ -46,22 +45,22 @@ py/migrations/models/
 ## 迁移文件骨架
 
 ```python
-# py/migrations/models/9_init_referral.py
+# migrations/models/8_init_events.py
 from tortoise import BaseDBAsyncClient
 
 async def upgrade(db: BaseDBAsyncClient) -> str:
     return """
-        CREATE TABLE IF NOT EXISTS `referrals` (
+        CREATE TABLE IF NOT EXISTS `events` (
             `id` CHAR(36) NOT NULL PRIMARY KEY,
-            `inviter_session_id` CHAR(36) NOT NULL,
-            `invitee_session_id` CHAR(36) NOT NULL UNIQUE,
+            `actor_tenant_id` CHAR(36) NOT NULL,
+            `target_tenant_id` CHAR(36) NOT NULL UNIQUE,
             `invite_code` VARCHAR(16) NOT NULL,
             `created_at` DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-            INDEX `idx_inviter` (`inviter_session_id`),
+            INDEX `idx_actor` (`actor_tenant_id`),
             INDEX `idx_code` (`invite_code`)
         ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-        ALTER TABLE `sessions`
+        ALTER TABLE `tenants`
             ADD COLUMN `invite_code` VARCHAR(16) NULL,
             ADD COLUMN `invited_by_code` VARCHAR(16) NULL,
             ADD COLUMN `bonus_credits` INT NOT NULL DEFAULT 0,
@@ -70,8 +69,8 @@ async def upgrade(db: BaseDBAsyncClient) -> str:
 
 async def downgrade(db: BaseDBAsyncClient) -> str:
     return """
-        DROP TABLE IF EXISTS `referrals`;
-        ALTER TABLE `sessions`
+        DROP TABLE IF EXISTS `events`;
+        ALTER TABLE `tenants`
             DROP COLUMN `invite_code`,
             DROP COLUMN `invited_by_code`,
             DROP COLUMN `bonus_credits`,
@@ -87,7 +86,7 @@ async def downgrade(db: BaseDBAsyncClient) -> str:
 | 字段添加加 default | 避免 NOT NULL 加字段卡在已有数据 |
 | 索引命名 `idx_<col>` | `uk_<col>` 唯一索引 |
 | 字符集 utf8mb4 | 必须 |
-| 主键 CHAR(36) UUID 或 BIGINT AUTO | Quill 业务表用 UUID |
+| 主键 CHAR(36) UUID 或 BIGINT AUTO | 按业务选择，建议 UUID |
 
 ## 操作命令
 
@@ -96,7 +95,7 @@ async def downgrade(db: BaseDBAsyncClient) -> str:
 aerich init -t main.TORTOISE_ORM
 
 # 生成迁移文件（基于 model 变化自动 diff）
-aerich migrate --name "init_referral"
+aerich migrate --name "init_events"
 
 # 执行迁移
 aerich upgrade

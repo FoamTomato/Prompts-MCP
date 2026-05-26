@@ -53,8 +53,8 @@ gh pr create --fill
 ## Related
 
 Closes #54
-- PRD: [project-index/modules/home_page/H1-page-shell.md](...)
-- 设计：[design/home-sketch.html#H1](...)
+- PRD: [project-index/modules/<module>/<MODULE_ID>-*.md](...)
+- 设计：[design/<module>-sketch.html#<MODULE_ID>](...)
 ```
 
 ## 关闭 Issue
@@ -63,7 +63,7 @@ PR merge 后：
 
 1. GitHub 自动识别 `Closes #N` → 关闭 Issue
 2. Project workflow rule "Item closed → Set Status: Done" 触发
-3. `dashboard.yml` hourly schedule 兜底（若上面没触发，跑 `quill-sync-done`）
+3. 团队 dashboard CI hourly schedule 兜底（若上面没触发，跑 `pr-sync-done`）
 
 ## Merge 策略
 
@@ -83,7 +83,7 @@ git push origin feature
 gh pr create --title "feat" --body ""
 
 # ❌ 多模块塞一个 PR
-# 一个 PR 改了 H1 + D6 + M3
+# 一个 PR 改了 <MODULE_A> + <MODULE_B> + <MODULE_C>
 ```
 
 ## 自检
@@ -96,5 +96,5 @@ gh pr create --title "feat" --body ""
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`status-lifecycle.md`](./status-lifecycle.md) · [`quill-start-usage.md`](./quill-start-usage.md) · [`conflict-resolution.md`](./conflict-resolution.md)
+- 兄弟：[`status-lifecycle.md`](./status-lifecycle.md) · [`pr-start-usage.md`](./pr-start-usage.md) · [`conflict-resolution.md`](./conflict-resolution.md)
 

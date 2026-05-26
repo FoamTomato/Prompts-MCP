@@ -29,31 +29,31 @@ version: '1.0'
 <footer>
 ```
 
-## type 词表（Quill 用中文 subject）
+## type 词表
 
 | type | 用途 | 示例 |
 |------|------|------|
-| `feat` | 新功能 | `feat:增加向量入库流程` |
+| `feat` | 新功能 | `feat:增加用户登录接口` |
 | `fix` | bug 修复 | `fix:解决冲突` |
 | `refactor` | 重构（不改功能） | `refactor:拆分 outline_generator` |
 | `chore` | 杂务（依赖 / 配置） | `chore:升级 antd 到 5.20` |
 | `docs` | 文档 | `docs:更新 PRD home_page` |
 | `style` | 代码风格（不改逻辑） | `style:格式化 import 顺序` |
 | `test` | 测试 | `test:添加 useSSE 单测` |
-| `perf` | 性能优化 | `perf:课本列表加 Redis 缓存` |
+| `perf` | 性能优化 | `perf:列表加 Redis 缓存` |
 | `ci` | CI/CD | `ci:增加 prd-sync-check workflow` |
 
-## 实际样例（Quill 仓库）
+## 示例
 
 ```
-ca1aebb feat:修改sql like为bm25检索
-ad194fd fix:解决冲突
-2fbd438 Merge branch 'feature' into vector_connection
-8523d68 feat:增加向量入库流程
-fb908e5 feat: 课本搜索改为 MySQL LIKE + Qdrant 向量混合检索
+abc1234 feat:增加用户登录接口
+def5678 fix:解决冲突
+9abcdef Merge branch 'feature' into main
+2fbd438 feat:增加向量入库流程
+fb908e5 feat: 列表搜索改为 LIKE + 向量混合检索
 ```
 
-注意：Quill 历史 commit `type:` 后面**无空格**，直接接中文。**新提交保持这一约定**（与仓库历史对齐）。
+注意：若团队约定 `type:` 后**无空格**直接接中文 subject，**新提交保持一致**（与仓库历史对齐）。
 
 ## subject 写作
 
@@ -61,17 +61,17 @@ fb908e5 feat: 课本搜索改为 MySQL LIKE + Qdrant 向量混合检索
 |----|------|
 | 动词开头："增加" / "修复" / "重构" | 名词开头 |
 | 简洁明确 ≤ 50 字 | 长 + 含混 |
-| 中文（Quill 团队约定） | 英文 |
+| 中文（团队约定用中文 subject，与历史对齐） | 英文 |
 | 一句话能说清"做了什么" | 还要展开才知道 |
 
 ## scope（可选）
 
-scope 是模块名。Quill 用子模块编号：
+scope 是模块名。可用子模块编号或语义名（如 `feature-x` / `billing` / `auth`）：
 
 ```
-feat(H1): 实现 home_page 三级联动筛选
-fix(D6): PresentationCard 卡片悬停动画卡顿
-refactor(M14): 拆分 AI 编辑双触发器
+feat(feature-x): 实现三级联动筛选
+fix(billing): InvoiceCard 卡片悬停动画卡顿
+refactor(editor): 拆分 AI 编辑双触发器
 ```
 
 ## body / footer（多行 commit）

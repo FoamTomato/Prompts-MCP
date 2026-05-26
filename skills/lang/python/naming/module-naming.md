@@ -5,7 +5,7 @@ description: Python 模块/包命名 — 小写 + 单数 + 分层语义。Use wh
 parent: ./index.md
 paths:
 - backend/**/*.py
-- py/**/*.py
+- '**/*.py'
 triggers:
   keywords:
   - 模块命名
@@ -25,15 +25,15 @@ version: '1.0'
 | 模块文件名小写 + 单数 | `service.py` / `repository.py` / `adapter.py` |
 | 包目录名小写 + 复数（按职责） | `services/` / `routers/` / `models/` / `schemas/` |
 | 多词用下划线 | `error_handler.py` / `request_id.py`（不要 errorHandler） |
-| 业务模块按实体命名 | `services/session_manager.py` / `models/textbook.py` |
+| 业务模块按实体命名 | `services/tenant_manager.py` / `models/article.py` |
 | 私有模块加前导下划线 | `_internal.py`（少用） |
 
-## Quill 项目分层包结构
+## 分层包结构示例
 
 ```
-py/
+backend/
 ├── core/          # 基础设施（config / db / redis / exceptions / response）
-├── models/        # Tortoise ORM 模型（按表）
+├── models/        # ORM 模型（按表）
 ├── schemas/       # Pydantic 请求/响应（按业务域）
 ├── adapters/      # ORM → Pydantic 规整层
 ├── routers/       # FastAPI 路由
@@ -42,18 +42,18 @@ py/
 ├── tools/         # Agent 工具函数
 ├── middleware/    # 中间件
 ├── utils/         # 无状态工具
-├── workers/       # RQ worker
+├── workers/       # 后台 worker
 └── scripts/       # 种子脚本
 ```
 
 业务域跨包时**同名对齐**：
 
 ```
-schemas/textbook.py          # TextbookCreateReq / TextbookResponse
-adapters/textbook.py         # to_response / to_list_response
-routers/textbooks.py         # 复数（路由模块按 REST 资源）
-services/textbook_cache.py   # 业务子能力（明确意图）
-models/textbook.py           # Tortoise Model
+schemas/article.py           # ArticleCreateReq / ArticleResponse
+adapters/article.py          # to_response / to_list_response
+routers/articles.py          # 复数（路由模块按 REST 资源）
+services/article_cache.py    # 业务子能力（明确意图）
+models/article.py            # ORM Model
 ```
 
 ## 反例
@@ -66,7 +66,7 @@ UserManager.py
 services/everything.py
 
 # ❌ 包名复数 + 文件名复数 双复数
-services/sessions.py     # → services/session_manager.py 或 services/session.py
+services/tenants.py     # → services/tenant_manager.py 或 services/tenant.py
 
 # ❌ 模块名是动词
 do_create_user.py        # → user_creator.py 或写到 service 里

@@ -1,6 +1,6 @@
 ---
 name: skills-root-index
-description: Quill 全部 Agent 技能的根索引 — 4 维度入口
+description: Agent 技能的根索引 — 4 维度入口
 parent: null
 children:
   - { name: lang, path: lang/index.md, tag: folder, note: 语言级规则（python / typescript / sql） }
@@ -11,7 +11,7 @@ when_to_descend: |
   CLAUDE.md Step 5（B/C 档）必读起点。所有 skill 加载都从这里开始下钻，不允许跳过本层直读叶子。
 ---
 
-# Quill Skills · 顶层路标
+# Agent Skills · 顶层路标
 
 > 这是 [`/CLAUDE.md`](../../CLAUDE.md) Step 5 的下钻起点。
 > 状态：**W3 内容已落地**——4 维度 × 52 中层索引 × 131 叶子 skill 全部实写完成；frontmatter 均含 `paths` / `triggers`，支持双向检索（顶层下钻 + 路径反查）。

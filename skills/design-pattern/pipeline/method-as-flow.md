@@ -4,8 +4,7 @@ description: 方法即流程编排器 — 注释驱动的步骤大纲。Use when
   PR。
 parent: ./index.md
 paths:
-- backend/services/**/*.py
-- py/services/**/*.py
+- '**/services/**/*.py'
 triggers:
   keywords:
   - pipeline
@@ -65,7 +64,7 @@ async def submit_order(self, req: SubmitReq, user_id: int) -> OrderResp:
 |------|------|
 | `# 调用 user.id` | 无信息量，命名已说明 |
 | `# 这里循环` | 代码已表达 |
-| 英文 inline 注释（如 `# init`） | Quill 团队用中文注释 |
+| 英文 inline 注释（如 `# init`） | 中文项目统一用中文注释 |
 
 ## 子方法的命名
 
@@ -111,4 +110,5 @@ async def submit(req, user_id):
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`validator-converter-split.md`](./validator-converter-split.md) · [`ppt-outline-pipeline.md`](./ppt-outline-pipeline.md)
 - 配套：[`../ddd-layering/service-orchestration.md`](../ddd-layering/service-orchestration.md)
+
 

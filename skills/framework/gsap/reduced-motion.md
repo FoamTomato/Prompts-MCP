@@ -94,7 +94,7 @@ System Settings → Accessibility → Display → "Reduce Motion"
 |------|------|
 | Public 教育产品（含儿童 / 老人用户） | ✅ |
 | WCAG AA 合规要求 | ✅ |
-| Quill 全产品 | ✅ |
+| 全产品默认支持 | ✅ |
 
 ## 自检
 
@@ -107,4 +107,3 @@ System Settings → Accessibility → Display → "Reduce Motion"
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`principles.md`](./principles.md)
-

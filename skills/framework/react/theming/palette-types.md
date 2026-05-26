@@ -69,9 +69,9 @@ version: '1.0'
 --accent2: #10b981;   /* green */
 ```
 
-适合：儿童 / 游戏 / 数据看板。Quill 不用。
+适合：儿童 / 游戏 / 数据看板。
 
-## Quill 选定方案
+## 推荐方案示例
 
 **邻近色（蓝 + 紫）+ 中性灰**：
 
@@ -79,13 +79,13 @@ version: '1.0'
 - 副色：紫 `#6366f1`（用于品牌 CTA 渐变 `linear-gradient(135deg, #3b82f6, #6366f1)`）
 - 中性：slate 色阶
 
-学科色为辅助配色（不参与品牌识别）：
+分类色为辅助配色（不参与品牌识别）：
 
 ```css
---subject-math:    #6366f1;
---subject-chinese: #f59e0b;
---subject-english: #10b981;
---subject-physics: #ef4444;
+--category-a: #6366f1;
+--category-b: #f59e0b;
+--category-c: #10b981;
+--category-d: #ef4444;
 ```
 
 ## 选择决策
@@ -101,10 +101,9 @@ version: '1.0'
 
 - [ ] 主副色色相距离合理？
 - [ ] 大面积不用互补色高饱和？
-- [ ] 学科色 / 辅助色与品牌色独立？
+- [ ] 分类色 / 辅助色与品牌色独立？
 
 ## 相关
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`palette-principles.md`](./palette-principles.md)
-

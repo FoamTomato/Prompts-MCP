@@ -26,10 +26,10 @@ version: '1.0'
 
 | Status | 何时 | 谁推 | 命令 |
 |--------|------|------|------|
-| **Backlog** | bootstrap 默认值 | bootstrap 脚本 | `bootstrap-github-issues.py` 自动 |
-| **Ready** | Issue 已就绪、准备认领 | Planner / 人工 | `scripts/quill-set-status <N> Ready` |
-| **In Progress** | Agent 接到任务、开始改代码 | `quill-start` 自动 | `scripts/quill-start <SUB_ID>` |
-| **In Review** | PR 已创建、等审 | session-end hook | 自动；或 `scripts/quill-set-status <N> "In Review"` |
+| **Backlog** | bootstrap 默认值 | bootstrap 脚本 | 团队 bootstrap 脚本自动 |
+| **Ready** | Issue 已就绪、准备认领 | Planner / 人工 | `scripts/pr-set-status <N> Ready` |
+| **In Progress** | Agent 接到任务、开始改代码 | `pr-start` 自动 | `scripts/pr-start <MODULE_ID>` |
+| **In Review** | PR 已创建、等审 | session-end hook | 自动；或 `scripts/pr-set-status <N> "In Review"` |
 | **Done** | PR 已合并、Issue 关闭 | Project workflow rule | "Item closed → Set Status: Done"（部署时启用） |
 
 ## 流转方向
@@ -48,14 +48,14 @@ hook / 脚本均 best-effort；Status 切换失败不阻塞主流程。Issue 状
 
 ```bash
 # 批量推 Backlog → Ready（Planner 准备一批任务给 Agent）
-scripts/quill-set-status 54 Ready
+scripts/pr-set-status 54 Ready
 
 # 修正漏标 Done（Project workflow rule 没开 / 失败时）
-scripts/quill-sync-done                # 把所有已关闭 issue 推 Done
-scripts/quill-sync-done --dry-run      # 先看会动哪些
+scripts/pr-sync-done                # 把所有已关闭 issue 推 Done
+scripts/pr-sync-done --dry-run      # 先看会动哪些
 ```
 
-`dashboard.yml` 已把 `quill-sync-done` 接入 hourly schedule，所以 Done 兜底自动。
+团队 dashboard CI 已把 `pr-sync-done` 接入 hourly schedule，所以 Done 兜底自动。
 
 ## 前置：token scope
 
@@ -71,5 +71,5 @@ scripts/quill-sync-done --dry-run      # 先看会动哪些
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`quill-start-usage.md`](./quill-start-usage.md) · [`pr-create-and-close.md`](./pr-create-and-close.md) · [`conflict-resolution.md`](./conflict-resolution.md)
+- 兄弟：[`pr-start-usage.md`](./pr-start-usage.md) · [`pr-create-and-close.md`](./pr-create-and-close.md) · [`conflict-resolution.md`](./conflict-resolution.md)
 

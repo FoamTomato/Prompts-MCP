@@ -23,7 +23,7 @@ version: '1.0'
 实施任务的 commit 在 message body 或 footer **关联 Issue 编号**：
 
 ```
-feat(D6):实现 PresentationCard 卡片
+feat(feature-x):实现 InvoiceCard 卡片
 
 - 三类按钮命名遵循 react/component/button-naming
 - antd Table 配合卡片缩略图
@@ -46,18 +46,18 @@ Closes #78
 
 一个 PR 关闭一个子模块的 Issue。中间多个 commit 用 `Refs #N`，最后合并时 PR description 用 `Closes #N`。
 
-## Quill 子模块编号映射
+## 子模块编号映射
 
-详见 `project-index/manifest.yaml`：
+详见项目自有的 `manifest.yaml`：
 
 ```yaml
 home_page:
   submodules:
-    H1: {issue: 54, ...}
-    H2: {issue: 55, ...}
+    <MODULE_ID>: {issue: 54, ...}
+    <MODULE_ID2>: {issue: 55, ...}
 ```
 
-commit 时 commit message body 写 `Refs #54`，scope 用 `H1`。
+commit 时 commit message body 写 `Refs #54`，scope 用 `<MODULE_ID>`。
 
 ## 反例
 
@@ -74,7 +74,7 @@ feat:实现登录
 Linked to #54
 
 # ✅
-feat(H1):实现登录页
+feat(feature-x):实现登录页
 
 Closes #54
 ```
@@ -90,5 +90,5 @@ Closes #54
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`conventional-commit.md`](./conventional-commit.md)
-- 配套：[`../pr/quill-start-usage.md`](../pr/quill-start-usage.md)
+- 配套：[`../pr/pr-start-usage.md`](../pr/pr-start-usage.md)
 

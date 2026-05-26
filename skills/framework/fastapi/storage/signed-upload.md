@@ -5,7 +5,7 @@ description: 签名直传流程 — 客户端拿 STS / 预签名 URL → 直传 
 parent: ./index.md
 paths:
 - backend/services/oss*.py
-- py/services/oss*.py
+- '**/services/oss*.py'
 triggers:
   keywords:
   - signed
@@ -47,11 +47,11 @@ from core.config import settings
 bucket = oss2.Bucket(
     oss2.Auth(settings.oss_access_key, settings.oss_secret_key),
     settings.oss_endpoint,
-    "quill-assets",
+    "app-assets",
 )
 
 async def generate_upload_url(
-    session_id: str,
+    tenant_id: str,
     file_name: str,
     mime_type: str,
     size_bytes: int,
@@ -72,7 +72,7 @@ async def generate_upload_url(
     # 生成路径
     now = datetime.now()
     asset_id = str(uuid.uuid4())
-    object_key = f"{session_id}/{type_dir}/{now.year}/{now.month:02d}/{asset_id}.{ext}"
+    object_key = f"{tenant_id}/{type_dir}/{now.year}/{now.month:02d}/{asset_id}.{ext}"
 
     # 签名（30 分钟有效）
     url = bucket.sign_url("PUT", object_key, 30 * 60, headers={"Content-Type": mime_type})
@@ -116,17 +116,16 @@ await api.post("/assets/confirm", { asset_id, object_key, name: file.name });
 
 ## STS 临时凭证（更安全）
 
-如果对 IAM 严格，可让前端用临时 STS 凭证（每次过期），直接调 OSS SDK。Quill 当前用预签名 URL 已够。
+如果对 IAM 严格，可让前端用临时 STS 凭证（每次过期），直接调 OSS SDK。预签名 URL 通常已够用。
 
 ## 自检
 
 - [ ] 前端直传，不经 backend？
 - [ ] 预签名 URL 过期时间 ≤ 1 小时？
 - [ ] backend 校验 size / mimeType / 配额？
-- [ ] object_key 含 session_id / type / 日期？
+- [ ] object_key 含 tenant_id / type / 日期？
 
 ## 相关
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`bucket-layout.md`](./bucket-layout.md) · [`lifecycle-and-cache.md`](./lifecycle-and-cache.md)
-

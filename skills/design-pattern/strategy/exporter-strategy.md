@@ -4,10 +4,8 @@ description: 导出器策略 — DocxExporter / PdfExporter 可替换。Use when
   `exporter-strategy` 的 PR。
 parent: ./index.md
 paths:
-- backend/services/exporters/**/*.py
-- py/services/exporters/**/*.py
-- py/paper/**/*.py
-- py/ppt/**/*.py
+- '**/services/exporters/**/*.py'
+- '**/exporters/**/*.py'
 triggers:
   keywords:
   - Exporter
@@ -26,56 +24,56 @@ version: '1.0'
 
 多种"做同一件事"的方式，运行时选一种执行。
 
-## Quill 用例
+## 典型用例
 
-| 模块 | 策略组 | 实现 |
+| 场景 | 策略组 | 实现 |
 |------|-------|------|
-| ppt_generator M6 | PPT 渲染 | PythonPptxRenderer / SvgRenderer |
-| paper_editor PE10 | 试卷导出 | DocxExporter / PdfPreviewExporter / PdfAnswerExporter |
+| 报表导出 | OrderExporter | DocxExporter / PdfSummaryExporter / PdfDetailExporter |
+| 文档渲染 | DocumentRenderer | HtmlRenderer / MarkdownRenderer |
 
-## paper_editor 导出器示例
+## 订单导出器示例
 
 ```python
-# py/paper/exporter.py
+# exporters/order_exporter.py
 from abc import ABC, abstractmethod
 from io import BytesIO
 
-class PaperExporter(ABC):
+class OrderExporter(ABC):
     @abstractmethod
-    async def export(self, paper: Paper) -> bytes:
+    async def export(self, order: Order) -> bytes:
         """返回文件字节流"""
 
-class DocxExporter(PaperExporter):
-    async def export(self, paper: Paper) -> bytes:
+class DocxExporter(OrderExporter):
+    async def export(self, order: Order) -> bytes:
         from docx import Document
         doc = Document()
-        doc.add_heading(paper.title, 0)
-        for q in paper.questions:
-            doc.add_paragraph(q.stem)
-            for opt in q.options:
-                doc.add_paragraph(f"  {opt}")
+        doc.add_heading(order.title, 0)
+        for item in order.items:
+            doc.add_paragraph(item.name)
+            for attr in item.attrs:
+                doc.add_paragraph(f"  {attr}")
         out = BytesIO()
         doc.save(out)
         return out.getvalue()
 
-class PdfPreviewExporter(PaperExporter):
-    """题目无答案"""
-    async def export(self, paper: Paper) -> bytes:
-        return await _render_pdf(paper, with_answer=False)
+class PdfSummaryExporter(OrderExporter):
+    """概要视图"""
+    async def export(self, order: Order) -> bytes:
+        return await _render_pdf(order, with_detail=False)
 
-class PdfAnswerExporter(PaperExporter):
-    """题目 + 答案"""
-    async def export(self, paper: Paper) -> bytes:
-        return await _render_pdf(paper, with_answer=True)
+class PdfDetailExporter(OrderExporter):
+    """完整明细"""
+    async def export(self, order: Order) -> bytes:
+        return await _render_pdf(order, with_detail=True)
 
 
-EXPORTERS: dict[str, type[PaperExporter]] = {
+EXPORTERS: dict[str, type[OrderExporter]] = {
     "docx":        DocxExporter,
-    "pdf_preview": PdfPreviewExporter,
-    "pdf_answer":  PdfAnswerExporter,
+    "pdf_summary": PdfSummaryExporter,
+    "pdf_detail":  PdfDetailExporter,
 }
 
-def get_exporter(format: str) -> PaperExporter:
+def get_exporter(format: str) -> OrderExporter:
     if format not in EXPORTERS:
         raise ApiException(msg=f"不支持的格式: {format}", code=400)
     return EXPORTERS[format]()
@@ -84,30 +82,30 @@ def get_exporter(format: str) -> PaperExporter:
 ## Service 编排
 
 ```python
-class PaperService:
-    async def export(self, paper_id: str, format: str) -> bytes:
-        paper = await self.repo.find_by_id_or_raise(paper_id)
+class OrderService:
+    async def export(self, order_id: str, format: str) -> bytes:
+        order = await self.repo.find_by_id_or_raise(order_id)
         exporter = get_exporter(format)
-        return await exporter.export(paper)
+        return await exporter.export(order)
 ```
 
 ## 反例
 
 ```python
 # ❌ Service 内 if/else 选格式
-async def export(paper_id, format):
-    paper = await ...
+async def export(order_id, format):
+    order = await ...
     if format == "docx":
         # 50 行 docx 生成代码
-    elif format == "pdf_preview":
+    elif format == "pdf_summary":
         # 50 行 pdf 生成代码
-    elif format == "pdf_answer":
+    elif format == "pdf_detail":
         # 50 行
     # 加新格式要改这里 + 风险所有 if/else 分支
 
 # ✅ 用策略
 exporter = get_exporter(format)
-return await exporter.export(paper)
+return await exporter.export(order)
 ```
 
 ## Strategy vs Factory 区别

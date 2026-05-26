@@ -17,13 +17,13 @@ when_to_descend: |
 
 **前端镜像后端 ApiException 模型**：`ApiError extends Error`（含 code + httpStatus + data），`Asserts.<方法>` 失败抛 ApiError，路由级 ErrorBoundary 按 code 前缀分流。
 
-## 当前 Quill 落点（W3.5 完成）
+## 推荐落点
 
 | 文件 | 内容 |
 |------|------|
-| `frontend/app/lib/assertion.ts` | ApiError + Asserts 11 个方法 |
+| `frontend/app/lib/assertion.ts` | ApiError + Asserts 方法集合 |
 | `frontend/app/lib/api.ts` | fetcher 抛 ApiError（替换原 `new Error(...)`）|
-| `frontend/app/error.tsx` | 路由级 ErrorBoundary，按 code 前缀路由 11 种 fallback 标题 |
+| `frontend/app/error.tsx` | 路由级 ErrorBoundary，按 code 前缀路由 fallback 标题 |
 
 ## 何时下钻
 

@@ -22,16 +22,16 @@ version: '1.0'
 
 | 类别 | 命名 | 例 |
 |------|------|------|
-| React 组件 `.tsx` | `PascalCase` | `TextbookCard.tsx` / `GenerateButton.tsx` |
+| React 组件 `.tsx` | `PascalCase` | `ArticleCard.tsx` / `GenerateButton.tsx` |
 | 页面（路由组件） | `PascalCase` | `HomePage.tsx` / `EditorPage.tsx` |
-| 自定义 hook | `camelCase`（`useXxx`） | `useSSE.ts` / `useTextbookHistory.ts` |
-| Zustand store | `camelCase`（`use...Store`） | `editorStore.ts` / `useSessionStore.ts` |
+| 自定义 hook | `camelCase`（`useXxx`） | `useSSE.ts` / `useArticleHistory.ts` |
+| Zustand store | `camelCase`（`use...Store`） | `editorStore.ts` / `useTenantStore.ts` |
 | 工具函数 | `kebab-case` 或 `camelCase` | `format-date.ts` / `formatDate.ts`（项目统一一种） |
-| 类型定义 | `kebab-case` | `textbook.ts` / `slide-element.ts` |
-| API 模块 | 复数名词 `kebab-case` | `textbooks.ts` / `presentations.ts` |
-| 样式文件 | 与组件同名 `.module.css` | `TextbookCard.module.css` |
+| 类型定义 | `kebab-case` | `article.ts` / `document-element.ts` |
+| API 模块 | 复数名词 `kebab-case` | `articles.ts` / `documents.ts` |
+| 样式文件 | 与组件同名 `.module.css` | `ArticleCard.module.css` |
 
-## Quill 项目实际规范
+## 项目实际规范示例
 
 ```
 frontend/src/
@@ -45,13 +45,13 @@ frontend/src/
 │   └── HomePage.tsx
 ├── hooks/
 │   ├── useSSE.ts                  # ✅ useXxx
-│   └── useTextbookHistory.ts
+│   └── useArticleHistory.ts
 ├── stores/
 │   └── editor.ts                  # 内部 export `useEditorStore`
 ├── api/
-│   └── textbooks.ts               # ✅ 复数 kebab
+│   └── articles.ts                # ✅ 复数 kebab
 ├── types/
-│   └── textbook.ts                # ✅ kebab 单数
+│   └── article.ts                 # ✅ kebab 单数
 └── utils/
     └── format-date.ts             # ✅ kebab
 ```
@@ -59,8 +59,8 @@ frontend/src/
 ## 反例
 
 ```
-❌ textbookCard.tsx          # 组件不是 camelCase
-❌ TextBook-card.tsx         # 混合
+❌ articleCard.tsx           # 组件不是 camelCase
+❌ Article-card.tsx          # 混合
 ❌ btn.tsx                   # 缩写
 ❌ Header.module.tsx         # 样式不是 tsx
 ❌ useSSE.tsx                # hook 是 ts 不是 tsx
@@ -71,9 +71,9 @@ frontend/src/
 每个 `.tsx` 文件只导出一个主组件（同文件内的小辅助组件不算）。
 
 ```tsx
-// ✅ TextbookCard.tsx
-export interface TextbookCardProps { ... }
-export function TextbookCard(props: TextbookCardProps) { ... }
+// ✅ ArticleCard.tsx
+export interface ArticleCardProps { ... }
+export function ArticleCard(props: ArticleCardProps) { ... }
 
 // 同文件内的小辅助 — 允许但不 export
 function CardCover({ url }: { url: string }) { ... }

@@ -28,7 +28,7 @@ version: '1.0'
 | **语义色独立** | success/warning/danger/info 不与品牌色混用 |
 | **层级 ≤ 3** | 最多 3 个有色彩倾向的层级，其余用中性色 |
 
-## Quill 主色
+## 示例主色
 
 ```css
 :root {
@@ -85,10 +85,10 @@ version: '1.0'
 .tag-english { background: orange; }
 .tag-physics { background: purple; }
 
-/* ✅ 用中性灰底 + 学科色边框 / 字 */
+/* ✅ 用中性灰底 + 分类色边框 / 字 */
 .tag {
   background: var(--neutral-100);
-  border-left: 3px solid var(--subject-color);
+  border-left: 3px solid var(--category-color);
 }
 ```
 
@@ -103,4 +103,3 @@ version: '1.0'
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`palette-types.md`](./palette-types.md) · [`css-token-system.md`](./css-token-system.md)
-

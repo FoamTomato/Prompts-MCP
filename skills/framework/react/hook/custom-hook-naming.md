@@ -23,8 +23,8 @@ version: '1.0'
 
 | 规则 | 示例 |
 |------|------|
-| 必 `use` 前缀（小写） | `useSSE` / `useTextbookHistory` / `useTaskPolling` |
-| 文件名 = hook 名 + `.ts` | `useSSE.ts` / `useTextbookHistory.ts` |
+| 必 `use` 前缀（小写） | `useSSE` / `useArticleHistory` / `useTaskPolling` |
+| 文件名 = hook 名 + `.ts` | `useSSE.ts` / `useArticleHistory.ts` |
 | 一文件一 hook | 必要时同文件 export 小工具函数 |
 | 路径：`src/hooks/<name>.ts` 通用 / `src/features/<page>/use<X>.ts` 业务专属 | — |
 
@@ -53,7 +53,7 @@ export function useSSE<T>({ url, body, enabled = true, onEvent }: Options<T>): S
   useEffect(() => {
     if (!enabled) return;
     const ctrl = new AbortController();
-    // ... 实现略，详见 frontend/src/hooks/useSSE.ts
+    // ... 实现略
     return () => ctrl.abort();
   }, [url, JSON.stringify(body), enabled]);
 
@@ -61,13 +61,13 @@ export function useSSE<T>({ url, body, enabled = true, onEvent }: Options<T>): S
 }
 ```
 
-## Quill 项目实际 hooks
+## 示例 hooks
 
 | 名 | 用途 | 路径 |
 |----|------|------|
 | `useSSE` | SSE 流式响应 | `src/hooks/useSSE.ts` |
 | `useTaskPolling` | 异步任务轮询 | `src/hooks/useTaskPolling.ts` |
-| `useTextbookHistory` | 用户课本历史 | `src/hooks/useTextbookHistory.ts` |
+| `useArticleHistory` | 用户内容历史 | `src/hooks/useArticleHistory.ts` |
 | `useUndoStack` | 撤销栈 | `src/hooks/useUndoStack.ts` |
 | `usePresentKeyboard` | 演示模式快捷键 | `src/hooks/usePresentKeyboard.ts` |
 
@@ -106,4 +106,3 @@ export function useB() {}   // 拆开
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`order-and-rules.md`](./order-and-rules.md)
-

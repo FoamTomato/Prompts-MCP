@@ -5,7 +5,7 @@ description: 匿名会话中间件 — anon_xxx + 双积分池。Use when 写 Py
 parent: ./index.md
 paths:
 - backend/middleware/anonymous_session.py
-- py/middleware/anonymous_session.py
+- '**/middleware/anonymous_session.py'
 triggers:
   keywords:
   - anonymous
@@ -23,7 +23,7 @@ version: '1.0'
 
 ## 规则
 
-Quill 是匿名 + 邀请的模式。每个请求必须带 `X-Session-Id`（`anon_<uuid>` 格式），中间件自动加载 session 上下文。
+适用于匿名 + 邀请的产品模式。每个请求必须带 `X-Session-Id`（`anon_<uuid>` 格式），中间件自动加载 session 上下文。
 
 ## 中间件实现
 
@@ -85,7 +85,7 @@ async def get_current_session(request: Request):
 
 ## 双积分池约定
 
-详见 `project-index/modules/anonymous_session.md`（S1-S6）。中间件层只负责加载 session，**不扣减积分**——扣减逻辑在 Service 层。
+中间件层只负责加载 session，**不扣减积分**——扣减逻辑在 Service 层。
 
 ```python
 class Session(Model):
@@ -103,7 +103,7 @@ class Session(Model):
 
 ## 与反爬虫协同
 
-`AntiCrawlerMiddleware`（anti_crawler 模块 AC1）在 `AnonymousSessionMiddleware` **之前**运行——先评分再加载。详见 `project-index/modules/anti_crawler.md`。
+`AntiCrawlerMiddleware` 在 `AnonymousSessionMiddleware` **之前**运行——先评分再加载。
 
 ## 自检
 
@@ -116,5 +116,3 @@ class Session(Model):
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`error-handler.md`](./error-handler.md)
-- 配套：`project-index/modules/anonymous_session.md` · `project-index/modules/anti_crawler.md`
-

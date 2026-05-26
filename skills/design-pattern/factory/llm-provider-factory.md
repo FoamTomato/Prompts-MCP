@@ -4,10 +4,8 @@ description: LLM provider 工厂 — provider_name → ProviderInstance。Use wh
   后端代码 / 评审涉及 `llm-provider-factory` 的 PR。
 parent: ./index.md
 paths:
-- backend/services/llm_*.py
-- py/services/llm_*.py
-- backend/agents/**/*
-- py/agents/**/*
+- '**/services/llm_*.py'
+- '**/agents/**/*'
 triggers:
   keywords:
   - factory
@@ -29,10 +27,10 @@ version: '1.0'
 | 单一实现 | ❌（直接 new 即可） |
 | 需依赖注入 | ✅ |
 
-## Quill LLM Provider Factory
+## LLM Provider Factory 示例
 
 ```python
-# backend/services/llm_factory.py
+# services/llm_factory.py
 from abc import ABC, abstractmethod
 from typing import AsyncGenerator
 from langchain_community.chat_models import ChatTongyi, ChatOpenAI

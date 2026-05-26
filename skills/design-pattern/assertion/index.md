@@ -19,7 +19,7 @@ when_to_descend: |
 
 ## 来源
 
-参考 Java `ImportAsserts` 范式（lml-system 项目）+ Quill W3.5 落地。
+参考 Java `ImportAsserts` 范式。
 
 ## 何时下钻到这层
 
@@ -30,12 +30,12 @@ when_to_descend: |
 | 在 service / pipeline 写 try/except | post-tool-pattern |
 | 想了解整体思想 | principle |
 
-## 当前 Quill 落点
+## 典型落点
 
-代码层（W3.5 完成）：
+代码层：
 - 引擎：`py/core/assertion.py` 12 个静态方法
-- 业务包装：`py/asserts/` 7 个类（Textbook/Knowledge/Outline/Session/Paper/Referral/Presentation）
-- 前端镜像：`frontend/app/lib/assertion.ts` ApiError + Asserts 11 方法
+- 业务包装：`py/asserts/` 多个业务专属类（按领域命名）
+- 前端镜像：`frontend/app/lib/assertion.ts` ApiError + Asserts 系列方法
 
 ## 链接
 

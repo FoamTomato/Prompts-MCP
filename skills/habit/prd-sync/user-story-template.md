@@ -29,10 +29,10 @@ So that <价值/目的>.
 - AC2: ...
 ```
 
-## Quill 实例
+## 示例
 
 ```
-Story H1：主页选择课本
+Story <MODULE_ID>：主页选择课本
   As a 教师
   I want to 在主页通过三级联动（学段 → 学科 → 年级）找到课本
   So that 我能快速定位本周的教学内容
@@ -44,7 +44,7 @@ Story H1：主页选择课本
 ```
 
 ```
-Story H7：生成 CTA
+Story <MODULE_ID>：生成 CTA
   As a 教师
   I want to 看到一个明显的"生成课件"按钮
   So that 我不需要找按钮就能开始生成
@@ -55,7 +55,7 @@ Story H7：生成 CTA
   AC4: 选完后启用 + hover 上浮
 ```
 
-## 角色词表（Quill）
+## 角色词表（示例）
 
 | 角色 | 场景 |
 |------|------|
@@ -103,12 +103,12 @@ Story H7：生成 CTA
 每个 User Story 对应 1 个或多个子模块：
 
 ```
-Story H1: 主页选择课本
-  → 子模块：H5 TextbookCascader（三级联动）
-  → 子模块：H8 useTextbookHistory（历史置顶）
+Story <MODULE_ID>: 主页选择课本
+  → 子模块：<MODULE_ID>.cascader TextbookCascader（三级联动）
+  → 子模块：<MODULE_ID>.history useTextbookHistory（历史置顶）
 
-Story H7: 生成 CTA
-  → 子模块：H7 GenerateButton
+Story <MODULE_ID>: 生成 CTA
+  → 子模块：<MODULE_ID>.button GenerateButton
 ```
 
 详见 [`split-prd-method.md`](./split-prd-method.md)。

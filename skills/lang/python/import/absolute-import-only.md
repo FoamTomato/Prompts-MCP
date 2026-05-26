@@ -5,7 +5,7 @@ description: 禁相对导入 — 全部用绝对路径。Use when 写 Python 后
 parent: ./index.md
 paths:
 - backend/**/*.py
-- py/**/*.py
+- '**/*.py'
 triggers:
   keywords:
   - import
@@ -22,7 +22,7 @@ version: '1.0'
 
 ## 规则
 
-**所有 import 一律用绝对路径**。Quill 后端 `backend/` 与 `py/` 工作进程的 import 根都是项目根，因此 `from core.config import settings` 是绝对导入。
+**所有 import 一律用绝对路径**。后端项目的 import 根设为项目根目录，因此 `from core.config import settings` 是绝对导入。
 
 ## 反例 → 正例
 
@@ -50,7 +50,7 @@ from core.db import init_db
 包内同目录的私有辅助模块可以用单点相对：
 
 ```python
-# py/services/ppt_generator.py
+# services/document_generator.py
 from .renderers import text_renderer  # 紧密耦合的私有助手，允许
 ```
 

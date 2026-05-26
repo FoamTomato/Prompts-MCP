@@ -38,10 +38,10 @@ version: '1.0'
 ## 模板
 
 ```tsx
-function TextbookList() {
+function ArticleList() {
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["textbooks"],
-    queryFn: () => textbooksApi.list(),
+    queryKey: ["articles"],
+    queryFn: () => articlesApi.list(),
   });
 
   // 5. 加载
@@ -63,9 +63,9 @@ function TextbookList() {
     return (
       <EmptyState
         icon={<BookIcon />}
-        title="还没有课本"
-        description="选择一本课本开始你的第一份课件"
-        action={<Button type="primary">浏览课本库</Button>}
+        title="还没有内容"
+        description="浏览目录开始你的第一份内容"
+        action={<Button type="primary">浏览目录</Button>}
       />
     );
   }
@@ -73,7 +73,7 @@ function TextbookList() {
   // 1-4. 默认 / 悬停 / 焦点 / 激活 在每个卡片内
   return (
     <div className="grid">
-      {data.map(tb => <TextbookCard key={tb.id} textbook={tb} />)}
+      {data.map(item => <ArticleCard key={item.id} article={item} />)}
     </div>
   );
 }
@@ -93,11 +93,11 @@ if (isLoading) return <FullScreenSpin />;
 if (isLoading) return <SkeletonGrid count={6} />;
 ```
 
-## Quill 公共组件
+## 推荐公共组件
 
 - `<Skeleton>` / `<SkeletonGrid>` — `frontend/src/components/Skeleton.tsx`
 - `<ErrorState>` — `frontend/src/components/ErrorState.tsx`
-- `<EmptyState>` — `frontend/src/features/dashboard/EmptyState.tsx`（D22）
+- `<EmptyState>` — `frontend/src/features/dashboard/EmptyState.tsx`
 
 ## 自检
 
@@ -110,4 +110,3 @@ if (isLoading) return <SkeletonGrid count={6} />;
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`flat-ui-principles.md`](./flat-ui-principles.md)
-

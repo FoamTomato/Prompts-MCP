@@ -4,10 +4,8 @@ description: Repository 只做 CRUD — find_by / save / delete，禁业务判�
   后端代码 / 评审涉及 `usage-rule` 的 PR。
 parent: ./index.md
 paths:
-- backend/repositories/**/*.py
-- py/repositories/**/*.py
-- backend/services/**/*.py
-- py/services/**/*.py
+- '**/repositories/**/*.py'
+- '**/services/**/*.py'
 triggers:
   keywords:
   - Repository
@@ -28,12 +26,12 @@ Repository = **持久化层的薄壳**。只翻译"业务对象 ↔ 数据库行
 ## 必须满足的形态
 
 ```python
-# py/repositories/presentation_repo.py
-class PresentationRepo:
-    async def find_by_id(self, pid: UUID) -> Presentation | None: ...
-    async def find_by_owner(self, owner_id: UUID, *, limit: int = 20) -> list[Presentation]: ...
-    async def save(self, p: Presentation) -> Presentation: ...
-    async def delete(self, pid: UUID) -> None: ...
+# repositories/order_repo.py
+class OrderRepo:
+    async def find_by_id(self, oid: UUID) -> Order | None: ...
+    async def find_by_owner(self, owner_id: UUID, *, limit: int = 20) -> list[Order]: ...
+    async def save(self, o: Order) -> Order: ...
+    async def delete(self, oid: UUID) -> None: ...
 ```
 
 特征：方法名都是 `find_* / save / delete / count_*`，参数都是值类型或领域实体，返回也是领域实体或值。
@@ -43,41 +41,39 @@ class PresentationRepo:
 1. **禁在 Repo 写业务判断**
    ```python
    # ❌
-   async def find_active_presentations(self, owner_id):
-       items = await Presentation.filter(owner_id=owner_id)
-       return [p for p in items if p.slide_count >= 5 and p.theme_id]  # 业务规则
+   async def find_active_orders(self, owner_id):
+       items = await Order.filter(owner_id=owner_id)
+       return [o for o in items if o.item_count >= 5 and o.channel_id]  # 业务规则
    ```
 
 2. **禁 Repo 调用 Repo**（除非父子聚合根）— 事务边界会模糊
 3. **禁返回 dict / tuple** — 一律返回领域实体或值对象
 4. **禁抛业务异常** — 找不到记录返回 `None`，由 Service 决定抛 `NotFoundError`
 
-## Quill 落点
+## 典型目录布局
 
-按 `module_path_map.md`：
-
-- `backend/repositories/` — FastAPI 主后端（dashboard / outline_review / ppt_generator）
-- `py/repositories/` — py 工作进程（textbook_data / database_setup 的种子脚本和 RQ worker）
+- `<service>/repositories/` — HTTP 主后端的 Repo
+- `<worker>/repositories/` — 工作进程（种子脚本 / 后台任务）的 Repo
 
 ## Service 与 Repo 的协作
 
 ```python
-class PresentationService:
-    def __init__(self, repo: PresentationRepo, theme_repo: ThemeRepo):
+class OrderService:
+    def __init__(self, repo: OrderRepo, channel_repo: ChannelRepo):
         self._repo = repo
-        self._theme_repo = theme_repo
+        self._channel_repo = channel_repo
 
-    async def create_for_outline(self, outline: Outline, theme_id: UUID) -> Presentation:
+    async def create_for_cart(self, cart: Cart, channel_id: UUID) -> Order:
         # 1. 业务校验在 Service
-        theme = await self._theme_repo.find_by_id(theme_id)
-        if theme is None:
-            raise ThemeNotFoundError(theme_id)   # 业务异常
+        channel = await self._channel_repo.find_by_id(channel_id)
+        if channel is None:
+            raise ChannelNotFoundError(channel_id)   # 业务异常
 
         # 2. 领域对象创建
-        p = Presentation.from_outline(outline, theme)
+        o = Order.from_cart(cart, channel)
 
         # 3. 持久化交给 Repo
-        return await self._repo.save(p)
+        return await self._repo.save(o)
 ```
 
 ## 自检

@@ -22,7 +22,7 @@ version: '1.0'
 
 ## 规则
 
-Quill 前端**纯 ESM**：
+前端项目**纯 ESM**：
 
 | 用 | 不用 |
 |----|------|
@@ -48,11 +48,11 @@ Quill 前端**纯 ESM**：
 
 ```ts
 // ✅
-import type { Textbook } from "@/types/textbook";
-import { fetchTextbooks } from "@/api/textbooks";
+import type { Article } from "@/types/article";
+import { fetchArticles } from "@/api/articles";
 
 // ❌
-import { Textbook, fetchTextbooks } from "@/api/textbooks";  // 类型混在值 import 里
+import { Article, fetchArticles } from "@/api/articles";  // 类型混在值 import 里
 ```
 
 ## 路径别名
@@ -62,7 +62,7 @@ import { Textbook, fetchTextbooks } from "@/api/textbooks";  // 类型混在值 
 ```ts
 // ✅
 import { Button } from "@/components/Button";
-import { useSession } from "@/stores/session";
+import { useTenant } from "@/stores/tenant";
 
 // ❌ 相对路径深嵌套
 import { Button } from "../../../components/Button";

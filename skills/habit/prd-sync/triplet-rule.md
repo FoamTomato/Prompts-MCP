@@ -19,7 +19,7 @@ version: '1.0'
 
 ## 核心约束
 
-Quill 的 PRD 模块以**三件套**为最小可交付单位：
+PRD 模块以**三件套**为最小可交付单位：
 
 - **#1 PRD 文档** — `project-index/modules/<name>.md`（扁平）或 `modules/<name>/README.md`（文件夹）
 - **#2 页面草图** — `design/<name>-sketch.html`
