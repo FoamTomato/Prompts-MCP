@@ -18,6 +18,7 @@ jobs:
       packages: write
     outputs:
       digest: ${{ steps.build.outputs.digest }}
+      image_tag: ${{ steps.meta.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,10 +47,6 @@ jobs:
             type=sha,prefix=sha-,format=short
             type=raw,value=latest,enable={{is_default_branch}}
 
-      # Build twice (linked by cache so it's cheap): once to GHCR for the
-      # mirror/archive path, once into a local tar that we'll scp to the
-      # production server.  Keeping the GHCR push means anyone with
-      # internet can still `docker pull` it from a non-CN host.
       - name: Build and push to GHCR
         id: build
         uses: docker/build-push-action@v6
@@ -62,45 +59,20 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Export image to tar
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          platforms: linux/amd64
-          tags: prompts-mcp:latest
-          outputs: type=docker,dest=/tmp/prompts-mcp.tar
-          cache-from: type=gha
-
-      - name: Upload tar as workflow artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: image-tar
-          path: /tmp/prompts-mcp.tar
-          retention-days: 1
-
   deploy:
+    # Strategy: build pushes to ghcr.io.  Deploy SSHes into the prod server
+    # and tells it to pull from ghcr.nju.edu.cn (CN mirror) — *not* through
+    # the Actions runner network, which has unstable cross-border throughput
+    # to CN ingress.  This way the heavy 197MB image transit happens on the
+    # path with the best throughput in practice (GHCR → CN mirror → server).
     needs: build
     runs-on: ubuntu-latest
-    # Run deploy on push to main AND on manual workflow_dispatch (so we can
-    # retrigger after secrets are added without an empty commit). Inner
-    # steps still no-op when secrets are missing.
     if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch' }}
     environment:
       name: production
       url: https://xiaohang.site/skills/
     steps:
-      - name: Download image tar
-        uses: actions/download-artifact@v4
-        with:
-          name: image-tar
-          path: /tmp
-
       - name: Set up SSH
-        # Loads PROD_SSH_KEY into a file. Two writes are tried so we tolerate
-        # both "secret has trailing newline" and "secret stripped trailing
-        # newline" cases — the second form would otherwise break ed25519 key
-        # parsing with `error in libcrypto`. Verifies the key actually parses
-        # before continuing.
         env:
           SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
           SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
@@ -112,31 +84,20 @@ jobs:
             echo "skip_deploy=1" >> "$GITHUB_ENV"
             exit 0
           fi
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-
-          # Write key. printf %s avoids printf's interpretation of \n inside
-          # the secret, then we ensure there's exactly one trailing newline.
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
           {
             printf '%s' "$SSH_KEY"
-            # add a trailing newline only if the secret didn't already end with one
             [ "$(printf '%s' "$SSH_KEY" | tail -c1 | od -An -c | tr -d ' ')" = "\\n" ] || printf '\n'
           } > ~/.ssh/id_deploy
           chmod 600 ~/.ssh/id_deploy
-
-          # Verify the key actually parses. If it doesn't, ssh-keygen prints
-          # the real reason (wrong format / corrupted / wrong key type).
           if ! ssh-keygen -y -f ~/.ssh/id_deploy > ~/.ssh/id_deploy.pub 2>/tmp/keygen.err; then
-            echo "::error::PROD_SSH_KEY did not parse — check the secret has the full key including header/footer and unmodified newlines."
+            echo "::error::PROD_SSH_KEY did not parse"
             cat /tmp/keygen.err
             exit 1
           fi
           echo "Key parses. Fingerprint:"
           ssh-keygen -lf ~/.ssh/id_deploy.pub
-
-          # Trust the host key for the prod server (ed25519 + rsa).
           ssh-keyscan -t ed25519,rsa "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
-
           cat >> ~/.ssh/config <<EOF
           Host prod
             HostName $SSH_HOST
@@ -147,33 +108,65 @@ jobs:
             ServerAliveCountMax 3
           EOF
 
-      - name: scp image tar to server
+      - name: Pull from mirror + restart
         if: env.skip_deploy != '1'
+        # Server-side pulls the freshly-built image from a CN GHCR mirror.
+        # GHCR is unreachable directly from CN egress (>10min / EOF), but
+        # mirrors (nju, mirrorify) work — though intermittently. So we do:
+        #   - 2 mirrors × 3 attempts each = up to 6 tries
+        #   - per-attempt timeout 300s (typical successful cold pull is ~40s)
+        #   - explicit cleanup of half-pulled layers between attempts to avoid
+        #     docker reusing a broken layer cache after an EOF
+        env:
+          IMAGE_TAG: ${{ needs.build.outputs.image_tag }}
+          DIGEST: ${{ needs.build.outputs.digest }}
         run: |
-          scp -o BatchMode=yes /tmp/prompts-mcp.tar prod:/tmp/prompts-mcp.tar
-          echo "Uploaded $(ls -lh /tmp/prompts-mcp.tar | awk '{print $5}')"
-
-      - name: Load image + restart container
-        if: env.skip_deploy != '1'
-        run: |
-          ssh -o BatchMode=yes prod 'bash -se' <<'EOF'
+          ssh -o BatchMode=yes prod 'bash -se' <<EOF
             set -euo pipefail
             cd /opt
-            docker load -i /tmp/prompts-mcp.tar | tail -2
-            # Make sure compose references the local tag, not a ghcr.io one
-            # (idempotent — sed only rewrites if a ghcr.* line is present).
+
+            digest="${DIGEST}"
+            pulled=""
+            for mirror in ghcr.nju.edu.cn ghcr.mirrorify.net; do
+              image="\$mirror/foamtomato/prompts-mcp:latest"
+              # Always start each mirror with no cached image for it — a prior
+              # partial pull can leave a stale manifest that docker happily reuses.
+              docker rmi "\$image" 2>/dev/null || true
+              for attempt in 1 2 3; do
+                echo "::group::Mirror \$mirror attempt \$attempt"
+                if timeout 300 docker pull "\$image"; then
+                  docker tag "\$image" prompts-mcp:latest
+                  pulled="\$mirror"
+                  echo "::endgroup::"
+                  break 2
+                fi
+                echo "attempt \$attempt failed"
+                # Don't leave a half-pulled image around for the next try
+                docker rmi "\$image" 2>/dev/null || true
+                # Slight backoff between attempts (kernel TCP keepalive etc.)
+                sleep 5
+                echo "::endgroup::"
+              done
+            done
+            if [ -z "\$pulled" ]; then
+              echo "::error::All mirrors failed after 2×3 attempts. Run scripts/deploy_image.sh locally (see deploy/README.md)."
+              exit 1
+            fi
+            echo "Pulled from: \$pulled"
+
+            # Compose may still reference an old mirror image — rewrite to
+            # plain local tag so future restarts don't re-pull.
             if grep -q "image: ghcr" docker-compose.yml; then
-              cp docker-compose.yml "docker-compose.yml.bak.$(date +%Y%m%d-%H%M%S)"
+              cp docker-compose.yml "docker-compose.yml.bak.\$(date +%Y%m%d-%H%M%S)"
               sed -i 's|image: ghcr[^[:space:]]*prompts-mcp:latest|image: prompts-mcp:latest|g' docker-compose.yml
             fi
+
             docker compose up -d --force-recreate prompts-mcp
             sleep 5
             docker compose ps prompts-mcp
-            # Health probe — use the container's internal port so we don't
-            # depend on nginx config being intact.
+
+            # Health probe from inside the container — independent of nginx.
             docker exec prompts-mcp python -c "import urllib.request,sys; r=urllib.request.urlopen('http://localhost:8080/health',timeout=5); print(r.read().decode()); sys.exit(0 if r.status==200 else 1)"
-            # Tidy up the tar (197MB)
-            rm -f /tmp/prompts-mcp.tar
           EOF
 
       - name: Verify external endpoint
