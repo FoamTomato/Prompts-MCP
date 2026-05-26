@@ -725,11 +725,18 @@ pre code .err                                    { color: inherit; background: t
   margin: 32px 0;
 }
 
-/* Inline code inside markdown body — 加重对比 */
-.markdown-body code {
+/* Inline `code` inside prose — distinct from regular text but NOT inside
+   pre blocks (otherwise it stamps a blue tint behind every Pygments token). */
+.markdown-body :not(pre) > code {
   background: var(--accent-soft);
   color: var(--accent-deep);
   border: none;
+}
+/* Reset code descendants of pre back to transparent — Pygments tokens own
+   their colors there. */
+.markdown-body pre code,
+.markdown-body pre code * {
+  background: transparent;
 }
 
 /* ─── Skill foot ──────────────────────────────────────────────────── */
