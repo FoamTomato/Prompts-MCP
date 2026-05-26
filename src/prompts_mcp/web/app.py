@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import re
 from pathlib import Path
 
@@ -8,13 +9,63 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from markdown_it import MarkdownIt
+from pygments import highlight
+from pygments.formatters import HtmlFormatter
+from pygments.lexers import get_lexer_by_name
+from pygments.util import ClassNotFound
 from starlette.requests import Request
 
 from ..matcher import search
 
+logger = logging.getLogger(__name__)
+
 WEB_DIR = Path(__file__).resolve().parent
 TEMPLATES = Jinja2Templates(directory=str(WEB_DIR / "templates"))
-md_renderer = MarkdownIt("commonmark", {"html": False, "linkify": True, "typographer": True}).enable("table")
+
+# Pygments formatter — emits just the token spans (no outer <div class="highlight">,
+# no outer <pre>) because markdown-it-py already wraps highlight() output in
+# <pre><code>...</code></pre>. Double-wrapping caused double borders earlier.
+# `nowrap=True` strips the div/pre; CSS targets `.highlight .k` etc., so we
+# instead style the bare tokens via `pre code .k`.
+_PYG_FORMATTER = HtmlFormatter(nowrap=True)
+
+
+def _highlight(code: str, lang: str, _attrs: str) -> str:
+    """markdown-it highlight callback.
+
+    Returns inner HTML (token spans) — markdown-it wraps in <pre><code>.
+
+    Language resolution (per user preference):
+      1. If the fence specifies a language and Pygments knows it, use it.
+      2. Otherwise try `python` as the default.
+      3. If that fails (Pygments not installed), fall back to `sql`.
+      4. If even that fails, return "" so markdown-it falls back to the
+         default no-highlight escape path.
+    """
+    lang = (lang or "").strip().lower()
+    lexer = None
+    if lang:
+        try:
+            lexer = get_lexer_by_name(lang, stripnl=False)
+        except ClassNotFound:
+            logger.debug("unknown code-fence language %r — falling back", lang)
+    if lexer is None:
+        for fallback in ("python", "sql"):
+            try:
+                lexer = get_lexer_by_name(fallback, stripnl=False)
+                break
+            except ClassNotFound:
+                continue
+    if lexer is None:
+        return ""
+    # rstrip trailing newline — markdown-it already provides one via </pre>.
+    return highlight(code, lexer, _PYG_FORMATTER).rstrip("\n")
+
+
+md_renderer = (
+    MarkdownIt("commonmark", {"html": False, "linkify": True, "typographer": True, "highlight": _highlight})
+    .enable("table")
+)
 
 
 def create_web_app(state) -> FastAPI:

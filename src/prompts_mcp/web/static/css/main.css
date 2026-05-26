@@ -98,15 +98,19 @@ code {
   color: var(--accent-deep);
   border: 1px solid var(--border-soft);
 }
+/* Code blocks — pure white background, Xcode-style light syntax highlighting.
+   Pygments emits inline <span class="k">…</span> tokens directly inside
+   the markdown-it-supplied <pre><code> wrapper (no extra .highlight div),
+   so token rules below scope under `pre code` to avoid collateral. */
 pre {
-  background: var(--bg-sunken);       /* slate-100 — light theme 代码块，与整体一致 */
-  color: var(--fg);
+  background: #ffffff;
+  color: #1f1f1f;
   padding: 16px 18px;
   border-radius: var(--r-md);
   overflow-x: auto;
   font-family: var(--mono);
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 14px 0;
   border: 1px solid var(--border-soft);
 }
@@ -117,11 +121,39 @@ pre code {
   color: inherit;
   font-size: inherit;
 }
-/* Custom scrollbar inside code blocks (light theme) */
+/* Slim scrollbar inside code blocks */
 pre::-webkit-scrollbar { height: 8px; }
 pre::-webkit-scrollbar-track { background: transparent; }
-pre::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-pre::-webkit-scrollbar-thumb:hover { background: var(--fg-ghost); }
+pre::-webkit-scrollbar-thumb { background: var(--border-soft); border-radius: 4px; }
+pre::-webkit-scrollbar-thumb:hover { background: var(--border); }
+
+/* ─── Pygments token colors — Xcode "Default (Light)" palette ────────
+   Reference: Xcode default light theme + Apple Swift Playground.
+   Token map per https://pygments.org/docs/tokens/                    */
+pre code .c,  pre code .ch, pre code .cm, pre code .cp, pre code .cpf,
+pre code .c1, pre code .cs                       { color: #007400; font-style: italic; }  /* Comment */
+pre code .k,  pre code .kc, pre code .kd, pre code .kn, pre code .kp,
+pre code .kr                                     { color: #aa0d91; font-weight: 600; }    /* Keyword */
+pre code .kt                                     { color: #5c2699; font-weight: 600; }    /* Type */
+pre code .s,  pre code .sa, pre code .sb, pre code .sc, pre code .dl,
+pre code .sd, pre code .s2, pre code .se, pre code .sh, pre code .si,
+pre code .sx, pre code .sr, pre code .s1, pre code .ss            { color: #c41a16; }     /* String */
+pre code .m,  pre code .mb, pre code .mf, pre code .mh, pre code .mi,
+pre code .il, pre code .mo                       { color: #1c00cf; }                      /* Number */
+pre code .nb                                     { color: #5c2699; }                      /* Built-in */
+pre code .nc                                     { color: #3f6e74; font-weight: 600; }    /* Class name */
+pre code .nf, pre code .fm                       { color: #26474a; font-weight: 600; }    /* Function name */
+pre code .nd                                     { color: #643820; }                      /* Decorator */
+pre code .nn                                     { color: #3f6e74; }                      /* Namespace */
+pre code .nv, pre code .vc, pre code .vg, pre code .vi             { color: #1f1f1f; }    /* Variables */
+pre code .o,  pre code .ow                       { color: #1f1f1f; }                      /* Operator */
+pre code .p                                      { color: #1f1f1f; }                      /* Punctuation */
+pre code .w                                      { color: inherit; }                      /* Whitespace */
+pre code .ge                                     { font-style: italic; }
+pre code .gs                                     { font-weight: 600; }
+pre code .gd                                     { background: #ffeef0; color: #b31d28; } /* Diff -- */
+pre code .gi                                     { background: #e6ffec; color: #1a7f37; } /* Diff ++ */
+pre code .err                                    { color: inherit; background: transparent; } /* no red box on box-drawing chars */
 
 /* ─── Topbar ────────────────────────────────────────────────────────── */
 .topbar {
