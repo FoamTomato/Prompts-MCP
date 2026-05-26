@@ -1,6 +1,7 @@
 ---
 name: pr-create-and-close
-description: gh pr create --fill — SessionEnd hook 自动翻 In Review
+description: gh pr create --fill — SessionEnd hook 自动翻 In Review。Use when 改 CI / workflow
+  / 评审涉及 `pr-create-and-close` 的 PR。
 parent: ./index.md
 paths:
 - .github/**

@@ -1,16 +1,21 @@
 ---
 name: react-local-state-usestate
-description: React 局部状态用 useState — 仅组件内使用，不要泄漏到全局 store
+description: React 局部状态用 useState — 仅组件内使用，不要泄漏到全局 store。Use when 写 React 组件 / 改 .tsx
+  文件 / 评审涉及 `local-state-usestate` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [useState, 本地状态, 局部状态, local state, component state]
+  keywords:
+  - useState
+  - 本地状态
+  - 局部状态
+  - local state
+  - component state
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 局部状态 useState
 
 ## 规则

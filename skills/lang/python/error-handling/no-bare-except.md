@@ -1,17 +1,20 @@
 ---
 name: python-no-bare-except
-description: "禁 except: pass 和 except Exception 不记日志"
+description: '禁 except: pass 和 except Exception 不记日志。Use when 写 Python 后端代码 / 评审涉及
+  `no-bare-except` 的 PR。'
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [bare except, except, 异常吞掉]
+  keywords:
+  - bare except
+  - except
+  - 异常吞掉
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 禁裸 except
 
 ## 规则

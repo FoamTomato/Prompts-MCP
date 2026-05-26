@@ -1,6 +1,6 @@
 ---
 name: gsap-principles
-description: GSAP 核心原则 — 单一引擎 / 集中管理 / GPU 友好 / 时长克制
+description: GSAP 核心原则 — 单一引擎 / 集中管理 / GPU 友好 / 时长克制。Use when 写 TS 业务代码 / 评审 PR 时。
 parent: ./index.md
 paths:
 - frontend/src/animations/**/*.ts

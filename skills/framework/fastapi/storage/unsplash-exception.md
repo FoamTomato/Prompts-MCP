@@ -1,18 +1,21 @@
 ---
 name: fastapi-storage-unsplash
-description: Unsplash 例外 — 不入 OSS，直接转链 + 缓存元数据
+description: Unsplash 例外 — 不入 OSS，直接转链 + 缓存元数据。Use when 写 Python 后端代码 / 评审涉及 `unsplash-exception`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/services/oss*.py"
-  - "py/services/oss*.py"
-  - "backend/services/asset*.py"
+- backend/services/oss*.py
+- py/services/oss*.py
+- backend/services/asset*.py
 triggers:
-  keywords: [Unsplash, 图片, 转链]
+  keywords:
+  - Unsplash
+  - 图片
+  - 转链
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # OSS · Unsplash 例外
 
 ## 规则

@@ -1,6 +1,7 @@
 ---
 name: java-class-naming
-description: Java 类 PascalCase + 后缀 Service/Repository/Controller
+description: Java 类 PascalCase + 后缀 Service/Repository/Controller。Use when 写 Java
+  代码 / 评审涉及 `class-naming` 的 PR。
 parent: ./index.md
 paths:
 - '*.java'

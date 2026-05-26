@@ -1,6 +1,7 @@
 ---
 name: python-asyncio-pattern
-description: asyncio 并发模式 — gather / wait / 锁 / 取消 / 超时
+description: asyncio 并发模式 — gather / wait / 锁 / 取消 / 超时。Use when 写 Python 后端代码 / 评审涉及
+  `asyncio-pattern` 的 PR。
 parent: ./index.md
 paths:
 - backend/**/*.py

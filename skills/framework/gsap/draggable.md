@@ -1,6 +1,6 @@
 ---
 name: gsap-draggable
-description: '框架约定 · gsap: Draggable 插件 — 画布拖拽 / 自定义拖拽组件'
+description: Draggable 插件 — 画布拖拽 / 自定义拖拽组件。Use when 写 TS 业务代码 / 评审 PR 时。
 parent: ./index.md
 paths:
 - frontend/src/animations/**/*.ts

@@ -1,6 +1,7 @@
 ---
 name: react-flat-ui-principles
-description: '框架约定 · react: 扁平化设计形态 — 无阴影/边框层次/纯色/状态完备'
+description: 扁平化设计形态 — 无阴影/边框层次/纯色/状态完备。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及 `flat-ui-principles`
+  的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

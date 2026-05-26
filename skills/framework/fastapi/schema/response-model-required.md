@@ -1,6 +1,7 @@
 ---
 name: fastapi-schema-response-model
-description: '@router 必带 response_model — 类型即文档'
+description: '@router 必带 response_model — 类型即文档。Use when 写 Python 后端代码 / 评审涉及 `response-model-required`
+  的 PR。'
 parent: ./index.md
 paths:
 - backend/routers/**/*.py

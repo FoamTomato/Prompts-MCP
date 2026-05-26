@@ -1,6 +1,7 @@
 ---
 name: antd-install-and-locale
-description: '框架约定 · antd: antd 安装 + zhCN locale + 按需引入'
+description: antd 安装 + zhCN locale + 按需引入。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及 `install-and-locale`
+  的 PR。
 parent: ./index.md
 paths:
 - frontend/package.json

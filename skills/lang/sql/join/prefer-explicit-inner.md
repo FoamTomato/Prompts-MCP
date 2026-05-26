@@ -1,6 +1,7 @@
 ---
 name: sql-prefer-explicit-inner
-description: 显式 INNER JOIN vs LEFT JOIN — 不省 JOIN 类型
+description: 显式 INNER JOIN vs LEFT JOIN — 不省 JOIN 类型。Use when 写 SQL / 迁移脚本 / 评审涉及
+  `prefer-explicit-inner` 的 PR。
 parent: ./index.md
 paths:
 - '**/*.sql'

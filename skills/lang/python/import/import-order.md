@@ -1,6 +1,7 @@
 ---
 name: python-import-order
-description: import 三段顺序 — stdlib → third-party → local
+description: import 三段顺序 — stdlib → third-party → local。Use when 写 Python 后端代码 / 评审涉及
+  `import-order` 的 PR。
 parent: ./index.md
 paths:
 - backend/**/*.py

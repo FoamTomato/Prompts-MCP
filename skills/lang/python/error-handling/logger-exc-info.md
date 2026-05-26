@@ -1,6 +1,7 @@
 ---
 name: python-logger-exc-info
-description: logger.error(..., exc_info=True) 必带 traceback
+description: logger.error(..., exc_info=True) 必带 traceback。Use when 写 Python 后端代码
+  / 评审涉及 `logger-exc-info` 的 PR。
 parent: ./index.md
 paths:
 - backend/**/*.py

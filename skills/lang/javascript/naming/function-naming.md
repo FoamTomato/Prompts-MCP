@@ -1,6 +1,7 @@
 ---
 name: javascript-function-naming
-description: '语言规则 · javascript: JS 函数 camelCase 动词开头'
+description: JS 函数 camelCase 动词开头。Use when 写 JavaScript 代码 / 评审涉及 `function-naming`
+  的 PR。
 parent: ./index.md
 paths:
 - '*.js'

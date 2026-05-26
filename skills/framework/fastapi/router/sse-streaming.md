@@ -1,6 +1,7 @@
 ---
 name: fastapi-router-sse
-description: SSE 流式响应模板 — StreamingResponse + text/event-stream
+description: SSE 流式响应模板 — StreamingResponse + text/event-stream。Use when 写 Python
+  后端代码 / 评审涉及 `sse-streaming` 的 PR。
 parent: ./index.md
 paths:
 - backend/routers/**/*.py

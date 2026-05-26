@@ -1,6 +1,7 @@
 ---
 name: gsap-use-gsap-hook
-description: useGSAP({ scope, dependencies }) hook 模板
+description: useGSAP({ scope, dependencies }) hook 模板。Use when 写 React 组件 / 改 .tsx
+  文件 / 评审涉及 `use-gsap-hook` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

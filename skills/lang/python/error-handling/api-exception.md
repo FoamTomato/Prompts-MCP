@@ -1,17 +1,21 @@
 ---
 name: python-api-exception
-description: ApiException 三件套 — 业务异常专用类 + 业务错误码 + 配合断言模式
+description: ApiException 三件套 — 业务异常专用类 + 业务错误码 + 配合断言模式。Use when 写 Python 后端代码 /
+  评审涉及 `api-exception` 的 PR。
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [ApiException, 异常, raise, BusinessError]
+  keywords:
+  - ApiException
+  - 异常
+  - raise
+  - BusinessError
 effort: medium
 context: inline
-version: "2.0"
+version: '2.0'
 ---
-
 # Python · ApiException 三件套
 
 ## 规则

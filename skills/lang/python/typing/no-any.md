@@ -1,17 +1,21 @@
 ---
 name: python-no-any
-description: 禁 Any — 必要时用 Union / TypeVar / 类型守卫
+description: 禁 Any — 必要时用 Union / TypeVar / 类型守卫。Use when 写 Python 后端代码 / 评审涉及 `no-any`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [Any, Union, TypeVar, 类型守卫]
+  keywords:
+  - Any
+  - Union
+  - TypeVar
+  - 类型守卫
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 禁 Any
 
 ## 规则

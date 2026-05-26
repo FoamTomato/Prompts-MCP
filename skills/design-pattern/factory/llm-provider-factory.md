@@ -1,6 +1,7 @@
 ---
 name: factory-llm-provider
-description: LLM provider 工厂 — provider_name → ProviderInstance
+description: LLM provider 工厂 — provider_name → ProviderInstance。Use when 写 Python
+  后端代码 / 评审涉及 `llm-provider-factory` 的 PR。
 parent: ./index.md
 paths:
 - backend/services/llm_*.py

@@ -1,19 +1,23 @@
 ---
 name: code-no-magic-values
-description: 无魔法值 — 1/0/-1 / 状态枚举 / 配置项全用常量
+description: 无魔法值 — 1/0/-1 / 状态枚举 / 配置项全用常量。Use when 写 Python 后端代码 / 评审涉及 `no-magic-values`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
-  - "frontend/src/**/*.ts"
-  - "frontend/src/**/*.tsx"
+- backend/**/*.py
+- py/**/*.py
+- frontend/src/**/*.ts
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [魔法值, magic number, 常量, Enum]
+  keywords:
+  - 魔法值
+  - magic number
+  - 常量
+  - Enum
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Code Quality · 无魔法值
 
 ## 规则

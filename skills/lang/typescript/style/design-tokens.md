@@ -1,17 +1,20 @@
 ---
 name: typescript-design-tokens
-description: CSS 变量 / Token 系统 — 颜色单一可信源 ConfigProvider
+description: CSS 变量 / Token 系统 — 颜色单一可信源 ConfigProvider。Use when 写 React 组件 / 改 .tsx
+  文件 / 评审涉及 `design-tokens` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/src/styles/**/*.css"
-  - "frontend/src/**/*.tsx"
+- frontend/src/styles/**/*.css
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [design token, CSS 变量, ConfigProvider]
+  keywords:
+  - design token
+  - CSS 变量
+  - ConfigProvider
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · Design Tokens
 
 ## 规则

@@ -1,6 +1,7 @@
 ---
 name: ddd-repository-thin
-description: '设计模式 · ddd-layering: Repository 薄 — 持久化转译，禁业务'
+description: Repository 薄 — 持久化转译，禁业务。Use when 写 Python 后端代码 / 评审涉及 `repository-thin`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/repositories/**/*.py

@@ -1,6 +1,7 @@
 ---
 name: python-no-blocking-call
-description: async 函数内禁用同步阻塞 I/O — 一个阻塞调用拖死整个 event loop
+description: async 函数内禁用同步阻塞 I/O — 一个阻塞调用拖死整个 event loop。Use when 写 Python 后端代码 /
+  评审涉及 `no-blocking-call` 的 PR。
 parent: ./index.md
 paths:
 - backend/**/*.py

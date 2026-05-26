@@ -1,6 +1,7 @@
 ---
 name: sql-on-clause-required
-description: SQL 多表 JOIN 必带 ON 子句 — 缺 ON 会退化为笛卡尔积 / CROSS JOIN
+description: SQL 多表 JOIN 必带 ON 子句 — 缺 ON 会退化为笛卡尔积 / CROSS JOIN。Use when 写 SQL / 迁移脚本
+  / 评审涉及 `on-clause-required` 的 PR。
 parent: ./index.md
 paths:
 - '**/*.sql'

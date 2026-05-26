@@ -1,6 +1,7 @@
 ---
 name: react-error-boundary
-description: 路由级 ErrorBoundary 包裹 — 不让一个组件崩塌整棵树
+description: 路由级 ErrorBoundary 包裹 — 不让一个组件崩塌整棵树。Use when 写 React 组件 / 改 .tsx 文件 /
+  评审涉及 `error-boundary` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/pages/**/*.tsx

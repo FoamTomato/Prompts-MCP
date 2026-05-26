@@ -1,6 +1,7 @@
 ---
 name: code-naming-as-doc
-description: '习惯 · code-quality: 命名即文档 — 函数/变量/类名直接表达意图，少注释'
+description: 命名即文档 — 函数/变量/类名直接表达意图，少注释。Use when 写 Python 后端代码 / 评审涉及 `naming-as-doc`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/**/*.py

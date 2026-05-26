@@ -1,6 +1,7 @@
 ---
 name: prd-split-method
-description: '习惯 · prd-sync: 拆 PRD 方法 — 子模块按字母前缀编号 + 三件套'
+description: 拆 PRD 方法 — 子模块按字母前缀编号 + 三件套。Use when 改子模块 PRD / 评审涉及 `split-prd-method`
+  的 PR。
 parent: ./index.md
 paths:
 - project-index/modules/**

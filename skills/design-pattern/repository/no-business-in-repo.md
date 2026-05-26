@@ -1,6 +1,7 @@
 ---
 name: repository-no-business
-description: '设计模式 · repository: 禁在 Repo 写业务规则 — 业务校验在 Service'
+description: 禁在 Repo 写业务规则 — 业务校验在 Service。Use when 写 Python 后端代码 / 评审涉及 `no-business-in-repo`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/repositories/**/*.py

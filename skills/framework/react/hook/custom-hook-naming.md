@@ -1,6 +1,7 @@
 ---
 name: react-custom-hook-naming
-description: 自定义 hook 必须 useXxx 命名 + 文件 useXxx.ts
+description: 自定义 hook 必须 useXxx 命名 + 文件 useXxx.ts。Use when 写 TS 业务代码 / 评审涉及 `custom-hook-naming`
+  的 PR。
 parent: ./index.md
 paths:
 - frontend/src/hooks/**/*.ts

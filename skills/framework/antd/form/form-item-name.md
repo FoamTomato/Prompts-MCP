@@ -1,6 +1,7 @@
 ---
 name: antd-form-item-name
-description: '框架约定 · antd: Form.Item 必带 name 字段（受控）'
+description: Form.Item 必带 name 字段（受控）。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及 `form-item-name`
+  的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

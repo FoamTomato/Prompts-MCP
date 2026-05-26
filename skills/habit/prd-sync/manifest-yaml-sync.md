@@ -1,6 +1,7 @@
 ---
 name: prd-manifest-sync
-description: artifacts 增删 → 同步 manifest.yaml submodule.artifacts
+description: artifacts 增删 → 同步 manifest.yaml submodule.artifacts。Use when 改子模块 PRD
+  / 评审涉及 `manifest-yaml-sync` 的 PR。
 parent: ./index.md
 paths:
 - project-index/manifest.yaml

@@ -1,18 +1,21 @@
 ---
 name: fastapi-llm-config-env
-description: LLM 环境变量配置 — DASHSCOPE_API_KEY / OPENAI_API_KEY
+description: LLM 环境变量配置 — DASHSCOPE_API_KEY / OPENAI_API_KEY。Use when 写 Python 后端代码
+  / 评审涉及 `config-env` 的 PR。
 parent: ./index.md
 paths:
-  - "backend/core/config.py"
-  - "py/core/config.py"
-  - ".env*"
+- backend/core/config.py
+- py/core/config.py
+- .env*
 triggers:
-  keywords: [DASHSCOPE_API_KEY, OPENAI_API_KEY, 环境变量]
+  keywords:
+  - DASHSCOPE_API_KEY
+  - OPENAI_API_KEY
+  - 环境变量
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # LLM · 环境变量配置
 
 ## 完整 .env 模板

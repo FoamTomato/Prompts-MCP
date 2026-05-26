@@ -1,6 +1,7 @@
 ---
 name: python-absolute-import-only
-description: '语言规则 · python: 禁相对导入 — 全部用绝对路径'
+description: 禁相对导入 — 全部用绝对路径。Use when 写 Python 后端代码 / 评审涉及 `absolute-import-only`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/**/*.py

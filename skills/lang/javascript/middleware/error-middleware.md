@@ -1,6 +1,7 @@
 ---
 name: javascript-error-middleware
-description: '语言规则 · javascript: Express 错误中间件模板'
+description: Express 错误中间件模板。Use when 写 JavaScript 代码 / 评审涉及 `error-middleware` 的
+  PR。
 parent: ./index.md
 paths:
 - '*.js'

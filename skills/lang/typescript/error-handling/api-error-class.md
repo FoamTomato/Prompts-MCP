@@ -1,6 +1,7 @@
 ---
 name: typescript-api-error-class
-description: ApiError extends Error 子类设计 + fetcher 集成 + 与后端 ApiException 对齐
+description: ApiError extends Error 子类设计 + fetcher 集成 + 与后端 ApiException 对齐。Use when
+  写 TS 业务代码 / 评审涉及 `api-error-class` 的 PR。
 parent: ./index.md
 paths:
 - frontend/app/lib/assertion.ts

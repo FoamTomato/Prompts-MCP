@@ -1,6 +1,7 @@
 ---
 name: typescript-no-floating-promise
-description: 禁 floating promise — 必 await 或显式 .catch
+description: 禁 floating promise — 必 await 或显式 .catch。Use when 写 TS 业务代码 / 评审涉及 `no-floating-promise`
+  的 PR。
 parent: ./index.md
 paths:
 - frontend/**/*.ts

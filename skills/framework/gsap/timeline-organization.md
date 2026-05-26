@@ -1,6 +1,7 @@
 ---
 name: gsap-timeline-organization
-description: timeline 集中 animations/<feature>.ts — 组件只调用
+description: timeline 集中 animations/<feature>.ts — 组件只调用。Use when 写 TS 业务代码 / 评审涉及
+  `timeline-organization` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/animations/**/*.ts

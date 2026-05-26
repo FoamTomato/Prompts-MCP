@@ -1,17 +1,21 @@
 ---
 name: fastapi-llm-error-fallback
-description: LLM 降级与重试 — 主 provider 失败切备用 + 指数退避
+description: LLM 降级与重试 — 主 provider 失败切备用 + 指数退避。Use when 写 Python 后端代码 / 评审涉及 `error-fallback`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/services/**/*.py"
-  - "py/services/**/*.py"
+- backend/services/**/*.py
+- py/services/**/*.py
 triggers:
-  keywords: [降级, fallback, retry, backoff]
+  keywords:
+  - 降级
+  - fallback
+  - retry
+  - backoff
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # LLM · 降级与重试
 
 ## 策略

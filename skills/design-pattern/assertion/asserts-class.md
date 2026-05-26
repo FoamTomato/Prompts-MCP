@@ -1,6 +1,7 @@
 ---
 name: assertion-asserts-class
-description: 场景化 Asserts 类设计 — 命名约定 / 错误码绑定 / 真实示范（TextbookAsserts / OutlineAsserts）
+description: 场景化 Asserts 类设计 — 命名约定 / 错误码绑定 / 真实示范（TextbookAsserts / OutlineAsserts）。Use
+  when 评审涉及 `asserts-class` 的 PR。
 parent: ./index.md
 paths:
 - py/asserts/**/*.py

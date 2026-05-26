@@ -1,16 +1,19 @@
 ---
 name: prd-write-7-sections
-description: PRD 7 章节标准 — Overview / Inputs / Outputs / Assets / Deps / Execution / Success
+description: PRD 7 章节标准 — Overview / Inputs / Outputs / Assets / Deps / Execution
+  / Success。Use when 改子模块 PRD / 评审涉及 `write-prd-7-sections` 的 PR。
 parent: ./index.md
 paths:
-  - "project-index/modules/**"
+- project-index/modules/**
 triggers:
-  keywords: [PRD, Overview, 章节]
+  keywords:
+  - PRD
+  - Overview
+  - 章节
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PRD Sync · PRD 7 章节标准
 
 ## 模板结构

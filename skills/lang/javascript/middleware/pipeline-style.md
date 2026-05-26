@@ -1,6 +1,7 @@
 ---
 name: javascript-pipeline-style
-description: '语言规则 · javascript: Pipeline 风格编排 — 同 FlowStyle'
+description: Pipeline 风格编排 — 同 FlowStyle。Use when 写 JavaScript 代码 / 评审涉及 `pipeline-style`
+  的 PR。
 parent: ./index.md
 paths:
 - '*.js'

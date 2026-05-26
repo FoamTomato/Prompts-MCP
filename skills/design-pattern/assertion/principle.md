@@ -1,20 +1,25 @@
 ---
 name: assertion-principle
-description: 断言式异常处理三条精髓 + Asserts 引擎 12 个通用方法
+description: 断言式异常处理三条精髓 + Asserts 引擎 12 个通用方法。Use when 写 Python 后端代码 / 评审 PR 时。
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
-  - "py/asserts/**/*.py"
-  - "py/core/assertion.py"
-  - "frontend/app/lib/assertion.ts"
+- backend/**/*.py
+- py/**/*.py
+- py/asserts/**/*.py
+- py/core/assertion.py
+- frontend/app/lib/assertion.ts
 triggers:
-  keywords: [断言, assertion, Asserts, ApiException, ApiError, ImportAsserts]
+  keywords:
+  - 断言
+  - assertion
+  - Asserts
+  - ApiException
+  - ApiError
+  - ImportAsserts
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # 断言式异常处理 · 精髓
 
 ## 三条精髓

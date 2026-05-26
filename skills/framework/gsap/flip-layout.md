@@ -1,6 +1,7 @@
 ---
 name: gsap-flip-layout
-description: '框架约定 · gsap: Flip 插件 — 列表重排 / 模式切换的稳态动画'
+description: Flip 插件 — 列表重排 / 模式切换的稳态动画。Use when 写 TS 业务代码 / 评审涉及 `flip-layout` 的
+  PR。
 parent: ./index.md
 paths:
 - frontend/src/animations/**/*.ts

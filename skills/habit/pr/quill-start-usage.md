@@ -1,6 +1,7 @@
 ---
 name: pr-quill-start-usage
-description: scripts/quill-start <SUB_ID/Issue#> — 反查 manifest + 建分支 + assign
+description: scripts/quill-start <SUB_ID/Issue#> — 反查 manifest + 建分支 + assign。Use
+  when 评审涉及 `quill-start-usage` 的 PR。
 parent: ./index.md
 paths:
 - scripts/quill-start

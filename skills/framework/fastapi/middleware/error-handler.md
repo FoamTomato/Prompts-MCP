@@ -1,6 +1,7 @@
 ---
 name: fastapi-error-handler
-description: 全局异常处理中间件 — 捕获 ApiException + 兜底 500
+description: 全局异常处理中间件 — 捕获 ApiException + 兜底 500。Use when 写 Python 后端代码 / 评审涉及 `error-handler`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/middleware/**/*.py

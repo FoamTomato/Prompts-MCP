@@ -1,6 +1,7 @@
 ---
 name: python-redis-key-format
-description: Redis Key 格式：[module]:[entity]:[id] + 必带 ex TTL
+description: Redis Key 格式：[module]:[entity]:[id] + 必带 ex TTL。Use when 写 Python 后端代码
+  / 评审涉及 `redis-key-format` 的 PR。
 parent: ./index.md
 paths:
 - backend/**/*.py

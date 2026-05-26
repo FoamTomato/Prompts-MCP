@@ -1,17 +1,23 @@
 ---
 name: typescript-esm-only
-description: TypeScript 项目纯 ESM 模块系统 — 禁 require / module.exports / CommonJS 混用
+description: TypeScript 项目纯 ESM 模块系统 — 禁 require / module.exports / CommonJS 混用。Use
+  when 写 TS 业务代码 / 评审涉及 `esm-only` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/**/*.ts"
-  - "frontend/**/*.tsx"
+- frontend/**/*.ts
+- frontend/**/*.tsx
 triggers:
-  keywords: [ESM, CommonJS, import, export, 模块系统, ES Modules]
+  keywords:
+  - ESM
+  - CommonJS
+  - import
+  - export
+  - 模块系统
+  - ES Modules
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · ESM only
 
 ## 规则

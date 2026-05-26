@@ -1,6 +1,7 @@
 ---
 name: commit-conventional
-description: Conventional Commit — feat/fix/chore/docs/refactor/test/style + 中文描述
+description: Conventional Commit — feat/fix/chore/docs/refactor/test/style + 中文描述。Use
+  when 评审涉及 `conventional-commit` 的 PR。
 parent: ./index.md
 paths:
 - .git/**

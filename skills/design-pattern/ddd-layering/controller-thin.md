@@ -1,18 +1,21 @@
 ---
 name: ddd-controller-thin
-description: Controller 薄壳 — Router/Service 边界
+description: Controller 薄壳 — Router/Service 边界。Use when 写 Python 后端代码 / 评审涉及 `controller-thin`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/routers/**/*.py"
-  - "py/routers/**/*.py"
-  - "frontend/src/pages/**/*.tsx"
+- backend/routers/**/*.py
+- py/routers/**/*.py
+- frontend/src/pages/**/*.tsx
 triggers:
-  keywords: [Controller, Router, 薄壳]
+  keywords:
+  - Controller
+  - Router
+  - 薄壳
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # DDD · Controller 薄
 
 ## 规则

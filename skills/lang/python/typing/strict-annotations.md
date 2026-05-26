@@ -1,6 +1,7 @@
 ---
 name: python-strict-annotations
-description: '语言规则 · python: 函数签名 100% 类型注解 — 含返回类型'
+description: 函数签名 100% 类型注解 — 含返回类型。Use when 写 Python 后端代码 / 评审涉及 `strict-annotations`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/**/*.py

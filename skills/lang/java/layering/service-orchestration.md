@@ -1,6 +1,7 @@
 ---
 name: java-service-orchestration
-description: '语言规则 · java: Spring Service 编排层'
+description: Spring Service 编排层。Use when 写 Java 代码 / 评审涉及 `service-orchestration`
+  的 PR。
 parent: ./index.md
 paths:
 - '*.java'

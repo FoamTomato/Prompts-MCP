@@ -1,6 +1,7 @@
 ---
 name: prd-user-story
-description: User Story 模板 — As a / I want / So that
+description: User Story 模板 — As a / I want / So that。Use when 改子模块 PRD / 评审涉及 `user-story-template`
+  的 PR。
 parent: ./index.md
 paths:
 - project-index/modules/**

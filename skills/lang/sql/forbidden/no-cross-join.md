@@ -1,18 +1,23 @@
 ---
 name: sql-no-cross-join
-description: 禁 CROSS JOIN 与 JOIN 缺 ON 子句 — 都会产生笛卡尔积，是性能杀手
+description: 禁 CROSS JOIN 与 JOIN 缺 ON 子句 — 都会产生笛卡尔积，是性能杀手。Use when 写 SQL / 迁移脚本 /
+  评审涉及 `no-cross-join` 的 PR。
 parent: ./index.md
 paths:
-  - "**/*.sql"
-  - "py/**/*.py"
-  - "backend/**/*.py"
+- '**/*.sql'
+- py/**/*.py
+- backend/**/*.py
 triggers:
-  keywords: [CROSS JOIN, 笛卡尔积, cartesian product, JOIN ON, 性能杀手]
+  keywords:
+  - CROSS JOIN
+  - 笛卡尔积
+  - cartesian product
+  - JOIN ON
+  - 性能杀手
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · 禁 CROSS JOIN / 笛卡尔积
 
 ## 规则

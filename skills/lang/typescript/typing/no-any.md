@@ -1,6 +1,6 @@
 ---
 name: typescript-no-any
-description: '语言规则 · typescript: 禁 any — 用 unknown + 类型守卫'
+description: 禁 any — 用 unknown + 类型守卫。Use when 写 TS 业务代码 / 评审涉及 `no-any` 的 PR。
 parent: ./index.md
 paths:
 - frontend/**/*.ts

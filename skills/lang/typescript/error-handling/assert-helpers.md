@@ -1,18 +1,23 @@
 ---
 name: typescript-assert-helpers
-description: Asserts 工具集 + asserts value is T 谓词收窄类型 + 11 个常用断言方法
+description: Asserts 工具集 + asserts value is T 谓词收窄类型 + 11 个常用断言方法。Use when 写 TS 业务代码
+  / 评审涉及 `assert-helpers` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/app/lib/assertion.ts"
-  - "frontend/app/**/*.ts"
-  - "frontend/app/**/*.tsx"
+- frontend/app/lib/assertion.ts
+- frontend/app/**/*.ts
+- frontend/app/**/*.tsx
 triggers:
-  keywords: [Asserts, assert, "asserts value is", type narrowing, 类型收窄]
+  keywords:
+  - Asserts
+  - assert
+  - asserts value is
+  - type narrowing
+  - 类型收窄
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · Asserts 工具
 
 ## 11 个静态方法

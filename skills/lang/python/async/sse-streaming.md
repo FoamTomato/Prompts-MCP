@@ -1,6 +1,7 @@
 ---
 name: python-sse-streaming
-description: '语言规则 · python: SSE 生成器模板 — yield + done 终止信号'
+description: SSE 生成器模板 — yield + done 终止信号。Use when 写 Python 后端代码 / 评审涉及 `sse-streaming`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/routers/*.py

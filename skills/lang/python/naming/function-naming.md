@@ -1,17 +1,21 @@
 ---
 name: python-function-naming
-description: Python 函数命名 — snake_case + 动词开头 + 语义化前缀
+description: Python 函数命名 — snake_case + 动词开头 + 语义化前缀。Use when 写 Python 后端代码 / 评审涉及
+  `function-naming` 的 PR。
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [def, 函数命名, 方法命名, snake_case]
+  keywords:
+  - def
+  - 函数命名
+  - 方法命名
+  - snake_case
 effort: low
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 函数命名
 
 ## 规则

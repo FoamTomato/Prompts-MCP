@@ -1,16 +1,19 @@
 ---
 name: antd-vs-custom-boundary
-description: 决策：通用 primitive 一律 antd / 业务高度差异化的组件自研
+description: 决策：通用 primitive 一律 antd / 业务高度差异化的组件自研。Use when 写 React 组件 / 改 .tsx 文件
+  / 评审涉及 `when-antd-vs-custom` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [antd, 自研, primitive]
+  keywords:
+  - antd
+  - 自研
+  - primitive
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · 与自研的边界
 
 ## 决策表

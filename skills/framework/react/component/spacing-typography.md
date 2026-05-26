@@ -1,6 +1,7 @@
 ---
 name: react-spacing-typography
-description: '框架约定 · react: 间距与字号 — 留白即设计 / 字重建立层级'
+description: 间距与字号 — 留白即设计 / 字重建立层级。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及 `spacing-typography`
+  的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

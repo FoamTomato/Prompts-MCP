@@ -1,6 +1,7 @@
 ---
 name: gsap-reduced-motion
-description: prefers-reduced-motion 降级 — fade-only 或瞬时切换
+description: prefers-reduced-motion 降级 — fade-only 或瞬时切换。Use when 写 TS 业务代码 / 评审涉及
+  `reduced-motion` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/animations/**/*.ts

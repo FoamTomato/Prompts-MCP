@@ -1,6 +1,7 @@
 ---
 name: javascript-async-await-only
-description: '语言规则 · javascript: 禁 callback 风格 — 全 async/await'
+description: 禁 callback 风格 — 全 async/await。Use when 写 JavaScript 代码 / 评审涉及 `async-await-only`
+  的 PR。
 parent: ./index.md
 paths:
 - '*.js'

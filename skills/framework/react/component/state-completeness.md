@@ -1,17 +1,23 @@
 ---
 name: react-state-completeness
-description: 组件状态完备 — 默认/悬停/焦点/激活/加载/禁用/错误/空态
+description: 组件状态完备 — 默认/悬停/焦点/激活/加载/禁用/错误/空态。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及
+  `state-completeness` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/src/components/**/*.tsx"
-  - "frontend/src/features/**/*.tsx"
+- frontend/src/components/**/*.tsx
+- frontend/src/features/**/*.tsx
 triggers:
-  keywords: [状态, hover, focus, disabled, loading, empty]
+  keywords:
+  - 状态
+  - hover
+  - focus
+  - disabled
+  - loading
+  - empty
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 8 种状态完备
 
 ## 规则

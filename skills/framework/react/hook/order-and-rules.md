@@ -1,6 +1,7 @@
 ---
 name: react-hook-order-and-rules
-description: Hooks 调用顺序：state → ref → derived(useMemo) → effect → animation → callback
+description: Hooks 调用顺序：state → ref → derived(useMemo) → effect → animation → callback。Use
+  when 写 React 组件 / 改 .tsx 文件 / 评审涉及 `order-and-rules` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

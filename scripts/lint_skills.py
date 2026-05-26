@@ -16,12 +16,24 @@ from pathlib import Path
 import yaml
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n?", re.DOTALL)
+# Sibling files that supplement a main SKILL.md but are NOT skills themselves.
+# They have no frontmatter, don't appear in search_skills, and are referenced
+# from the main file via "## 详细参考" links. See habit/skill-authoring/
+# progressive-disclosure.md.
+SIBLING_SUFFIXES = (".examples.md", ".reference.md")
 
 LEAF_REQUIRED_FIELDS = ["name", "description", "parent", "paths", "triggers", "effort", "version"]
 INDEX_REQUIRED_FIELDS = ["name", "description", "parent", "children"]
 EFFORT_VALUES = {"low", "medium", "high"}
-DESC_MIN, DESC_MAX = 30, 80
+# description 范围放宽到 30-150：第二句的 "Use when..." 会让总长变长，
+# 但仍要避免短得没信息或长得变废话。Matt Pocock 用 1024-char 上限，
+# 我们项目 CJK 字符多、信息密度更高，150 足够。
+DESC_MIN, DESC_MAX = 30, 150
 KEYWORDS_MIN = 3
+# 正文行数（不含 frontmatter）：100 行 warn / 150 行 error。
+# 灵感来自 Matt Pocock 的 write-a-skill：超 100 行应该拆 reference.md。
+BODY_WARN_LINES = 100
+BODY_FAIL_LINES = 150
 CHINESE_RE = re.compile(r"[一-鿿]")
 ENGLISH_RE = re.compile(r"[A-Za-z]{2,}")
 
@@ -34,6 +46,11 @@ class Violation:
 
     def __str__(self) -> str:
         return f"  [{self.rule}] {self.detail}"
+
+
+# Warning-only rules: surface them in the report and CI logs, but they do NOT
+# fail the exit code. Add to this set sparingly — most rules should be errors.
+WARNING_RULES = {"body-long"}
 
 
 @dataclass
@@ -49,39 +66,72 @@ class Report:
 
     @property
     def clean(self) -> bool:
-        return not self.violations
+        """True iff there are no error-level violations (warnings allowed)."""
+        return not any(v.rule not in WARNING_RULES for v in self.violations)
+
+    @property
+    def error_count(self) -> int:
+        return sum(1 for v in self.violations if v.rule not in WARNING_RULES)
+
+    @property
+    def warning_count(self) -> int:
+        return sum(1 for v in self.violations if v.rule in WARNING_RULES)
 
     def to_dict(self) -> dict:
         by_file: dict[str, list[dict]] = {}
         for v in self.violations:
-            by_file.setdefault(v.path, []).append({"rule": v.rule, "detail": v.detail})
+            by_file.setdefault(v.path, []).append(
+                {"rule": v.rule, "detail": v.detail, "level": "warning" if v.rule in WARNING_RULES else "error"}
+            )
         return {
             "total_files": self.total_files,
             "leaf_files": self.leaf_files,
             "index_files": self.index_files,
             "violation_count": len(self.violations),
+            "error_count": self.error_count,
+            "warning_count": self.warning_count,
             "files_with_violations": len(by_file),
             "violations_by_file": by_file,
         }
 
 
-def parse_frontmatter(text: str) -> tuple[dict | None, str | None]:
+def parse_frontmatter(text: str) -> tuple[dict | None, str | None, str]:
+    """Return (frontmatter dict, error msg, body text after frontmatter)."""
     m = FRONTMATTER_RE.match(text)
     if not m:
-        return None, "missing frontmatter (no leading `---` block)"
+        return None, "missing frontmatter (no leading `---` block)", text
     try:
         data = yaml.safe_load(m.group(1)) or {}
     except yaml.YAMLError as e:
-        return None, f"invalid YAML: {e}"
+        return None, f"invalid YAML: {e}", text[m.end():]
     if not isinstance(data, dict):
-        return None, "frontmatter is not a YAML mapping"
-    return data, None
+        return None, "frontmatter is not a YAML mapping", text[m.end():]
+    return data, None, text[m.end():]
 
 
-def lint_leaf(path: Path, fm: dict, report: Report, root: Path) -> None:
+def lint_leaf(path: Path, fm: dict, body: str, report: Report, root: Path) -> None:
     for f in LEAF_REQUIRED_FIELDS:
         if f not in fm:
             report.add(path, "missing-field", f"required field `{f}` is absent", root)
+
+    # Body length — encourage progressive disclosure when a single SKILL grows.
+    # Reference / examples files (e.g. *.reference.md) don't carry frontmatter
+    # and are filtered out earlier; only files with frontmatter reach lint_leaf.
+    n_lines = len(body.splitlines())
+    if n_lines >= BODY_FAIL_LINES:
+        report.add(
+            path,
+            "body-too-long",
+            f"body is {n_lines} lines; ≥{BODY_FAIL_LINES} — split into reference.md / examples.md",
+            root,
+        )
+    elif n_lines >= BODY_WARN_LINES:
+        report.add(
+            path,
+            "body-long",
+            f"body is {n_lines} lines; ≥{BODY_WARN_LINES} suggests splitting into reference.md / examples.md (warning)",
+            root,
+        )
 
     desc = fm.get("description")
     if isinstance(desc, str):
@@ -155,6 +205,10 @@ def lint_index(path: Path, fm: dict, report: Report, root: Path) -> None:
     for entry in path.parent.iterdir():
         if entry.name.startswith(".") or entry.name == "index.md":
             continue
+        # Sibling content files (.examples.md / .reference.md) are not skills
+        # and should not be declared in children.
+        if any(entry.name.endswith(s) for s in SIBLING_SUFFIXES):
+            continue
         if entry.is_dir():
             actual.add(f"{entry.name}/index.md")
         elif entry.suffix == ".md":
@@ -169,15 +223,24 @@ def lint_index(path: Path, fm: dict, report: Report, root: Path) -> None:
 
 
 def lint_file(path: Path, report: Report, root: Path) -> None:
+    # Sibling files (.examples.md / .reference.md) carry no frontmatter and
+    # are referenced from a main SKILL.md. They are not skills, so we don't
+    # count or lint them — but we still walk past them so children-out-of-sync
+    # in lint_index can be told to expect them.
+    name = path.name
+    for suffix in SIBLING_SUFFIXES:
+        if name.endswith(suffix):
+            return
+
     report.total_files += 1
-    is_index = path.name == "index.md"
+    is_index = name == "index.md"
     if is_index:
         report.index_files += 1
     else:
         report.leaf_files += 1
 
     text = path.read_text(encoding="utf-8")
-    fm, err = parse_frontmatter(text)
+    fm, err, body = parse_frontmatter(text)
     if fm is None:
         report.add(path, "frontmatter", err or "unknown parse error", root)
         return
@@ -185,7 +248,7 @@ def lint_file(path: Path, report: Report, root: Path) -> None:
     if is_index:
         lint_index(path, fm, report, root)
     else:
-        lint_leaf(path, fm, report, root)
+        lint_leaf(path, fm, body, report, root)
 
 
 def main() -> int:
@@ -210,7 +273,7 @@ def main() -> int:
             f"Scanned {report.total_files} files "
             f"({report.leaf_files} leaf, {report.index_files} index)."
         )
-        if report.clean:
+        if not report.violations:
             print("All clean.")
         else:
             by_file: dict[str, list[Violation]] = {}
@@ -219,10 +282,12 @@ def main() -> int:
             for fpath, vs in sorted(by_file.items()):
                 print(f"\n{fpath}")
                 for v in vs:
-                    print(str(v))
-            print(
-                f"\n{len(report.violations)} violations across {len(by_file)} files."
-            )
+                    level = "WARN" if v.rule in WARNING_RULES else "FAIL"
+                    print(f"  [{level} · {v.rule}] {v.detail}")
+            summary = f"\n{report.error_count} errors, {report.warning_count} warnings across {len(by_file)} files."
+            if report.error_count == 0:
+                summary += "  (errors clean — exit 0)"
+            print(summary)
 
     return 0 if report.clean else 1
 

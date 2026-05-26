@@ -1,16 +1,19 @@
 ---
 name: pr-conflict-resolution
-description: 兜底命令 — quill-set-status / quill-sync-done
+description: 兜底命令 — quill-set-status / quill-sync-done。Use when 评审涉及 `conflict-resolution`
+  的 PR。
 parent: ./index.md
 paths:
-  - "scripts/**"
+- scripts/**
 triggers:
-  keywords: [quill-set-status, quill-sync-done, 冲突]
+  keywords:
+  - quill-set-status
+  - quill-sync-done
+  - 冲突
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PR · 冲突与兜底命令
 
 ## 多 Agent 协作冲突

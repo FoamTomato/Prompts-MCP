@@ -1,17 +1,21 @@
 ---
 name: python-logger-discipline
-description: 日志规范 — 入口出口必打 + 禁 print + 禁敏感信息
+description: 日志规范 — 入口出口必打 + 禁 print + 禁敏感信息。Use when 写 Python 后端代码 / 评审涉及 `logger-discipline`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [logger, print, 敏感信息, API Key]
+  keywords:
+  - logger
+  - print
+  - 敏感信息
+  - API Key
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 日志规范
 
 ## 规则

@@ -1,6 +1,7 @@
 ---
 name: ddd-domain-pure
-description: '设计模式 · ddd-layering: Domain 纯净 — 不依赖框架，封装业务规则'
+description: Domain 纯净 — 不依赖框架，封装业务规则。Use when 写 Python 后端代码 / 评审涉及 `domain-pure`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/domain/**/*.py

@@ -1,6 +1,7 @@
 ---
 name: sql-no-implicit-conversion
-description: 禁隐式类型转换（VARCHAR ↔ INT），用 CAST 显式
+description: 禁隐式类型转换（VARCHAR ↔ INT），用 CAST 显式。Use when 写 SQL / 迁移脚本 / 评审涉及 `no-implicit-conversion`
+  的 PR。
 parent: ./index.md
 paths:
 - '**/*.sql'

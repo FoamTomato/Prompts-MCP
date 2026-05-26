@@ -1,6 +1,7 @@
 ---
 name: antd-table-pagination-server
-description: '框架约定 · antd: Table 分页一律走服务端 — 禁前端全量'
+description: Table 分页一律走服务端 — 禁前端全量。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及 `pagination-server-side`
+  的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

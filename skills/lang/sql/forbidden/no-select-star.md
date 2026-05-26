@@ -1,6 +1,7 @@
 ---
 name: sql-no-select-star
-description: 禁 SELECT *（已在 docs/Creative_Ideation/harness/skills/ 详写）
+description: 禁 SELECT *（已在 docs/Creative_Ideation/harness/skills/ 详写）。Use when 写 Python
+  后端代码 / 评审涉及 `no-select-star` 的 PR。
 parent: ./index.md
 paths:
 - py/**/*.py

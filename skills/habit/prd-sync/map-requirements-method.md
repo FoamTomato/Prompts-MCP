@@ -1,16 +1,19 @@
 ---
 name: prd-map-requirements
-description: 需求映射方法 — 用户需求 → 模块 + 子模块 + artifacts
+description: 需求映射方法 — 用户需求 → 模块 + 子模块 + artifacts。Use when 改子模块 PRD / 评审涉及 `map-requirements-method`
+  的 PR。
 parent: ./index.md
 paths:
-  - "project-index/modules/**"
+- project-index/modules/**
 triggers:
-  keywords: [需求映射, map, requirements]
+  keywords:
+  - 需求映射
+  - map
+  - requirements
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PRD Sync · 需求映射方法
 
 ## 用途

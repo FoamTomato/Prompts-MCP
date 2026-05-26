@@ -1,19 +1,23 @@
 ---
 name: fastapi-llm-provider-selection
-description: LLM 主备选型 — 通义千问主 / OpenAI 备 / 通义万相生图
+description: LLM 主备选型 — 通义千问主 / OpenAI 备 / 通义万相生图。Use when 写 Python 后端代码 / 评审涉及 `provider-selection`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/services/llm_*.py"
-  - "py/services/llm_*.py"
-  - "backend/agents/**/*"
-  - "py/agents/**/*"
+- backend/services/llm_*.py
+- py/services/llm_*.py
+- backend/agents/**/*
+- py/agents/**/*
 triggers:
-  keywords: [LLM, 通义, OpenAI, provider]
+  keywords:
+  - LLM
+  - 通义
+  - OpenAI
+  - provider
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # LLM · Provider 主备选型
 
 ## 主备方案

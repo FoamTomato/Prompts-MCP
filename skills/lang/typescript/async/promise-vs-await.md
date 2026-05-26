@@ -1,6 +1,7 @@
 ---
 name: typescript-promise-vs-await
-description: 优先 async/await — 仅 then/catch 用于副作用编排
+description: 优先 async/await — 仅 then/catch 用于副作用编排。Use when 写 TS 业务代码 / 评审涉及 `promise-vs-await`
+  的 PR。
 parent: ./index.md
 paths:
 - frontend/**/*.ts

@@ -1,6 +1,7 @@
 ---
 name: pipeline-method-as-flow
-description: '设计模式 · pipeline: 方法即流程编排器 — 注释驱动的步骤大纲'
+description: 方法即流程编排器 — 注释驱动的步骤大纲。Use when 写 Python 后端代码 / 评审涉及 `method-as-flow` 的
+  PR。
 parent: ./index.md
 paths:
 - backend/services/**/*.py

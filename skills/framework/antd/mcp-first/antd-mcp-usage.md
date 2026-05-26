@@ -1,6 +1,7 @@
 ---
 name: antd-mcp-usage
-description: 写真实 antd 组件代码前必查 MCP — antd_info / antd_demo / antd_token / antd_semantic
+description: 写真实 antd 组件代码前必查 MCP — antd_info / antd_demo / antd_token / antd_semantic。Use
+  when 写 React 组件 / 改 .tsx 文件 / 评审涉及 `antd-mcp-usage` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

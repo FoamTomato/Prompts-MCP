@@ -1,6 +1,7 @@
 ---
 name: pipeline-validator-converter
-description: Validator/Converter 独立 — Service 方法只调用，不内嵌
+description: Validator/Converter 独立 — Service 方法只调用，不内嵌。Use when 写 Python 后端代码 / 评审涉及
+  `validator-converter-split` 的 PR。
 parent: ./index.md
 paths:
 - backend/services/**/*.py

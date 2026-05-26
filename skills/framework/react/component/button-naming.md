@@ -1,18 +1,22 @@
 ---
 name: react-button-naming
-description: 三类按钮：antd Button / 品牌 CTA / 业务包装
+description: 三类按钮：antd Button / 品牌 CTA / 业务包装。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及
+  `button-naming` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
-  - "frontend/src/components/**/*"
-  - "frontend/src/features/**/*"
+- frontend/src/**/*.tsx
+- frontend/src/components/**/*
+- frontend/src/features/**/*
 triggers:
-  keywords: [Button, CTA, BrandButton, 按钮]
+  keywords:
+  - Button
+  - CTA
+  - BrandButton
+  - 按钮
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 按钮三类命名
 
 ## 三类硬性区分

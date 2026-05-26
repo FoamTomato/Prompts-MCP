@@ -1,6 +1,7 @@
 ---
 name: python-no-n-plus-one
-description: '语言规则 · python: ORM 查询禁 N+1 — 循环内单条查询必须改批量'
+description: ORM 查询禁 N+1 — 循环内单条查询必须改批量。Use when 写 Python 后端代码 / 评审涉及 `no-n-plus-one`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/**/*.py

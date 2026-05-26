@@ -1,6 +1,7 @@
 ---
 name: fastapi-llm-sse-protocol
-description: LLM SSE 协议 — 流式 chunk + done 终止
+description: LLM SSE 协议 — 流式 chunk + done 终止。Use when 写 Python 后端代码 / 评审涉及 `sse-protocol`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/services/**/*.py

@@ -1,17 +1,21 @@
 ---
 name: python-module-naming
-description: Python 模块/包命名 — 小写 + 单数 + 分层语义
+description: Python 模块/包命名 — 小写 + 单数 + 分层语义。Use when 写 Python 后端代码 / 评审涉及 `module-naming`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [模块命名, 包命名, __init__, 文件命名]
+  keywords:
+  - 模块命名
+  - 包命名
+  - __init__
+  - 文件命名
 effort: low
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 模块/包命名
 
 ## 规则

@@ -1,6 +1,7 @@
 ---
 name: strategy-exporter
-description: 导出器策略 — DocxExporter / PdfExporter 可替换
+description: 导出器策略 — DocxExporter / PdfExporter 可替换。Use when 写 Python 后端代码 / 评审涉及
+  `exporter-strategy` 的 PR。
 parent: ./index.md
 paths:
 - backend/services/exporters/**/*.py

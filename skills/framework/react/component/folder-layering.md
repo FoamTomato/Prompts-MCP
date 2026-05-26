@@ -1,16 +1,20 @@
 ---
 name: react-folder-layering
-description: components/ features/<page>/ pages/ 三层目录约定
+description: components/ features/<page>/ pages/ 三层目录约定。Use when 写 React 组件 / 改 .tsx
+  文件 / 评审涉及 `folder-layering` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [目录, components, features, pages]
+  keywords:
+  - 目录
+  - components
+  - features
+  - pages
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 三层目录
 
 ## 规则

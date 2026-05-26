@@ -1,17 +1,20 @@
 ---
 name: fastapi-router-di
-description: Depends 依赖注入 — current_user / redis_pool / db
+description: Depends 依赖注入 — current_user / redis_pool / db。Use when 写 Python 后端代码
+  / 评审涉及 `dependency-injection` 的 PR。
 parent: ./index.md
 paths:
-  - "backend/routers/**/*.py"
-  - "py/routers/**/*.py"
+- backend/routers/**/*.py
+- py/routers/**/*.py
 triggers:
-  keywords: [Depends, 依赖注入, current_user]
+  keywords:
+  - Depends
+  - 依赖注入
+  - current_user
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # FastAPI Router · Depends 依赖注入
 
 ## 规则

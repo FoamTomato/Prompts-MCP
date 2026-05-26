@@ -1,6 +1,7 @@
 ---
 name: antd-confirm-vs-modal
-description: Modal.confirm 用于一次性确认 / <Modal> 用于复杂内容
+description: Modal.confirm 用于一次性确认 / <Modal> 用于复杂内容。Use when 写 React 组件 / 改 .tsx 文件
+  / 评审涉及 `confirm-vs-modal` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

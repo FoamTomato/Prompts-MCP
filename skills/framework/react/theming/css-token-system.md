@@ -1,167 +1,75 @@
 ---
 name: react-css-token-system
-description: CSS 变量 Token 系统 — 单一可信源 ConfigProvider
+description: React CSS 变量 Token 单一可信源 — tokens.css ↔ antd theme.token ↔ GSAP duration 三者镜像。Use when 配置 antd theme / 新增颜色或圆角 / 接入暗色模式 / 评审硬编码颜色 PR。
 parent: ./index.md
 paths:
-- frontend/src/styles/**/*.css
-- frontend/src/**/*.tsx
+  - "frontend/src/styles/**/*.css"
+  - "frontend/src/**/*.tsx"
+  - "frontend/src/main.tsx"
 triggers:
   keywords:
-  - CSS variable
-  - --token
-  - ConfigProvider
-  - 单一可信源
+    - CSS variable
+    - CSS 变量
+    - design token
+    - 设计 token
+    - tokens.css
+    - ConfigProvider
+    - antd theme
+    - 单一可信源
+    - single source of truth
 effort: medium
-context: inline
-version: '1.0'
+version: "1.0"
 ---
+
 # React · CSS Token 系统
 
-## 单一可信源
+## 单一可信源原则
 
-颜色 / 圆角 / 字号 / 动画时长**只来自一处** — antd `ConfigProvider.theme.token` + `tokens.css`。
+颜色 / 圆角 / 字号 / 字重 / 间距 / 动画时长 **只来自一处**：项目根的 `tokens.css`。所有消费方都**镜像**它，不重新定义：
 
 ```
-main.tsx (antdTheme.token)  ←─── 唯一可信源 ───→  tokens.css
-                                      ↓
-                            所有组件 + GSAP 都从 CSS 变量读
+tokens.css  (唯一定义点)
+    │
+    ├──→ antd ConfigProvider.theme.token  (main.tsx 启动时读 CSS var 注入)
+    ├──→ 业务组件 .tsx / .css            (直接用 var(--accent) 等)
+    └──→ GSAP animations/tokens.ts      (镜像同样的数值)
 ```
 
-## 完整 tokens.css
+## 规则
 
-```css
-/* src/styles/tokens.css */
-:root {
-  /* ===== 品牌色 ===== */
-  --accent:        #3b82f6;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-danger:  #ef4444;
-  --color-info:    #3b82f6;
+1. **只在 `tokens.css` 定义实际值**（hex / px / 秒），其他地方一律 `var(--xxx)`。
+2. **antd `theme.token` 在 `main.tsx` 启动时**读取 CSS 变量注入（用 `getComputedStyle`），不要硬编码同样的颜色。
+3. **GSAP `D = {micro, base, slow, hero}`** 时长数值必须与 CSS `--duration-fast/mid/slow` 一致，不要写两份不同的。
+4. **新增 token 类别**（如 shadow / opacity）先加到 `tokens.css`，再同步到 antd theme + animations。
+5. **暗色模式**用 `[data-theme="dark"] :root` 覆盖变量，组件代码零改动。
 
-  /* ===== 文字层级 ===== */
-  --text-strong:     #0f172a;
-  --text-primary:    #334155;
-  --text-secondary:  #64748b;
-  --text-tertiary:   #94a3b8;
-  --text-disabled:   #cbd5e1;
+## 命名规约
 
-  /* ===== 背景 ===== */
-  --bg-base:       #ffffff;
-  --bg-container:  #ffffff;
-  --bg-layout:     #f8fafc;
-  --bg-elevated:   #ffffff;
-  --bg-hover:      #f1f5f9;
-  --bg-active:     #e2e8f0;
-
-  /* ===== 边框 ===== */
-  --border:         #e5e7eb;
-  --border-soft:    #f1f5f9;
-  --border-strong:  #cbd5e1;
-
-  /* ===== 圆角 ===== */
-  --radius-xs:  4px;
-  --radius-sm:  6px;
-  --radius-md:  8px;
-  --radius-lg:  12px;
-  --radius-xl:  16px;
-
-  /* ===== 间距（8px 网格） ===== */
-  --space-xs:   4px;
-  --space-sm:   8px;
-  --space-md:   16px;
-  --space-lg:   24px;
-  --space-xl:   32px;
-  --space-2xl:  48px;
-
-  /* ===== 字号 ===== */
-  --text-xs:   11px;
-  --text-sm:   12px;
-  --text-md:   13px;
-  --text-lg:   14px;
-  --text-xl:   16px;
-  --text-2xl:  20px;
-
-  /* ===== 字重 ===== */
-  --font-regular:  400;
-  --font-medium:   500;
-  --font-semibold: 600;
-  --font-bold:     700;
-
-  /* ===== 控件高度 ===== */
-  --control-height-sm: 30px;
-  --control-height:    36px;
-  --control-height-lg: 40px;
-
-  /* ===== 动画时长（与 GSAP 一致） ===== */
-  --duration-fast:  0.15s;
-  --duration-mid:   0.24s;
-  --duration-slow:  0.4s;
-
-  /* ===== 字体 ===== */
-  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", system-ui, sans-serif;
-  --font-mono: ui-monospace, "JetBrains Mono", Menlo, monospace;
-}
-```
-
-## antd 镜像注入
-
-```ts
-// src/main.tsx
-const cssVar = (n: string) =>
-  getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-
-const antdTheme = {
-  token: {
-    colorPrimary:   cssVar("--accent")        || "#3b82f6",
-    colorSuccess:   cssVar("--color-success") || "#10b981",
-    colorWarning:   cssVar("--color-warning") || "#f59e0b",
-    colorError:     cssVar("--color-danger")  || "#ef4444",
-    borderRadius:   8,
-    borderRadiusLG: 12,
-    borderRadiusSM: 6,
-    fontFamily:     cssVar("--font-sans"),
-    fontSize:       13,
-    motionDurationFast: "0.15s",
-    motionDurationMid:  "0.24s",
-    motionDurationSlow: "0.4s",
-  },
-};
-```
-
-## GSAP 动画时长 token
-
-```ts
-// src/animations/tokens.ts
-export const D = {
-  micro:  0.15,    // 与 --duration-fast
-  base:   0.24,    // 与 --duration-mid
-  slow:   0.4,     // 与 --duration-slow
-  hero:   0.6,
-} as const;
-```
-
-## 暗色主题切换（未来）
-
-```css
-[data-theme="dark"] {
-  --bg-base:    #0f172a;
-  --bg-layout:  #1e293b;
-  --text-strong: #f8fafc;
-  /* ... 仅改变量，组件不变 */
-}
-```
+| 类别 | 前缀 | 例 |
+|------|------|----|
+| 品牌色 | `--accent` / `--color-*` | `--accent`, `--color-danger` |
+| 文字 | `--text-*` | `--text-primary`, `--text-secondary` |
+| 背景 | `--bg-*` | `--bg-base`, `--bg-hover` |
+| 边框 | `--border*` | `--border`, `--border-strong` |
+| 圆角 | `--radius-*` | `--radius-sm`, `--radius-lg` |
+| 间距 | `--space-*`（8px 网格） | `--space-md` = 16px |
+| 字号 | `--text-xs/sm/md/lg/xl/2xl` | `--text-lg` = 14px |
+| 时长 | `--duration-fast/mid/slow` | `--duration-mid` = 0.24s |
 
 ## 自检
 
-- [ ] tokens.css 是颜色 / 圆角 / 字号的唯一来源？
-- [ ] antd theme.token 镜像 tokens.css 值？
-- [ ] 组件用 CSS 变量，不硬编码？
-- [ ] GSAP 时长与 CSS `--duration-*` 数值一致？
+- [ ] tokens.css 是颜色 / 圆角 / 字号 / 间距 / 时长 / 字体的**唯一**来源？
+- [ ] antd `theme.token` 通过 `getComputedStyle` 镜像 CSS 变量，不硬编码？
+- [ ] 业务组件全程用 `var(--xxx)`，找不到硬编码 `#3b82f6` / `0.24s` 之类？
+- [ ] GSAP `D.micro/base/slow` 数值与 `--duration-*` 完全一致？
+- [ ] 新加颜色 / 圆角 / 字号必经 tokens.css，不在组件里直写？
+
+## 详细参考
+
+- 完整 tokens.css 模板 + antd 注入 + GSAP 镜像 + 暗色模式片段：[`./css-token-system.examples.md`](./css-token-system.examples.md)
 
 ## 相关
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`palette-principles.md`](./palette-principles.md) · [`palette-types.md`](./palette-types.md)
 - 配套：[`../../antd/setup/config-provider.md`](../../antd/setup/config-provider.md)
-

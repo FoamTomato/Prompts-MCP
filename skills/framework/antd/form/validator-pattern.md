@@ -1,6 +1,7 @@
 ---
 name: antd-validator-pattern
-description: antd Form 自定义校验器（validator）模板 — 字段联动 / 异步校验
+description: antd Form 自定义校验器（validator）模板 — 字段联动 / 异步校验。Use when 写 React 组件 / 改 .tsx
+  文件 / 评审涉及 `validator-pattern` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

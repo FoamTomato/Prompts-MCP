@@ -1,6 +1,7 @@
 ---
 name: fastapi-storage-signed-upload
-description: 签名直传流程 — 客户端拿 STS / 预签名 URL → 直传 OSS
+description: 签名直传流程 — 客户端拿 STS / 预签名 URL → 直传 OSS。Use when 写 Python 后端代码 / 评审涉及 `signed-upload`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/services/oss*.py

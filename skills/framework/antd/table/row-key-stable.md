@@ -1,6 +1,7 @@
 ---
 name: antd-table-row-key
-description: '框架约定 · antd: Table rowKey 必用稳定 id，禁用 index'
+description: Table rowKey 必用稳定 id，禁用 index。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及
+  `row-key-stable` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

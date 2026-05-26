@@ -1,19 +1,23 @@
 ---
 name: pipeline-ppt-outline
-description: PPT 大纲生成 pipeline — 章节 → 大纲 → 幻灯片
+description: PPT 大纲生成 pipeline — 章节 → 大纲 → 幻灯片。Use when 写 Python 后端代码 / 评审涉及 `ppt-outline-pipeline`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/services/outline_*.py"
-  - "py/services/outline_*.py"
-  - "backend/agents/**/*"
-  - "py/agents/**/*"
+- backend/services/outline_*.py
+- py/services/outline_*.py
+- backend/agents/**/*
+- py/agents/**/*
 triggers:
-  keywords: [大纲, outline, PPT, pipeline]
+  keywords:
+  - 大纲
+  - outline
+  - PPT
+  - pipeline
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Pipeline · PPT 大纲生成
 
 ## 流程

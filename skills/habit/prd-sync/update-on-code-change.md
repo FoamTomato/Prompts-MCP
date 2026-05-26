@@ -1,6 +1,7 @@
 ---
 name: prd-update-on-code
-description: CLAUDE.md Step 8 — 代码改 → 必更对应 <SUB_ID>-*.md Change Log
+description: CLAUDE.md Step 8 — 代码改 → 必更对应 <SUB_ID>-*.md Change Log。Use when 改子模块
+  PRD / 评审涉及 `update-on-code-change` 的 PR。
 parent: ./index.md
 paths:
 - project-index/modules/**

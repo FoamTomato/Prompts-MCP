@@ -1,6 +1,7 @@
 ---
 name: antd-config-provider
-description: antd ConfigProvider 注入主题 token（颜色/圆角/字体/动画）
+description: antd ConfigProvider 注入主题 token（颜色/圆角/字体/动画）。Use when 写 React 组件 / 改 .tsx
+  文件 / 评审涉及 `config-provider` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/main.tsx

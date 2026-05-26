@@ -1,6 +1,7 @@
 ---
 name: java-checked-vs-runtime
-description: '语言规则 · java: Checked vs Runtime 异常使用边界'
+description: Checked vs Runtime 异常使用边界。Use when 写 Java 代码 / 评审涉及 `checked-vs-runtime`
+  的 PR。
 parent: ./index.md
 paths:
 - '*.java'

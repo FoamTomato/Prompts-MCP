@@ -1,17 +1,20 @@
 ---
 name: sql-partition-required
-description: 大表 SELECT 必带分区字段（按 Quill 数据规模不强制，预留）
+description: 大表 SELECT 必带分区字段（按 Quill 数据规模不强制，预留）。Use when 写 SQL / 迁移脚本 / 评审涉及 `partition-required`
+  的 PR。
 parent: ./index.md
 paths:
-  - "py/migrations/**/*.py"
-  - "**/*.sql"
+- py/migrations/**/*.py
+- '**/*.sql'
 triggers:
-  keywords: [partition, 分区, big table]
+  keywords:
+  - partition
+  - 分区
+  - big table
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · 大表必带分区字段
 
 ## 状态

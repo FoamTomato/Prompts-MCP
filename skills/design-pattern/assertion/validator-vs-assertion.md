@@ -1,19 +1,27 @@
 ---
 name: assertion-validator-vs-assertion
-description: Pydantic Schema validator 与 Asserts 各自的边界 + 5 个不该用断言的反例
+description: Pydantic Schema validator 与 Asserts 各自的边界 + 5 个不该用断言的反例。Use when 写 Python
+  后端代码 / 评审涉及 `validator-vs-assertion` 的 PR。
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
-  - "py/schemas/**/*.py"
-  - "py/asserts/**/*.py"
+- backend/**/*.py
+- py/**/*.py
+- py/schemas/**/*.py
+- py/asserts/**/*.py
 triggers:
-  keywords: [validator, Asserts, Pydantic, Field, Schema, 校验, 断言, 反例]
+  keywords:
+  - validator
+  - Asserts
+  - Pydantic
+  - Field
+  - Schema
+  - 校验
+  - 断言
+  - 反例
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Asserts vs Pydantic · 边界与反例
 
 ## 分工总则

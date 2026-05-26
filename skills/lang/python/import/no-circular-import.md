@@ -1,17 +1,21 @@
 ---
 name: python-no-circular-import
-description: Python Service 层禁循环依赖 — 不互相 import，必要时下移共享逻辑到 helper
+description: Python Service 层禁循环依赖 — 不互相 import，必要时下移共享逻辑到 helper。Use when 写 Python
+  后端代码 / 评审涉及 `no-circular-import` 的 PR。
 parent: ./index.md
 paths:
-  - "backend/services/**/*.py"
-  - "py/services/**/*.py"
+- backend/services/**/*.py
+- py/services/**/*.py
 triggers:
-  keywords: [循环依赖, circular import, import order, 模块依赖]
+  keywords:
+  - 循环依赖
+  - circular import
+  - import order
+  - 模块依赖
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 禁循环依赖
 
 ## 规则

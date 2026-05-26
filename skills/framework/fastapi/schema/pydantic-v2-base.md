@@ -1,6 +1,7 @@
 ---
 name: fastapi-schema-pydantic
-description: Pydantic v2 BaseModel 模板 — Field description / ge/le
+description: Pydantic v2 BaseModel 模板 — Field description / ge/le。Use when 写 Python
+  后端代码 / 评审涉及 `pydantic-v2-base` 的 PR。
 parent: ./index.md
 paths:
 - backend/schemas/**/*.py

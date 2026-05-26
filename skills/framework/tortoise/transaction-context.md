@@ -1,17 +1,20 @@
 ---
 name: tortoise-transaction-context
-description: in_transaction() 事务上下文 — 跨表写入必用
+description: in_transaction() 事务上下文 — 跨表写入必用。Use when 写 Python 后端代码 / 评审涉及 `transaction-context`
+  的 PR。
 parent: ./index.md
 paths:
-  - "backend/services/**/*.py"
-  - "py/services/**/*.py"
+- backend/services/**/*.py
+- py/services/**/*.py
 triggers:
-  keywords: [in_transaction, 事务, atomic]
+  keywords:
+  - in_transaction
+  - 事务
+  - atomic
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Tortoise · in_transaction 事务
 
 ## 规则

@@ -27,11 +27,27 @@ version: 1.0
 ### Rules
 
 - **name** is kebab-case, globally unique across the repo.
-- **description** must be 30–80 visible characters. Bad: `组件命名规则` (too generic). Good: `React/antd 组件命名：Button vs CTA vs BrandButton 的三类区分与选用`.
+- **description** must be **30–150 visible characters** and use the **two-sentence structure**:
+  1. *First sentence* — what the skill is about, with concrete nouns (class/field/layer names). No generic copy like `组件命名规则`.
+  2. *Second sentence* — must start with `Use when ` and list 2–4 concrete trigger situations separated by `/`. Example: `Use when 新建 Model 子类 / 改字段类型 / 评审 Migration 时。`
+  See [`skills/habit/skill-authoring/description-format.md`](skills/habit/skill-authoring/description-format.md) for full guidance.
 - **paths** are glob patterns. Used by `match_task_skills` to surface this skill when the caller is editing a matching file.
-- **triggers.keywords** must contain **at least 3 entries** and include **at least one Chinese term and one English term**. Include common synonyms — this is the primary recall signal for keyword search.
+- **triggers.keywords** must contain **at least 3 entries** and include **at least one Chinese term and one English term**. Include common synonyms — this is the primary recall signal. Keywords are **noun phrases / class names / API names**, not sentences (sentences belong in the `Use when` half of `description`). See [`skills/habit/skill-authoring/trigger-phrasing.md`](skills/habit/skill-authoring/trigger-phrasing.md).
 - **effort** ranks reading/applying cost; `low` skills get a small relevance boost on ties.
 - **version** is a free-form string; bump it when behavior changes meaningfully.
+
+### Body length
+
+The skill body (everything after the closing `---` of frontmatter) must be:
+
+- ≤ **100 lines** ideally — at this point the agent can absorb the whole thing in one read.
+- ≤ **150 lines** as a hard cap — beyond this, the linter raises a **body-too-long** error. Split into:
+  - `my-skill.md` — main entry, 30–100 lines of rules + self-check
+  - `my-skill.reference.md` — detailed API tables, full field lists (no frontmatter)
+  - `my-skill.examples.md` — full code examples (no frontmatter)
+  - `scripts/` — optional companion scripts
+
+Linter warns at 100 lines (`body-long`), errors at 150 (`body-too-long`). See [`skills/habit/skill-authoring/body-length-budget.md`](skills/habit/skill-authoring/body-length-budget.md) and [`progressive-disclosure.md`](skills/habit/skill-authoring/progressive-disclosure.md).
 
 ### Index files
 

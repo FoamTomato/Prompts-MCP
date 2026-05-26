@@ -1,6 +1,6 @@
 ---
 name: java-controller-thin
-description: '语言规则 · java: Spring Controller 薄壳'
+description: Spring Controller 薄壳。Use when 写 Java 代码 / 评审涉及 `controller-thin` 的 PR。
 parent: ./index.md
 paths:
 - '*.java'

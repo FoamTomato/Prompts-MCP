@@ -1,6 +1,6 @@
 ---
 name: react-palette-types
-description: '框架约定 · react: 配色方案类型 — 单色/邻近/互补/分散'
+description: 配色方案类型 — 单色/邻近/互补/分散。Use when 评审涉及 `palette-types` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/styles/**/*.css

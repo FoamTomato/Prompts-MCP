@@ -1,6 +1,7 @@
 ---
 name: react-client-state-zustand
-description: 客户端全局状态 Zustand + immer middleware
+description: 客户端全局状态 Zustand + immer middleware。Use when 写 TS 业务代码 / 评审涉及 `client-state-zustand`
+  的 PR。
 parent: ./index.md
 paths:
 - frontend/src/stores/**/*.ts

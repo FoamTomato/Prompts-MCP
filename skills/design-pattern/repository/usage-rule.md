@@ -1,6 +1,7 @@
 ---
 name: repository-usage-rule
-description: Repository 只做 CRUD — find_by / save / delete，禁业务判断
+description: Repository 只做 CRUD — find_by / save / delete，禁业务判断。Use when 写 Python
+  后端代码 / 评审涉及 `usage-rule` 的 PR。
 parent: ./index.md
 paths:
 - backend/repositories/**/*.py

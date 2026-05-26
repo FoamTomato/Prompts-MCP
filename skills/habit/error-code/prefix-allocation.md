@@ -1,18 +1,21 @@
 ---
 name: error-code-prefix
-description: 错误码前缀分配 — S/R/AC/B/V/I — 完整字典在 .ai/skills/core/error_code_dict.md
+description: 错误码前缀分配 — S/R/AC/B/V/I — 完整字典在 .ai/skills/core/error_code_dict.md。Use
+  when 写 Python 后端代码 / 评审涉及 `prefix-allocation` 的 PR。
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
-  - "frontend/src/**/*.ts"
+- backend/**/*.py
+- py/**/*.py
+- frontend/src/**/*.ts
 triggers:
-  keywords: [错误码, error code, ApiException]
+  keywords:
+  - 错误码
+  - error code
+  - ApiException
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Error Code · 前缀分配
 
 ## 当前前缀

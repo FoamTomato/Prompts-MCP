@@ -1,17 +1,24 @@
 ---
 name: assertion-post-tool-pattern
-description: 与 ApiException 三件套配合的边界 try/except — 何时需要捕获 ApiException 做副作用清理
+description: 与 ApiException 三件套配合的边界 try/except — 何时需要捕获 ApiException 做副作用清理。Use when
+  写 Python 后端代码 / 评审涉及 `post-tool-pattern` 的 PR。
 parent: ./index.md
 paths:
-  - "py/services/**/*.py"
-  - "backend/services/**/*.py"
+- py/services/**/*.py
+- backend/services/**/*.py
 triggers:
-  keywords: [try, except, ApiException, 副作用, 清理, finally, 状态更新]
+  keywords:
+  - try
+  - except
+  - ApiException
+  - 副作用
+  - 清理
+  - finally
+  - 状态更新
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Assertion · 边界处理模式
 
 ## 默认：不捕获 ApiException

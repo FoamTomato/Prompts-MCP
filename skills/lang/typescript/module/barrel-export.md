@@ -1,6 +1,7 @@
 ---
 name: typescript-barrel-export
-description: barrel export 仅在 features/<page>/index.ts 使用
+description: barrel export 仅在 features/<page>/index.ts 使用。Use when 写 TS 业务代码 / 评审涉及
+  `barrel-export` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/features/**/index.ts

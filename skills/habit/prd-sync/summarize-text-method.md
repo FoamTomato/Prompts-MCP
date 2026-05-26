@@ -1,6 +1,7 @@
 ---
 name: prd-summarize-text
-description: '习惯 · prd-sync: 文本摘要方法 — 长文档 → 关键决策 + 行动项'
+description: 文本摘要方法 — 长文档 → 关键决策 + 行动项。Use when 改子模块 PRD / 评审涉及 `summarize-text-method`
+  的 PR。
 parent: ./index.md
 paths:
 - project-index/modules/**

@@ -1,17 +1,20 @@
 ---
 name: prd-triplet-rule
-description: 三件套规范 — PRD + sketch + modules 三者必齐
+description: 三件套规范 — PRD + sketch + modules 三者必齐。Use when 改子模块 PRD / 评审涉及 `triplet-rule`
+  的 PR。
 parent: ./index.md
 paths:
-  - "project-index/modules/**"
-  - "design/**"
+- project-index/modules/**
+- design/**
 triggers:
-  keywords: [三件套, sketch, modules.html]
+  keywords:
+  - 三件套
+  - sketch
+  - modules.html
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PRD Sync · 三件套规范
 
 ## 核心约束

@@ -1,17 +1,21 @@
 ---
 name: typescript-file-naming
-description: 组件 PascalCase.tsx / hook camelCase.ts / 工具 kebab-case.ts
+description: 组件 PascalCase.tsx / hook camelCase.ts / 工具 kebab-case.ts。Use when 写 TS
+  业务代码 / 评审涉及 `file-naming` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/**/*.ts"
-  - "frontend/**/*.tsx"
+- frontend/**/*.ts
+- frontend/**/*.tsx
 triggers:
-  keywords: [文件命名, PascalCase, kebab-case, camelCase]
+  keywords:
+  - 文件命名
+  - PascalCase
+  - kebab-case
+  - camelCase
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · 文件命名
 
 ## 规则

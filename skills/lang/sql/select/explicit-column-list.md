@@ -1,6 +1,7 @@
 ---
 name: sql-explicit-column-list
-description: '语言规则 · sql: SELECT 必须显式列出列名 — 禁 SELECT *'
+description: SELECT 必须显式列出列名 — 禁 SELECT *。Use when 写 Python 后端代码 / 评审涉及 `explicit-column-list`
+  的 PR。
 parent: ./index.md
 paths:
 - py/**/*.py

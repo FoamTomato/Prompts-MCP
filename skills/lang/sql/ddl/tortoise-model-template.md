@@ -1,6 +1,7 @@
 ---
 name: sql-tortoise-model-template
-description: '语言规则 · sql: Tortoise Model 类标准模板'
+description: Tortoise Model 类标准模板。Use when 写 Python 后端代码 / 评审涉及 `tortoise-model-template`
+  的 PR。
 parent: ./index.md
 paths:
 - py/models/**/*.py

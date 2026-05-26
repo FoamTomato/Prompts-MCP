@@ -1,6 +1,7 @@
 ---
 name: react-server-state-tanstack
-description: 服务端状态用 TanStack Query — 缓存/重试/失效
+description: 服务端状态用 TanStack Query — 缓存/重试/失效。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及
+  `server-state-tanstack` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

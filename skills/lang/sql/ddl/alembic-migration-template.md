@@ -1,6 +1,7 @@
 ---
 name: sql-alembic-migration-template
-description: Alembic 迁移文件标准模板（含 upgrade/downgrade 对称）
+description: Alembic 迁移文件标准模板（含 upgrade/downgrade 对称）。Use when 写 Python 后端代码 / 评审涉及
+  `alembic-migration-template` 的 PR。
 parent: ./index.md
 paths:
 - py/migrations/**/*.py

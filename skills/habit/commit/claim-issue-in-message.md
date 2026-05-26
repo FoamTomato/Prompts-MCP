@@ -1,6 +1,6 @@
 ---
 name: commit-claim-issue
-description: '习惯 · commit: commit 消息里 claim Issue'
+description: commit 消息里 claim Issue。Use when 评审涉及 `claim-issue-in-message` 的 PR。
 parent: ./index.md
 paths:
 - .git/**

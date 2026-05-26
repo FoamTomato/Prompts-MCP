@@ -1,6 +1,7 @@
 ---
 name: fastapi-storage-bucket
-description: OSS Bucket 分桶 — assets/thumbnails/exports/backups/ai-images
+description: OSS Bucket 分桶 — assets/thumbnails/exports/backups/ai-images。Use when
+  写 Python 后端代码 / 评审涉及 `bucket-layout` 的 PR。
 parent: ./index.md
 paths:
 - backend/services/oss*.py

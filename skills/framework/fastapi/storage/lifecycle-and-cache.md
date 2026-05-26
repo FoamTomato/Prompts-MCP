@@ -1,6 +1,7 @@
 ---
 name: fastapi-storage-lifecycle
-description: '框架约定 · fastapi: OSS 生命周期与缓存 — TTL / 回源 / CDN'
+description: OSS 生命周期与缓存 — TTL / 回源 / CDN。Use when 写 Python 后端代码 / 评审涉及 `lifecycle-and-cache`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/services/oss*.py

@@ -1,6 +1,7 @@
 ---
 name: typescript-interface-type-alias
-description: interface PascalCase / type alias 仅用于联合/工具
+description: interface PascalCase / type alias 仅用于联合/工具。Use when 写 TS 业务代码 / 评审涉及
+  `interface-type-alias` 的 PR。
 parent: ./index.md
 paths:
 - frontend/**/*.ts

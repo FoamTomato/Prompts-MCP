@@ -1,17 +1,21 @@
 ---
 name: react-palette-principles
-description: 色板原则 60-30-10 / WCAG AA 对比度 / 饱和度克制
+description: 色板原则 60-30-10 / WCAG AA 对比度 / 饱和度克制。Use when 写 React 组件 / 改 .tsx 文件 /
+  评审涉及 `palette-principles` 的 PR。
 parent: ./index.md
 paths:
-  - "frontend/src/styles/**/*.css"
-  - "frontend/src/**/*.tsx"
+- frontend/src/styles/**/*.css
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [palette, color, 对比度, WCAG]
+  keywords:
+  - palette
+  - color
+  - 对比度
+  - WCAG
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 色板原则
 
 ## 三大原则

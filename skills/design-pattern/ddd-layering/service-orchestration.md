@@ -1,6 +1,7 @@
 ---
 name: ddd-service-orchestration
-description: '设计模式 · ddd-layering: Service 编排层 — 注释驱动的流水线方法'
+description: Service 编排层 — 注释驱动的流水线方法。Use when 写 Python 后端代码 / 评审涉及 `service-orchestration`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/services/**/*.py

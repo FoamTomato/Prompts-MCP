@@ -1,18 +1,22 @@
 ---
 name: react-component-structure
-description: React 组件文件结构模板（props/hooks/jsx 三段）
+description: React 组件文件结构模板（props/hooks/jsx 三段）。Use when 写 React 组件 / 改 .tsx 文件 /
+  评审 PR 时。
 parent: ./index.md
 paths:
-  - "frontend/src/components/**/*.tsx"
-  - "frontend/src/features/**/*.tsx"
-  - "frontend/src/pages/**/*.tsx"
+- frontend/src/components/**/*.tsx
+- frontend/src/features/**/*.tsx
+- frontend/src/pages/**/*.tsx
 triggers:
-  keywords: [React, 组件, Component, tsx]
+  keywords:
+  - React
+  - 组件
+  - Component
+  - tsx
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 组件结构模板
 
 ## 三段式结构

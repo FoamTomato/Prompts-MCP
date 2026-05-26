@@ -1,6 +1,7 @@
 ---
 name: python-pydantic-v2-field
-description: Pydantic Field 必带 description + 约束（ge/le/max_length）
+description: Pydantic Field 必带 description + 约束（ge/le/max_length）。Use when 写 Python
+  后端代码 / 评审涉及 `pydantic-v2-field` 的 PR。
 parent: ./index.md
 paths:
 - backend/schemas/**/*.py

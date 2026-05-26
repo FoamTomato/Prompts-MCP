@@ -1,6 +1,7 @@
 ---
 name: typescript-strict-mode
-description: tsconfig strict + noUncheckedIndexedAccess 全启用
+description: tsconfig strict + noUncheckedIndexedAccess 全启用。Use when 写 TS 业务代码 / 评审涉及
+  `strict-mode` 的 PR。
 parent: ./index.md
 paths:
 - frontend/**/*.ts

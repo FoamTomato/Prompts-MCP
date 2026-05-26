@@ -1,6 +1,7 @@
 ---
 name: fastapi-router-zero-logic
-description: Router 零逻辑 — 只做接收/注入/调用/返回，3 行内
+description: Router 零逻辑 — 只做接收/注入/调用/返回，3 行内。Use when 写 Python 后端代码 / 评审涉及 `zero-logic-principle`
+  的 PR。
 parent: ./index.md
 paths:
 - backend/routers/**/*.py

@@ -1,6 +1,7 @@
 ---
 name: antd-modal-lazy-mount
-description: '框架约定 · antd: destroyOnClose 懒挂载 — 避免大内容预渲染'
+description: destroyOnClose 懒挂载 — 避免大内容预渲染。Use when 写 React 组件 / 改 .tsx 文件 / 评审涉及
+  `lazy-mount` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx
