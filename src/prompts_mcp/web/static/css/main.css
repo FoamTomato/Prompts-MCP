@@ -207,12 +207,15 @@ pre::-webkit-scrollbar-thumb:hover { background: var(--fg-ghost); }
    vertical scroller in the page body (sidebar has its own). We center
    the inner column via padding-inline rather than max-width + margin auto
    so the scrollbar sits at the right edge of the viewport, not at the
-   right edge of a centered narrow column. */
+   right edge of a centered narrow column.
+
+   Cap at 1440px on ultra-wide displays (otherwise long descriptions
+   become hard to scan), but fill more naturally up to that point. */
 .content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 36px max(48px, calc((100% - 1200px) / 2)) 96px;
+  padding: 36px max(48px, calc((100% - 1440px) / 2)) 96px;
 }
 .content::-webkit-scrollbar { width: 10px; }
 .content::-webkit-scrollbar-track { background: transparent; }
@@ -462,7 +465,10 @@ pre::-webkit-scrollbar-thumb:hover { background: var(--fg-ghost); }
   margin: 0;
   font-size: 15px;
   line-height: 1.7;
-  max-width: 78ch;       /* ui-ux: line-length 65-75 chars，CJK 给 78 略宽 */
+  /* CJK 字符约等于两个 ASCII 字符宽度，所以 ui-ux 的 65-75ch 上限
+     对中文不直接适用。给到 90ch（≈ 1080px）让宽屏不浪费横向空间，
+     同时仍避免一行过宽难扫读。 */
+  max-width: 90ch;
 }
 .kw-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
 .kw {
