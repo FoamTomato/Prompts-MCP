@@ -1,17 +1,20 @@
 ---
 name: javascript-function-naming
-description: JS 函数 camelCase 动词开头
+description: '语言规则 · javascript: JS 函数 camelCase 动词开头'
 parent: ./index.md
 paths:
-  - "*.js"
-  - "*.ts"
+- '*.js'
+- '*.ts'
 triggers:
-  keywords: [function, camelCase]
+  keywords:
+  - function
+  - camelCase
+  - 函数
+  - 动词开头
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # JS · 函数命名
 
 > Quill 主栈不用 Node/Express。本文件为未来引入 Node 服务的扩展点。

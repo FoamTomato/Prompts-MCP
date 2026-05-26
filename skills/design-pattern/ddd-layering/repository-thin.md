@@ -1,17 +1,19 @@
 ---
 name: ddd-repository-thin
-description: Repository 薄 — 持久化转译，禁业务
+description: '设计模式 · ddd-layering: Repository 薄 — 持久化转译，禁业务'
 parent: ./index.md
 paths:
-  - "backend/repositories/**/*.py"
-  - "py/repositories/**/*.py"
+- backend/repositories/**/*.py
+- py/repositories/**/*.py
 triggers:
-  keywords: [Repository, Repo, 持久化]
+  keywords:
+  - Repository
+  - Repo
+  - 持久化
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # DDD · Repository 薄
 
 ## 规则

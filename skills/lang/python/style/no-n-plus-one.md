@@ -1,17 +1,21 @@
 ---
 name: python-no-n-plus-one
-description: ORM 查询禁 N+1 — 循环内单条查询必须改批量
+description: '语言规则 · python: ORM 查询禁 N+1 — 循环内单条查询必须改批量'
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [N+1, ORM, filter, in_bulk, 循环查询]
+  keywords:
+  - N+1
+  - ORM
+  - filter
+  - in_bulk
+  - 循环查询
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 禁 N+1 查询
 
 ## 规则

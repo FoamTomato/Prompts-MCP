@@ -3,16 +3,21 @@ name: react-server-state-tanstack
 description: 服务端状态用 TanStack Query — 缓存/重试/失效
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
-  - "frontend/src/**/*.ts"
-  - "frontend/src/api/**/*"
+- frontend/src/**/*.tsx
+- frontend/src/**/*.ts
+- frontend/src/api/**/*
 triggers:
-  keywords: [TanStack, useQuery, useMutation, react-query]
+  keywords:
+  - TanStack
+  - useQuery
+  - useMutation
+  - react-query
+  - 服务端状态用
+  - 失效
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 服务端状态 TanStack Query
 
 ## 规则

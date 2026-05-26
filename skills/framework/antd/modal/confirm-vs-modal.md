@@ -3,14 +3,19 @@ name: antd-confirm-vs-modal
 description: Modal.confirm 用于一次性确认 / <Modal> 用于复杂内容
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [Modal, Modal.confirm, Drawer]
+  keywords:
+  - Modal
+  - Modal.confirm
+  - Drawer
+  - 用于一次
+  - 于一次性
+  - 一次性确
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · Modal.confirm vs <Modal>
 
 ## 规则

@@ -1,16 +1,18 @@
 ---
 name: prd-split-method
-description: 拆 PRD 方法 — 子模块按字母前缀编号 + 三件套
+description: '习惯 · prd-sync: 拆 PRD 方法 — 子模块按字母前缀编号 + 三件套'
 parent: ./index.md
 paths:
-  - "project-index/modules/**"
+- project-index/modules/**
 triggers:
-  keywords: [拆 PRD, split, 子模块]
+  keywords:
+  - 拆 PRD
+  - split
+  - 子模块
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PRD Sync · 拆 PRD 方法
 
 ## 拆 PRD 触发

@@ -3,15 +3,19 @@ name: typescript-no-floating-promise
 description: 禁 floating promise — 必 await 或显式 .catch
 parent: ./index.md
 paths:
-  - "frontend/**/*.ts"
-  - "frontend/**/*.tsx"
+- frontend/**/*.ts
+- frontend/**/*.tsx
 triggers:
-  keywords: [Promise, await, floating promise, unhandled]
+  keywords:
+  - Promise
+  - await
+  - floating promise
+  - unhandled
+  - 或显式
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · 禁 floating promise
 
 ## 规则

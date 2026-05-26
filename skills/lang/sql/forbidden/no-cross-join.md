@@ -1,13 +1,13 @@
 ---
 name: sql-no-cross-join
-description: 禁 CROSS JOIN / 缺 ON → 笛卡尔积
+description: 禁 CROSS JOIN 与 JOIN 缺 ON 子句 — 都会产生笛卡尔积，是性能杀手
 parent: ./index.md
 paths:
   - "**/*.sql"
   - "py/**/*.py"
   - "backend/**/*.py"
 triggers:
-  keywords: [CROSS JOIN, 笛卡尔积]
+  keywords: [CROSS JOIN, 笛卡尔积, cartesian product, JOIN ON, 性能杀手]
 effort: medium
 context: inline
 version: "1.0"

@@ -1,17 +1,19 @@
 ---
 name: antd-table-pagination-server
-description: Table 分页一律走服务端 — 禁前端全量
+description: '框架约定 · antd: Table 分页一律走服务端 — 禁前端全量'
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
-  - "frontend/src/api/**/*"
+- frontend/src/**/*.tsx
+- frontend/src/api/**/*
 triggers:
-  keywords: [Table, pagination, 分页]
+  keywords:
+  - Table
+  - pagination
+  - 分页
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · Table 服务端分页
 
 ## 规则

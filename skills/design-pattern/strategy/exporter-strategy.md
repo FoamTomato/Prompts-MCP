@@ -3,17 +3,22 @@ name: strategy-exporter
 description: 导出器策略 — DocxExporter / PdfExporter 可替换
 parent: ./index.md
 paths:
-  - "backend/services/exporters/**/*.py"
-  - "py/services/exporters/**/*.py"
-  - "py/paper/**/*.py"
-  - "py/ppt/**/*.py"
+- backend/services/exporters/**/*.py
+- py/services/exporters/**/*.py
+- py/paper/**/*.py
+- py/ppt/**/*.py
 triggers:
-  keywords: [Exporter, strategy, docx, pdf]
+  keywords:
+  - Exporter
+  - strategy
+  - docx
+  - pdf
+  - 导出器策略
+  - 可替换
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Strategy · 导出器策略
 
 ## 何时用 Strategy

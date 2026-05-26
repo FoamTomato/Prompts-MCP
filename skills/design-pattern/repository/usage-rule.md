@@ -3,17 +3,21 @@ name: repository-usage-rule
 description: Repository 只做 CRUD — find_by / save / delete，禁业务判断
 parent: ./index.md
 paths:
-  - "backend/repositories/**/*.py"
-  - "py/repositories/**/*.py"
-  - "backend/services/**/*.py"
-  - "py/services/**/*.py"
+- backend/repositories/**/*.py
+- py/repositories/**/*.py
+- backend/services/**/*.py
+- py/services/**/*.py
 triggers:
-  keywords: [Repository, Repo, DAO, find_by]
+  keywords:
+  - Repository
+  - Repo
+  - DAO
+  - find_by
+  - 禁业务判断
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Repository · 使用规则
 
 ## 一句话定义

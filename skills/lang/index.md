@@ -1,10 +1,12 @@
 ---
 name: lang-index
-description: 语言级规则索引（Python / TypeScript / SQL）
+description: 语言级规则索引（Python / TypeScript / Java / JavaScript / SQL）
 parent: ../index.md
 children:
   - { name: python, path: python/index.md, tag: folder, note: Python 命名 / async / import / 错误处理 / 类型 }
   - { name: typescript, path: typescript/index.md, tag: folder, note: TS 命名 / 类型严格 / async / 模块 / 错误处理 }
+  - { name: java, path: java/index.md, tag: folder, note: Java 命名 / 异常 / 分层 }
+  - { name: javascript, path: javascript/index.md, tag: folder, note: 原生 JS 命名 / async / middleware }
   - { name: sql, path: sql/index.md, tag: folder, note: SELECT 规则 / 禁项 / JOIN / DDL 模板 }
 when_to_descend: |
   任务涉及具体语言文件（.py / .ts / .tsx / .sql / Alembic migration / Tortoise raw query / seed 脚本）。

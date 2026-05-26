@@ -3,15 +3,21 @@ name: gsap-principles
 description: GSAP 核心原则 — 单一引擎 / 集中管理 / GPU 友好 / 时长克制
 parent: ./index.md
 paths:
-  - "frontend/src/animations/**/*.ts"
-  - "frontend/src/**/*.tsx"
+- frontend/src/animations/**/*.ts
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [GSAP, gsap, useGSAP, timeline]
+  keywords:
+  - GSAP
+  - gsap
+  - useGSAP
+  - timeline
+  - 核心原则
+  - 单一引擎
+  - 集中管理
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # GSAP · 核心原则
 
 ## 6 条硬约束

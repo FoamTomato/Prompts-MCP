@@ -3,15 +3,18 @@ name: gsap-use-gsap-hook
 description: useGSAP({ scope, dependencies }) hook 模板
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
-  - "frontend/src/animations/**/*.ts"
+- frontend/src/**/*.tsx
+- frontend/src/animations/**/*.ts
 triggers:
-  keywords: [useGSAP, scope, dependencies]
+  keywords:
+  - useGSAP
+  - scope
+  - dependencies
+  - 模板
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # GSAP · useGSAP hook
 
 ## 规则

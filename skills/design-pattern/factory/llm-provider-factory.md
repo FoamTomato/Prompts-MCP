@@ -3,17 +3,20 @@ name: factory-llm-provider
 description: LLM provider 工厂 — provider_name → ProviderInstance
 parent: ./index.md
 paths:
-  - "backend/services/llm_*.py"
-  - "py/services/llm_*.py"
-  - "backend/agents/**/*"
-  - "py/agents/**/*"
+- backend/services/llm_*.py
+- py/services/llm_*.py
+- backend/agents/**/*
+- py/agents/**/*
 triggers:
-  keywords: [factory, provider, LLM]
+  keywords:
+  - factory
+  - provider
+  - LLM
+  - 工厂
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Factory · LLM Provider 工厂
 
 ## 何时用 Factory

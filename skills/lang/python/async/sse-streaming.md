@@ -1,19 +1,25 @@
 ---
 name: python-sse-streaming
-description: SSE 生成器模板 — yield + done 终止信号
+description: '语言规则 · python: SSE 生成器模板 — yield + done 终止信号'
 parent: ./index.md
 paths:
-  - "backend/routers/*.py"
-  - "py/routers/*.py"
-  - "backend/services/*.py"
-  - "py/services/*.py"
+- backend/routers/*.py
+- py/routers/*.py
+- backend/services/*.py
+- py/services/*.py
 triggers:
-  keywords: [SSE, StreamingResponse, yield, AsyncGenerator, event-stream]
+  keywords:
+  - SSE
+  - StreamingResponse
+  - yield
+  - AsyncGenerator
+  - event-stream
+  - 生成器模板
+  - 终止信号
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · SSE 流式生成器
 
 ## 规则

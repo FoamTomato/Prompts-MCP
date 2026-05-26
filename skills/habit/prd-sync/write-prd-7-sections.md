@@ -1,6 +1,6 @@
 ---
 name: prd-write-7-sections
-description: PRD 7 章节标准 — Overview / Inputs / Outputs / Required Assets / Dependencies / Execution / Success
+description: PRD 7 章节标准 — Overview / Inputs / Outputs / Assets / Deps / Execution / Success
 parent: ./index.md
 paths:
   - "project-index/modules/**"

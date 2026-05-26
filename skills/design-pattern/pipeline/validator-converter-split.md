@@ -3,17 +3,21 @@ name: pipeline-validator-converter
 description: Validator/Converter 独立 — Service 方法只调用，不内嵌
 parent: ./index.md
 paths:
-  - "backend/services/**/*.py"
-  - "py/services/**/*.py"
-  - "backend/adapters/**/*.py"
-  - "py/adapters/**/*.py"
+- backend/services/**/*.py
+- py/services/**/*.py
+- backend/adapters/**/*.py
+- py/adapters/**/*.py
 triggers:
-  keywords: [Validator, Converter, Adapter]
+  keywords:
+  - Validator
+  - Converter
+  - Adapter
+  - 方法只调用
+  - 不内嵌
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Pipeline · Validator/Converter 独立
 
 ## 规则

@@ -3,15 +3,22 @@ name: python-asyncio-pattern
 description: asyncio 并发模式 — gather / wait / 锁 / 取消 / 超时
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [asyncio, gather, wait_for, Lock, Semaphore]
+  keywords:
+  - asyncio
+  - gather
+  - wait_for
+  - Lock
+  - Semaphore
+  - 并发模式
+  - 取消
+  - 超时
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · asyncio 并发模式
 
 ## 规则

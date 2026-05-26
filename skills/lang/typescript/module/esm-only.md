@@ -1,12 +1,12 @@
 ---
 name: typescript-esm-only
-description: 纯 ESM — 禁 require / module.exports / CommonJS
+description: TypeScript 项目纯 ESM 模块系统 — 禁 require / module.exports / CommonJS 混用
 parent: ./index.md
 paths:
   - "frontend/**/*.ts"
   - "frontend/**/*.tsx"
 triggers:
-  keywords: [ESM, CommonJS, import, export]
+  keywords: [ESM, CommonJS, import, export, 模块系统, ES Modules]
 effort: medium
 context: inline
 version: "1.0"

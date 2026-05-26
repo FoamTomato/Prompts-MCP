@@ -3,15 +3,18 @@ name: react-css-token-system
 description: CSS 变量 Token 系统 — 单一可信源 ConfigProvider
 parent: ./index.md
 paths:
-  - "frontend/src/styles/**/*.css"
-  - "frontend/src/**/*.tsx"
+- frontend/src/styles/**/*.css
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [CSS variable, --token, ConfigProvider]
+  keywords:
+  - CSS variable
+  - --token
+  - ConfigProvider
+  - 单一可信源
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · CSS Token 系统
 
 ## 单一可信源

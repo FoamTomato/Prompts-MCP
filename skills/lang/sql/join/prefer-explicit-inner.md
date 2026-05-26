@@ -3,16 +3,20 @@ name: sql-prefer-explicit-inner
 description: 显式 INNER JOIN vs LEFT JOIN — 不省 JOIN 类型
 parent: ./index.md
 paths:
-  - "**/*.sql"
-  - "py/**/*.py"
-  - "backend/**/*.py"
+- '**/*.sql'
+- py/**/*.py
+- backend/**/*.py
 triggers:
-  keywords: [INNER JOIN, LEFT JOIN]
+  keywords:
+  - INNER JOIN
+  - LEFT JOIN
+  - 显式
+  - 不省
+  - 类型
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · 显式 INNER JOIN
 
 ## 规则

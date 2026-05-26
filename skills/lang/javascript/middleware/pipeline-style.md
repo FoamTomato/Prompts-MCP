@@ -1,16 +1,18 @@
 ---
 name: javascript-pipeline-style
-description: Pipeline 风格编排 — 同 FlowStyle
+description: '语言规则 · javascript: Pipeline 风格编排 — 同 FlowStyle'
 parent: ./index.md
 paths:
-  - "*.js"
+- '*.js'
 triggers:
-  keywords: [pipeline, middleware]
+  keywords:
+  - pipeline
+  - middleware
+  - 风格编排
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # JS · Express 中间件 Pipeline
 
 ## 规则

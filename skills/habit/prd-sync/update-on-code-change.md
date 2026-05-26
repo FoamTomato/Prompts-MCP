@@ -3,15 +3,19 @@ name: prd-update-on-code
 description: CLAUDE.md Step 8 — 代码改 → 必更对应 <SUB_ID>-*.md Change Log
 parent: ./index.md
 paths:
-  - "project-index/modules/**"
-  - "**"
+- project-index/modules/**
+- '**'
 triggers:
-  keywords: [PRD, Change Log, Step 8]
+  keywords:
+  - PRD
+  - Change Log
+  - Step 8
+  - 代码改
+  - 必更对应
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PRD Sync · 代码改 → 必更 PRD
 
 ## 规则（CLAUDE.md Step 8 硬性节点）

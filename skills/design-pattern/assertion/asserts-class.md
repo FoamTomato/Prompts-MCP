@@ -3,16 +3,26 @@ name: assertion-asserts-class
 description: 场景化 Asserts 类设计 — 命名约定 / 错误码绑定 / 真实示范（TextbookAsserts / OutlineAsserts）
 parent: ./index.md
 paths:
-  - "py/asserts/**/*.py"
-  - "py/services/**/*.py"
-  - "py/routers/**/*.py"
+- py/asserts/**/*.py
+- py/services/**/*.py
+- py/routers/**/*.py
 triggers:
-  keywords: [Asserts, TextbookAsserts, OutlineAsserts, SessionAsserts, PaperAsserts, ReferralAsserts, KnowledgeAsserts, PresentationAsserts]
+  keywords:
+  - Asserts
+  - TextbookAsserts
+  - OutlineAsserts
+  - SessionAsserts
+  - PaperAsserts
+  - ReferralAsserts
+  - KnowledgeAsserts
+  - PresentationAsserts
+  - 场景化
+  - 命名约定
+  - 错误码绑定
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Asserts · 场景化包装类
 
 ## 命名约定

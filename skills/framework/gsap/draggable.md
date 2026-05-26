@@ -1,17 +1,19 @@
 ---
 name: gsap-draggable
-description: Draggable 插件 — 画布拖拽 / 自定义拖拽组件
+description: '框架约定 · gsap: Draggable 插件 — 画布拖拽 / 自定义拖拽组件'
 parent: ./index.md
 paths:
-  - "frontend/src/animations/**/*.ts"
-  - "frontend/src/features/editor/**/*.tsx"
+- frontend/src/animations/**/*.ts
+- frontend/src/features/editor/**/*.tsx
 triggers:
-  keywords: [Draggable, gsap.Draggable, 拖拽]
+  keywords:
+  - Draggable
+  - gsap.Draggable
+  - 拖拽
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # GSAP · Draggable 插件
 
 ## 何时用

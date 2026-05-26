@@ -3,15 +3,18 @@ name: python-import-order
 description: import 三段顺序 — stdlib → third-party → local
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [import, isort, ruff]
+  keywords:
+  - import
+  - isort
+  - ruff
+  - 三段顺序
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · import 顺序
 
 ## 规则

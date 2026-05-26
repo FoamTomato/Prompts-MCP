@@ -3,16 +3,20 @@ name: typescript-strict-mode
 description: tsconfig strict + noUncheckedIndexedAccess 全启用
 parent: ./index.md
 paths:
-  - "frontend/**/*.ts"
-  - "frontend/**/*.tsx"
-  - "frontend/tsconfig.json"
+- frontend/**/*.ts
+- frontend/**/*.tsx
+- frontend/tsconfig.json
 triggers:
-  keywords: [TypeScript, strict, tsconfig, noUncheckedIndexedAccess]
+  keywords:
+  - TypeScript
+  - strict
+  - tsconfig
+  - noUncheckedIndexedAccess
+  - 全启用
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · strict mode
 
 ## 规则

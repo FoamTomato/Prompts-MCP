@@ -3,17 +3,24 @@ name: typescript-api-error-class
 description: ApiError extends Error 子类设计 + fetcher 集成 + 与后端 ApiException 对齐
 parent: ./index.md
 paths:
-  - "frontend/app/lib/assertion.ts"
-  - "frontend/app/lib/api.ts"
-  - "frontend/app/**/*.ts"
-  - "frontend/app/**/*.tsx"
+- frontend/app/lib/assertion.ts
+- frontend/app/lib/api.ts
+- frontend/app/**/*.ts
+- frontend/app/**/*.tsx
 triggers:
-  keywords: [ApiError, Error subclass, fetcher, ApiEnvelope, ApiException]
+  keywords:
+  - ApiError
+  - Error subclass
+  - fetcher
+  - ApiEnvelope
+  - ApiException
+  - 子类设计
+  - 集成
+  - 与后端
 effort: low
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # ApiError 类设计
 
 ## 标准实现

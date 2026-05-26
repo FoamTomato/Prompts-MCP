@@ -3,14 +3,19 @@ name: prd-review-checklist
 description: Review PRD 清单 — 章节完整 / 边界清晰 / artifacts 可追溯
 parent: ./index.md
 paths:
-  - "project-index/modules/**"
+- project-index/modules/**
 triggers:
-  keywords: [Review PRD, review, checklist]
+  keywords:
+  - Review PRD
+  - review
+  - checklist
+  - 清单
+  - 章节完整
+  - 边界清晰
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PRD Sync · Review PRD 清单
 
 ## 通过条件

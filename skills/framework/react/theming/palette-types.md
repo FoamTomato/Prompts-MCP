@@ -1,16 +1,22 @@
 ---
 name: react-palette-types
-description: 配色方案类型 — 单色/邻近/互补/分散
+description: '框架约定 · react: 配色方案类型 — 单色/邻近/互补/分散'
 parent: ./index.md
 paths:
-  - "frontend/src/styles/**/*.css"
+- frontend/src/styles/**/*.css
 triggers:
-  keywords: [palette, monochromatic, analogous, complementary]
+  keywords:
+  - palette
+  - monochromatic
+  - analogous
+  - complementary
+  - 配色方案类型
+  - 单色
+  - 邻近
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 配色方案类型
 
 ## 4 种基本方案

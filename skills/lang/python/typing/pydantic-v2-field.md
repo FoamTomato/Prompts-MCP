@@ -3,15 +3,19 @@ name: python-pydantic-v2-field
 description: Pydantic Field 必带 description + 约束（ge/le/max_length）
 parent: ./index.md
 paths:
-  - "backend/schemas/**/*.py"
-  - "py/schemas/**/*.py"
+- backend/schemas/**/*.py
+- py/schemas/**/*.py
 triggers:
-  keywords: [Pydantic, Field, BaseModel, schema]
+  keywords:
+  - Pydantic
+  - Field
+  - BaseModel
+  - schema
+  - 约束
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · Pydantic v2 Field
 
 ## 规则

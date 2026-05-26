@@ -3,14 +3,20 @@ name: antd-mcp-usage
 description: 写真实 antd 组件代码前必查 MCP — antd_info / antd_demo / antd_token / antd_semantic
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [antd, MCP, antd_info, antd_demo]
+  keywords:
+  - antd
+  - MCP
+  - antd_info
+  - antd_demo
+  - 写真实
+  - 组件代码
+  - 件代码前
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · MCP 工具（写代码前必查）
 
 ## 规则

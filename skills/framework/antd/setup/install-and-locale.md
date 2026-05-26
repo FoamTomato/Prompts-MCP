@@ -1,17 +1,21 @@
 ---
 name: antd-install-and-locale
-description: antd 安装 + zhCN locale + 按需引入
+description: '框架约定 · antd: antd 安装 + zhCN locale + 按需引入'
 parent: ./index.md
 paths:
-  - "frontend/package.json"
-  - "frontend/src/main.tsx"
+- frontend/package.json
+- frontend/src/main.tsx
 triggers:
-  keywords: [antd, zhCN, locale, ConfigProvider]
+  keywords:
+  - antd
+  - zhCN
+  - locale
+  - ConfigProvider
+  - 按需引入
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · 安装与本地化
 
 ## 安装

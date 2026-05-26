@@ -1,17 +1,20 @@
 ---
 name: react-flat-ui-principles
-description: 扁平化设计形态 — 无阴影/边框层次/纯色/状态完备
+description: '框架约定 · react: 扁平化设计形态 — 无阴影/边框层次/纯色/状态完备'
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
-  - "frontend/src/**/*.css"
+- frontend/src/**/*.tsx
+- frontend/src/**/*.css
 triggers:
-  keywords: [扁平化, flat, 无阴影, border]
+  keywords:
+  - 扁平化
+  - flat
+  - 无阴影
+  - border
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 扁平化 UI 形态
 
 ## 七大原则

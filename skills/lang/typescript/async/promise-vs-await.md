@@ -3,15 +3,21 @@ name: typescript-promise-vs-await
 description: 优先 async/await — 仅 then/catch 用于副作用编排
 parent: ./index.md
 paths:
-  - "frontend/**/*.ts"
-  - "frontend/**/*.tsx"
+- frontend/**/*.ts
+- frontend/**/*.tsx
 triggers:
-  keywords: [async, await, then, catch]
+  keywords:
+  - async
+  - await
+  - then
+  - catch
+  - 优先
+  - 用于副作
+  - 于副作用
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · async/await vs .then
 
 ## 规则

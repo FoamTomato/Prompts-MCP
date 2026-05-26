@@ -1,16 +1,21 @@
 ---
 name: antd-form-item-name
-description: Form.Item 必带 name 字段（受控）
+description: '框架约定 · antd: Form.Item 必带 name 字段（受控）'
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [Form, Form.Item, name]
+  keywords:
+  - Form
+  - Form.Item
+  - name
+  - 必带
+  - 字段
+  - 受控
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · Form.Item 必带 name
 
 ## 规则

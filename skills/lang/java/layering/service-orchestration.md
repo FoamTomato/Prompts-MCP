@@ -1,16 +1,18 @@
 ---
 name: java-service-orchestration
-description: Spring Service 编排层
+description: '语言规则 · java: Spring Service 编排层'
 parent: ./index.md
 paths:
-  - "*.java"
+- '*.java'
 triggers:
-  keywords: ["@Service", Service]
+  keywords:
+  - '@Service'
+  - Service
+  - 编排层
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Java · Service 编排
 
 ## 规则

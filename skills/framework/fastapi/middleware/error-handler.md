@@ -3,15 +3,20 @@ name: fastapi-error-handler
 description: 全局异常处理中间件 — 捕获 ApiException + 兜底 500
 parent: ./index.md
 paths:
-  - "backend/middleware/**/*.py"
-  - "py/middleware/**/*.py"
+- backend/middleware/**/*.py
+- py/middleware/**/*.py
 triggers:
-  keywords: [middleware, exception_handler, ApiException]
+  keywords:
+  - middleware
+  - exception_handler
+  - ApiException
+  - 全局异常
+  - 局异常处
+  - 异常处理
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # FastAPI Middleware · 全局错误处理
 
 ## 规则

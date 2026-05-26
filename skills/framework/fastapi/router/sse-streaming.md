@@ -3,15 +3,18 @@ name: fastapi-router-sse
 description: SSE 流式响应模板 — StreamingResponse + text/event-stream
 parent: ./index.md
 paths:
-  - "backend/routers/**/*.py"
-  - "py/routers/**/*.py"
+- backend/routers/**/*.py
+- py/routers/**/*.py
 triggers:
-  keywords: [StreamingResponse, SSE, event-stream]
+  keywords:
+  - StreamingResponse
+  - SSE
+  - event-stream
+  - 流式响应模板
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # FastAPI Router · SSE 流式
 
 ## 规则

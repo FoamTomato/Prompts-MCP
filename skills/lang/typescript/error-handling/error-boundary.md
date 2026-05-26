@@ -3,15 +3,22 @@ name: typescript-error-boundary
 description: Next.js App Router error.tsx 路由级 ErrorBoundary — 按 code 前缀分流 fallback
 parent: ./index.md
 paths:
-  - "frontend/app/error.tsx"
-  - "frontend/app/**/error.tsx"
+- frontend/app/error.tsx
+- frontend/app/**/error.tsx
 triggers:
-  keywords: [ErrorBoundary, error.tsx, GlobalError, fallback, ApiError, "use client"]
+  keywords:
+  - ErrorBoundary
+  - error.tsx
+  - GlobalError
+  - fallback
+  - ApiError
+  - use client
+  - 路由级
+  - 前缀分流
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Next.js · 路由级 ErrorBoundary
 
 ## Next.js 约定

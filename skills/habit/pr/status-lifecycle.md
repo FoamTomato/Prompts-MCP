@@ -1,13 +1,13 @@
 ---
 name: pr-status-lifecycle
-description: PR 5 态：Backlog → Ready → In Progress → In Review → Done
+description: GitHub Project PR 状态机 5 态：Backlog → Ready → In Progress → In Review → Done
 parent: ./index.md
 paths:
   - ".github/**"
   - "scripts/**"
   - "**"
 triggers:
-  keywords: [Status, Backlog, Ready, Done]
+  keywords: [Status, Backlog, Ready, Done, 状态机, PR 状态, 流转]
 effort: medium
 context: inline
 version: "1.0"

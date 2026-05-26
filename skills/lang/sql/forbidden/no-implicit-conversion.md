@@ -3,16 +3,21 @@ name: sql-no-implicit-conversion
 description: 禁隐式类型转换（VARCHAR ↔ INT），用 CAST 显式
 parent: ./index.md
 paths:
-  - "**/*.sql"
-  - "py/**/*.py"
-  - "backend/**/*.py"
+- '**/*.sql'
+- py/**/*.py
+- backend/**/*.py
 triggers:
-  keywords: [CAST, CONVERT, implicit]
+  keywords:
+  - CAST
+  - CONVERT
+  - implicit
+  - 禁隐式类
+  - 隐式类型
+  - 式类型转
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · 禁隐式类型转换
 
 ## 规则

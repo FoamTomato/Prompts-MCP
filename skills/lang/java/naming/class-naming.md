@@ -3,14 +3,16 @@ name: java-class-naming
 description: Java 类 PascalCase + 后缀 Service/Repository/Controller
 parent: ./index.md
 paths:
-  - "*.java"
+- '*.java'
 triggers:
-  keywords: [class, PascalCase]
+  keywords:
+  - class
+  - PascalCase
+  - 后缀
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Java · 类命名
 
 > Quill 主栈不用 Java。本文件为未来引入 Spring 服务的扩展点。

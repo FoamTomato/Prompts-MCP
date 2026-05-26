@@ -1,17 +1,20 @@
 ---
 name: javascript-async-await-only
-description: 禁 callback 风格 — 全 async/await
+description: '语言规则 · javascript: 禁 callback 风格 — 全 async/await'
 parent: ./index.md
 paths:
-  - "*.js"
-  - "*.ts"
+- '*.js'
+- '*.ts'
 triggers:
-  keywords: [async, await, callback]
+  keywords:
+  - async
+  - await
+  - callback
+  - 风格
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # JS · 全 async/await
 
 ## 规则

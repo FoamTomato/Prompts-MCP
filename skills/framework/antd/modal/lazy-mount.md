@@ -1,16 +1,21 @@
 ---
 name: antd-modal-lazy-mount
-description: destroyOnClose 懒挂载 — 避免大内容预渲染
+description: '框架约定 · antd: destroyOnClose 懒挂载 — 避免大内容预渲染'
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [destroyOnClose, Modal, Drawer]
+  keywords:
+  - destroyOnClose
+  - Modal
+  - Drawer
+  - 懒挂载
+  - 避免大内
+  - 免大内容
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · Modal/Drawer 懒挂载
 
 ## 规则

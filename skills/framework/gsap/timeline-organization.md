@@ -3,14 +3,18 @@ name: gsap-timeline-organization
 description: timeline 集中 animations/<feature>.ts — 组件只调用
 parent: ./index.md
 paths:
-  - "frontend/src/animations/**/*.ts"
+- frontend/src/animations/**/*.ts
 triggers:
-  keywords: [timeline, gsap.timeline, animations/]
+  keywords:
+  - timeline
+  - gsap.timeline
+  - animations/
+  - 集中
+  - 组件只调用
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # GSAP · timeline 组织
 
 ## 规则

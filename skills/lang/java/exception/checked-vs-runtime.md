@@ -1,16 +1,18 @@
 ---
 name: java-checked-vs-runtime
-description: Checked vs Runtime 异常使用边界
+description: '语言规则 · java: Checked vs Runtime 异常使用边界'
 parent: ./index.md
 paths:
-  - "*.java"
+- '*.java'
 triggers:
-  keywords: [Exception, RuntimeException]
+  keywords:
+  - Exception
+  - RuntimeException
+  - 异常使用边界
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Java · Checked vs Runtime 异常
 
 ## 规则

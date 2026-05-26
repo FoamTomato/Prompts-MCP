@@ -1,14 +1,15 @@
 ---
 name: habit-index
-description: 流程习惯索引（commit / pr / prd-sync / error-code）
+description: 流程习惯索引（commit / pr / prd-sync / error-code / code-quality）
 parent: ../index.md
 children:
   - { name: commit, path: commit/index.md, tag: folder, note: Conventional Commit / 在消息里 claim Issue }
   - { name: pr, path: pr/index.md, tag: folder, note: PR body 模板 / 一 PR 一子模块 }
   - { name: prd-sync, path: prd-sync/index.md, tag: folder, note: 代码改 → PRD 同步规范 }
   - { name: error-code, path: error-code/index.md, tag: folder, note: 错误码前缀分配 }
+  - { name: code-quality, path: code-quality/index.md, tag: folder, note: 命名即文档 / 禁魔法值 等代码风格 }
 when_to_descend: |
-  任务涉及协作流：写 commit / 开 PR / 改 PRD / 新增错误码。
+  任务涉及协作流：写 commit / 开 PR / 改 PRD / 新增错误码 / 写出可读代码。
   Step 8 PRD 同步 → 必读 prd-sync/。
 ---
 

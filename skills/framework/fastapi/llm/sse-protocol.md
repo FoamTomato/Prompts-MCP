@@ -3,17 +3,21 @@ name: fastapi-llm-sse-protocol
 description: LLM SSE 协议 — 流式 chunk + done 终止
 parent: ./index.md
 paths:
-  - "backend/services/**/*.py"
-  - "py/services/**/*.py"
-  - "backend/agents/**/*"
-  - "py/agents/**/*"
+- backend/services/**/*.py
+- py/services/**/*.py
+- backend/agents/**/*
+- py/agents/**/*
 triggers:
-  keywords: [SSE, stream, chunk, done]
+  keywords:
+  - SSE
+  - stream
+  - chunk
+  - done
+  - 流式
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # LLM · SSE 协议
 
 ## 协议约定

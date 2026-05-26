@@ -3,15 +3,19 @@ name: tortoise-model-pattern
 description: Tortoise Model 类标准模板 — Meta.table + auto_now/auto_now_add
 parent: ./index.md
 paths:
-  - "backend/models/**/*.py"
-  - "py/models/**/*.py"
+- backend/models/**/*.py
+- py/models/**/*.py
 triggers:
-  keywords: [Tortoise, Model, fields., Meta]
+  keywords:
+  - Tortoise
+  - Model
+  - fields.
+  - Meta
+  - 类标准模板
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Tortoise · Model 类模板
 
 ## 标准结构

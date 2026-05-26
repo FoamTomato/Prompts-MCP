@@ -1,17 +1,23 @@
 ---
 name: fastapi-storage-lifecycle
-description: OSS 生命周期与缓存 — TTL / 回源 / CDN
+description: '框架约定 · fastapi: OSS 生命周期与缓存 — TTL / 回源 / CDN'
 parent: ./index.md
 paths:
-  - "backend/services/oss*.py"
-  - "py/services/oss*.py"
+- backend/services/oss*.py
+- py/services/oss*.py
 triggers:
-  keywords: [lifecycle, TTL, cache, CDN]
+  keywords:
+  - lifecycle
+  - TTL
+  - cache
+  - CDN
+  - 生命周期
+  - 命周期与
+  - 周期与缓
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # OSS · 生命周期与缓存
 
 ## Bucket 生命周期规则

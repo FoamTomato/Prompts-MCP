@@ -3,15 +3,21 @@ name: fastapi-storage-signed-upload
 description: 签名直传流程 — 客户端拿 STS / 预签名 URL → 直传 OSS
 parent: ./index.md
 paths:
-  - "backend/services/oss*.py"
-  - "py/services/oss*.py"
+- backend/services/oss*.py
+- py/services/oss*.py
 triggers:
-  keywords: [signed, STS, presigned, upload]
+  keywords:
+  - signed
+  - STS
+  - presigned
+  - upload
+  - 签名直传流程
+  - 客户端拿
+  - 预签名
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # OSS · 签名直传
 
 ## 规则

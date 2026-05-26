@@ -3,14 +3,18 @@ name: typescript-barrel-export
 description: barrel export 仅在 features/<page>/index.ts 使用
 parent: ./index.md
 paths:
-  - "frontend/src/features/**/index.ts"
+- frontend/src/features/**/index.ts
 triggers:
-  keywords: [barrel, index.ts, re-export]
+  keywords:
+  - barrel
+  - index.ts
+  - re-export
+  - 仅在
+  - 使用
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · barrel export 边界
 
 ## 规则

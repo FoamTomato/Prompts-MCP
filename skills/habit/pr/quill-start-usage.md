@@ -3,15 +3,18 @@ name: pr-quill-start-usage
 description: scripts/quill-start <SUB_ID/Issue#> — 反查 manifest + 建分支 + assign
 parent: ./index.md
 paths:
-  - "scripts/quill-start"
-  - "scripts/**"
+- scripts/quill-start
+- scripts/**
 triggers:
-  keywords: [quill-start, SUB_ID]
+  keywords:
+  - quill-start
+  - SUB_ID
+  - 反查
+  - 建分支
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PR · scripts/quill-start 用法
 
 ## 命令

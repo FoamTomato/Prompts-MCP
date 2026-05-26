@@ -3,15 +3,21 @@ name: sql-alembic-migration-template
 description: Alembic 迁移文件标准模板（含 upgrade/downgrade 对称）
 parent: ./index.md
 paths:
-  - "py/migrations/**/*.py"
-  - "backend/alembic/versions/**/*.py"
+- py/migrations/**/*.py
+- backend/alembic/versions/**/*.py
 triggers:
-  keywords: [Alembic, migration, upgrade, downgrade]
+  keywords:
+  - Alembic
+  - migration
+  - upgrade
+  - downgrade
+  - 迁移文件
+  - 移文件标
+  - 文件标准
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · Alembic 迁移模板
 
 ## Quill 工具栈

@@ -3,15 +3,19 @@ name: python-logger-exc-info
 description: logger.error(..., exc_info=True) 必带 traceback
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [logger, logging, exc_info, traceback]
+  keywords:
+  - logger
+  - logging
+  - exc_info
+  - traceback
+  - 必带
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · logger.error 必带 exc_info
 
 ## 规则

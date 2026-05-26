@@ -1,18 +1,21 @@
 ---
 name: sql-on-clause-required
-description: 多表 JOIN 必带 ON 条件
+description: SQL 多表 JOIN 必带 ON 子句 — 缺 ON 会退化为笛卡尔积 / CROSS JOIN
 parent: ./index.md
 paths:
-  - "**/*.sql"
-  - "py/**/*.py"
-  - "backend/**/*.py"
+- '**/*.sql'
+- py/**/*.py
+- backend/**/*.py
 triggers:
-  keywords: [JOIN, "ON"]
+  keywords:
+  - JOIN
+  - 'ON'
+  - 多表
+  - 条件
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · JOIN 必带 ON
 
 ## 规则

@@ -3,15 +3,23 @@ name: python-no-blocking-call
 description: async 函数内禁用同步阻塞 I/O — 一个阻塞调用拖死整个 event loop
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [async, await, asyncio, blocking, sleep, requests]
+  keywords:
+  - async
+  - await
+  - asyncio
+  - blocking
+  - sleep
+  - requests
+  - 函数内禁
+  - 数内禁用
+  - 内禁用同
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 禁同步阻塞调用
 
 ## 规则

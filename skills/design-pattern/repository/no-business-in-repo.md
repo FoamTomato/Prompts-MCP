@@ -1,17 +1,19 @@
 ---
 name: repository-no-business
-description: 禁在 Repo 写业务规则 — 业务校验在 Service
+description: '设计模式 · repository: 禁在 Repo 写业务规则 — 业务校验在 Service'
 parent: ./index.md
 paths:
-  - "backend/repositories/**/*.py"
-  - "py/repositories/**/*.py"
+- backend/repositories/**/*.py
+- py/repositories/**/*.py
 triggers:
-  keywords: [Repository, 业务规则, 校验]
+  keywords:
+  - Repository
+  - 业务规则
+  - 校验
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Repository · 禁业务逻辑
 
 ## 规则

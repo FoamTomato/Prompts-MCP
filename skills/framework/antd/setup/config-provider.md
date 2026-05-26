@@ -3,16 +3,22 @@ name: antd-config-provider
 description: antd ConfigProvider 注入主题 token（颜色/圆角/字体/动画）
 parent: ./index.md
 paths:
-  - "frontend/src/main.tsx"
-  - "frontend/src/App.tsx"
-  - "frontend/src/**/*.tsx"
+- frontend/src/main.tsx
+- frontend/src/App.tsx
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [ConfigProvider, theme, token, colorPrimary]
+  keywords:
+  - ConfigProvider
+  - theme
+  - token
+  - colorPrimary
+  - 注入主题
+  - 字体
+  - 动画
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · ConfigProvider
 
 ## 全局配置模板

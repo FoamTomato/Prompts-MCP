@@ -1,17 +1,20 @@
 ---
 name: typescript-no-any
-description: 禁 any — 用 unknown + 类型守卫
+description: '语言规则 · typescript: 禁 any — 用 unknown + 类型守卫'
 parent: ./index.md
 paths:
-  - "frontend/**/*.ts"
-  - "frontend/**/*.tsx"
+- frontend/**/*.ts
+- frontend/**/*.tsx
 triggers:
-  keywords: [any, unknown, type guard, 类型守卫]
+  keywords:
+  - any
+  - unknown
+  - type guard
+  - 类型守卫
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · 禁 any
 
 ## 规则

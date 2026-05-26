@@ -3,15 +3,18 @@ name: fastapi-schema-pydantic
 description: Pydantic v2 BaseModel 模板 — Field description / ge/le
 parent: ./index.md
 paths:
-  - "backend/schemas/**/*.py"
-  - "py/schemas/**/*.py"
+- backend/schemas/**/*.py
+- py/schemas/**/*.py
 triggers:
-  keywords: [Pydantic, BaseModel, Field]
+  keywords:
+  - Pydantic
+  - BaseModel
+  - Field
+  - 模板
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # FastAPI Schema · Pydantic v2
 
 ## 标准模板

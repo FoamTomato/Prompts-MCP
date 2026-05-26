@@ -3,15 +3,20 @@ name: fastapi-router-zero-logic
 description: Router 零逻辑 — 只做接收/注入/调用/返回，3 行内
 parent: ./index.md
 paths:
-  - "backend/routers/**/*.py"
-  - "py/routers/**/*.py"
+- backend/routers/**/*.py
+- py/routers/**/*.py
 triggers:
-  keywords: ["@router", APIRouter, FastAPI]
+  keywords:
+  - '@router'
+  - APIRouter
+  - FastAPI
+  - 零逻辑
+  - 只做接收
+  - 注入
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # FastAPI Router · 零逻辑
 
 ## 规则

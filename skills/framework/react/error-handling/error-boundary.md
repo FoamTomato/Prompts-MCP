@@ -3,16 +3,21 @@ name: react-error-boundary
 description: 路由级 ErrorBoundary 包裹 — 不让一个组件崩塌整棵树
 parent: ./index.md
 paths:
-  - "frontend/src/pages/**/*.tsx"
-  - "frontend/src/App.tsx"
-  - "frontend/src/router.tsx"
+- frontend/src/pages/**/*.tsx
+- frontend/src/App.tsx
+- frontend/src/router.tsx
 triggers:
-  keywords: [ErrorBoundary, componentDidCatch, fallback]
+  keywords:
+  - ErrorBoundary
+  - componentDidCatch
+  - fallback
+  - 路由级
+  - 不让一个
+  - 让一个组
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · ErrorBoundary
 
 ## 规则

@@ -3,15 +3,19 @@ name: react-custom-hook-naming
 description: 自定义 hook 必须 useXxx 命名 + 文件 useXxx.ts
 parent: ./index.md
 paths:
-  - "frontend/src/hooks/**/*.ts"
-  - "frontend/src/features/**/use*.ts"
+- frontend/src/hooks/**/*.ts
+- frontend/src/features/**/use*.ts
 triggers:
-  keywords: [custom hook, useXxx]
+  keywords:
+  - custom hook
+  - useXxx
+  - 自定义
+  - 命名
+  - 文件
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 自定义 Hook 命名
 
 ## 规则

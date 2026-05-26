@@ -1,17 +1,19 @@
 ---
 name: pipeline-method-as-flow
-description: 方法即流程编排器 — 注释驱动的步骤大纲
+description: '设计模式 · pipeline: 方法即流程编排器 — 注释驱动的步骤大纲'
 parent: ./index.md
 paths:
-  - "backend/services/**/*.py"
-  - "py/services/**/*.py"
+- backend/services/**/*.py
+- py/services/**/*.py
 triggers:
-  keywords: [pipeline, 流水线, 注释驱动]
+  keywords:
+  - pipeline
+  - 流水线
+  - 注释驱动
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Pipeline · 方法即流程编排器
 
 ## 核心思想

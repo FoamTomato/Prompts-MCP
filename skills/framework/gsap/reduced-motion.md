@@ -3,14 +3,17 @@ name: gsap-reduced-motion
 description: prefers-reduced-motion 降级 — fade-only 或瞬时切换
 parent: ./index.md
 paths:
-  - "frontend/src/animations/**/*.ts"
+- frontend/src/animations/**/*.ts
 triggers:
-  keywords: [prefers-reduced-motion, reduced-motion, a11y]
+  keywords:
+  - prefers-reduced-motion
+  - reduced-motion
+  - a11y
+  - 或瞬时切换
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # GSAP · prefers-reduced-motion 降级
 
 ## 规则

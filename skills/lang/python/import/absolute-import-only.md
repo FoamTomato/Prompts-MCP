@@ -1,17 +1,22 @@
 ---
 name: python-absolute-import-only
-description: 禁相对导入 — 全部用绝对路径
+description: '语言规则 · python: 禁相对导入 — 全部用绝对路径'
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [import, from ., relative import]
+  keywords:
+  - import
+  - from .
+  - relative import
+  - 禁相对导入
+  - 全部用绝
+  - 部用绝对
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 禁相对导入
 
 ## 规则

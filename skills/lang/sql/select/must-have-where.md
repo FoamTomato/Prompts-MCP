@@ -1,18 +1,22 @@
 ---
 name: sql-must-have-where
-description: UPDATE / DELETE 必须带 WHERE 子句
+description: '语言规则 · sql: UPDATE / DELETE 必须带 WHERE 子句'
 parent: ./index.md
 paths:
-  - "py/**/*.py"
-  - "backend/**/*.py"
-  - "**/*.sql"
+- py/**/*.py
+- backend/**/*.py
+- '**/*.sql'
 triggers:
-  keywords: [UPDATE, DELETE, WHERE]
+  keywords:
+  - UPDATE
+  - DELETE
+  - WHERE
+  - 必须带
+  - 子句
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · UPDATE/DELETE 必带 WHERE
 
 ## 规则

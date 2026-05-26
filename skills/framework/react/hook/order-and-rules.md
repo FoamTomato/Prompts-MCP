@@ -3,15 +3,20 @@ name: react-hook-order-and-rules
 description: Hooks 调用顺序：state → ref → derived(useMemo) → effect → animation → callback
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
-  - "frontend/src/hooks/**/*.ts"
+- frontend/src/**/*.tsx
+- frontend/src/hooks/**/*.ts
 triggers:
-  keywords: [useState, useRef, useEffect, useMemo, useCallback]
+  keywords:
+  - useState
+  - useRef
+  - useEffect
+  - useMemo
+  - useCallback
+  - 调用顺序
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · Hooks 顺序与规则
 
 ## 标准顺序

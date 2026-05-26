@@ -3,15 +3,19 @@ name: typescript-interface-type-alias
 description: interface PascalCase / type alias 仅用于联合/工具
 parent: ./index.md
 paths:
-  - "frontend/**/*.ts"
-  - "frontend/**/*.tsx"
+- frontend/**/*.ts
+- frontend/**/*.tsx
 triggers:
-  keywords: [interface, type alias, PascalCase]
+  keywords:
+  - interface
+  - type alias
+  - PascalCase
+  - 仅用于联合
+  - 工具
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # TypeScript · interface vs type alias
 
 ## 规则

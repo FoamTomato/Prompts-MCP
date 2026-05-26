@@ -1,17 +1,19 @@
 ---
 name: ddd-domain-pure
-description: Domain 纯净 — 不依赖框架，封装业务规则
+description: '设计模式 · ddd-layering: Domain 纯净 — 不依赖框架，封装业务规则'
 parent: ./index.md
 paths:
-  - "backend/domain/**/*.py"
-  - "py/domain/**/*.py"
+- backend/domain/**/*.py
+- py/domain/**/*.py
 triggers:
-  keywords: [Domain, 值对象, 业务规则]
+  keywords:
+  - Domain
+  - 值对象
+  - 业务规则
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # DDD · Domain 纯净
 
 ## 规则

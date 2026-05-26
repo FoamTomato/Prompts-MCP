@@ -1,17 +1,23 @@
 ---
 name: fastapi-anonymous-session
-description: 匿名会话中间件 — anon_xxx + 双积分池
+description: '框架约定 · fastapi: 匿名会话中间件 — anon_xxx + 双积分池'
 parent: ./index.md
 paths:
-  - "backend/middleware/anonymous_session.py"
-  - "py/middleware/anonymous_session.py"
+- backend/middleware/anonymous_session.py
+- py/middleware/anonymous_session.py
 triggers:
-  keywords: [anonymous, session, anon_, middleware]
+  keywords:
+  - anonymous
+  - session
+  - anon_
+  - middleware
+  - 匿名会话
+  - 名会话中
+  - 会话中间
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # FastAPI Middleware · 匿名 Session
 
 ## 规则

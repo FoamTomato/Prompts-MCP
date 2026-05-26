@@ -3,15 +3,19 @@ name: commit-conventional
 description: Conventional Commit — feat/fix/chore/docs/refactor/test/style + 中文描述
 parent: ./index.md
 paths:
-  - ".git/**"
-  - "**"
+- .git/**
+- '**'
 triggers:
-  keywords: [commit, conventional, "feat:", "fix:"]
+  keywords:
+  - commit
+  - conventional
+  - 'feat:'
+  - 'fix:'
+  - 中文描述
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Commit · Conventional Commit
 
 ## 格式

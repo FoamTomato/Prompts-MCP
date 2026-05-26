@@ -1,17 +1,19 @@
 ---
 name: prd-summarize-text
-description: 文本摘要方法 — 长文档 → 关键决策 + 行动项
+description: '习惯 · prd-sync: 文本摘要方法 — 长文档 → 关键决策 + 行动项'
 parent: ./index.md
 paths:
-  - "project-index/modules/**"
-  - "docs/**"
+- project-index/modules/**
+- docs/**
 triggers:
-  keywords: [摘要, summarize, 总结]
+  keywords:
+  - 摘要
+  - summarize
+  - 总结
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PRD Sync · 文本摘要方法
 
 ## 用途

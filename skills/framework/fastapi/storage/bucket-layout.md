@@ -3,16 +3,20 @@ name: fastapi-storage-bucket
 description: OSS Bucket 分桶 — assets/thumbnails/exports/backups/ai-images
 parent: ./index.md
 paths:
-  - "backend/services/oss*.py"
-  - "py/services/oss*.py"
-  - "backend/core/config.py"
+- backend/services/oss*.py
+- py/services/oss*.py
+- backend/core/config.py
 triggers:
-  keywords: [bucket, OSS, MinIO, S3]
+  keywords:
+  - bucket
+  - OSS
+  - MinIO
+  - S3
+  - 分桶
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # OSS · Bucket 划分
 
 ## 五桶方案

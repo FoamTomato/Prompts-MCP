@@ -3,15 +3,18 @@ name: pr-create-and-close
 description: gh pr create --fill — SessionEnd hook 自动翻 In Review
 parent: ./index.md
 paths:
-  - ".github/**"
-  - "**"
+- .github/**
+- '**'
 triggers:
-  keywords: [gh pr create, PR, close]
+  keywords:
+  - gh pr create
+  - PR
+  - close
+  - 自动翻
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PR · 创建与关闭
 
 ## 创建 PR

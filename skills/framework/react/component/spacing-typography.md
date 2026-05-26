@@ -1,17 +1,20 @@
 ---
 name: react-spacing-typography
-description: 间距与字号 — 留白即设计 / 字重建立层级
+description: '框架约定 · react: 间距与字号 — 留白即设计 / 字重建立层级'
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
-  - "frontend/src/**/*.css"
+- frontend/src/**/*.tsx
+- frontend/src/**/*.css
 triggers:
-  keywords: [间距, 字号, typography, spacing]
+  keywords:
+  - 间距
+  - 字号
+  - typography
+  - spacing
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 间距与字号
 
 ## 间距系统（8px 网格）

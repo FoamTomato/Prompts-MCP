@@ -1,17 +1,21 @@
 ---
 name: commit-claim-issue
-description: commit 消息里 claim Issue #N — 自动关联
+description: '习惯 · commit: commit 消息里 claim Issue'
 parent: ./index.md
 paths:
-  - ".git/**"
-  - "**"
+- .git/**
+- '**'
 triggers:
-  keywords: [Issue, "#N", claim, feat]
+  keywords:
+  - Issue
+  - '#N'
+  - claim
+  - feat
+  - 消息里
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Commit · 在消息里 claim Issue
 
 ## 规则

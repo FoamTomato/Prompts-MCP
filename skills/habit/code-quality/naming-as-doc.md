@@ -1,19 +1,21 @@
 ---
 name: code-naming-as-doc
-description: 命名即文档 — 函数/变量/类名直接表达意图，少注释
+description: '习惯 · code-quality: 命名即文档 — 函数/变量/类名直接表达意图，少注释'
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
-  - "frontend/src/**/*.ts"
-  - "frontend/src/**/*.tsx"
+- backend/**/*.py
+- py/**/*.py
+- frontend/src/**/*.ts
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [命名, naming, 可读性]
+  keywords:
+  - 命名
+  - naming
+  - 可读性
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Code Quality · 命名即文档
 
 ## 核心思想

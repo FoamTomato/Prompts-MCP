@@ -3,15 +3,20 @@ name: react-no-business-in-useEffect
 description: 禁在 useEffect 拉数据 — 用 TanStack Query；useEffect 仅做 DOM 同步/订阅
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
-  - "frontend/src/**/*.ts"
+- frontend/src/**/*.tsx
+- frontend/src/**/*.ts
 triggers:
-  keywords: [useEffect, fetch, useQuery]
+  keywords:
+  - useEffect
+  - fetch
+  - useQuery
+  - 拉数据
+  - 仅做
+  - 同步
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 禁在 useEffect 拉数据
 
 ## 规则

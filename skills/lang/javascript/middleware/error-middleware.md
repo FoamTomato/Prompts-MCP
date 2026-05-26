@@ -1,16 +1,20 @@
 ---
 name: javascript-error-middleware
-description: Express 错误中间件模板
+description: '语言规则 · javascript: Express 错误中间件模板'
 parent: ./index.md
 paths:
-  - "*.js"
+- '*.js'
 triggers:
-  keywords: [error middleware, next(err)]
+  keywords:
+  - error middleware
+  - next(err)
+  - 错误中间
+  - 误中间件
+  - 中间件模
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # JS · Express 错误中间件
 
 ## 规则

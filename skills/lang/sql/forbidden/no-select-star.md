@@ -3,16 +3,19 @@ name: sql-no-select-star
 description: 禁 SELECT *（已在 docs/Creative_Ideation/harness/skills/ 详写）
 parent: ./index.md
 paths:
-  - "py/**/*.py"
-  - "backend/**/*.py"
-  - "**/*.sql"
+- py/**/*.py
+- backend/**/*.py
+- '**/*.sql'
 triggers:
-  keywords: ["SELECT *", "*.sql"]
+  keywords:
+  - SELECT *
+  - '*.sql'
+  - 已在
+  - 详写
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · 禁 SELECT *（同规则汇集）
 
 ## 规则与依据

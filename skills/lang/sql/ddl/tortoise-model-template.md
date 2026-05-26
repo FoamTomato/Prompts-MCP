@@ -1,17 +1,20 @@
 ---
 name: sql-tortoise-model-template
-description: Tortoise Model 类标准模板
+description: '语言规则 · sql: Tortoise Model 类标准模板'
 parent: ./index.md
 paths:
-  - "py/models/**/*.py"
-  - "backend/models/**/*.py"
+- py/models/**/*.py
+- backend/models/**/*.py
 triggers:
-  keywords: [Tortoise, Model, fields.IntField]
+  keywords:
+  - Tortoise
+  - Model
+  - fields.IntField
+  - 类标准模板
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · Tortoise Model 模板
 
 ## 标准结构

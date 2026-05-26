@@ -1,17 +1,20 @@
 ---
 name: fastapi-schema-response-model
-description: "@router 必带 response_model — 类型即文档"
+description: '@router 必带 response_model — 类型即文档'
 parent: ./index.md
 paths:
-  - "backend/routers/**/*.py"
-  - "py/routers/**/*.py"
+- backend/routers/**/*.py
+- py/routers/**/*.py
 triggers:
-  keywords: [response_model, "@router.post", "@router.get"]
+  keywords:
+  - response_model
+  - '@router.post'
+  - '@router.get'
+  - 类型即文档
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # FastAPI Schema · response_model 必填
 
 ## 规则

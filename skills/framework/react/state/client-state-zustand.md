@@ -3,15 +3,21 @@ name: react-client-state-zustand
 description: 客户端全局状态 Zustand + immer middleware
 parent: ./index.md
 paths:
-  - "frontend/src/stores/**/*.ts"
-  - "frontend/src/**/*.tsx"
+- frontend/src/stores/**/*.ts
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [Zustand, store, create, immer]
+  keywords:
+  - Zustand
+  - store
+  - create
+  - immer
+  - 客户端全
+  - 户端全局
+  - 端全局状
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # React · 全局客户端状态 Zustand
 
 ## 规则

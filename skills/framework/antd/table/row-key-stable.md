@@ -1,16 +1,19 @@
 ---
 name: antd-table-row-key
-description: Table rowKey 必用稳定 id，禁用 index
+description: '框架约定 · antd: Table rowKey 必用稳定 id，禁用 index'
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [Table, rowKey, key]
+  keywords:
+  - Table
+  - rowKey
+  - key
+  - 必用稳定
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · Table rowKey 用稳定 id
 
 ## 规则

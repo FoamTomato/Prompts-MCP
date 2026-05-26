@@ -3,14 +3,17 @@ name: prd-user-story
 description: User Story 模板 — As a / I want / So that
 parent: ./index.md
 paths:
-  - "project-index/modules/**"
+- project-index/modules/**
 triggers:
-  keywords: [User Story, as a, i want]
+  keywords:
+  - User Story
+  - as a
+  - i want
+  - 模板
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PRD Sync · User Story 模板
 
 ## 标准格式

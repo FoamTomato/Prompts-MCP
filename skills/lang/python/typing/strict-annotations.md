@@ -1,17 +1,20 @@
 ---
 name: python-strict-annotations
-description: 函数签名 100% 类型注解 — 含返回类型
+description: '语言规则 · python: 函数签名 100% 类型注解 — 含返回类型'
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [type hint, mypy, annotation, 类型注解]
+  keywords:
+  - type hint
+  - mypy
+  - annotation
+  - 类型注解
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · 100% 类型注解
 
 ## 规则

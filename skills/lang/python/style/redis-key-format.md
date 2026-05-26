@@ -3,15 +3,20 @@ name: python-redis-key-format
 description: Redis Key 格式：[module]:[entity]:[id] + 必带 ex TTL
 parent: ./index.md
 paths:
-  - "backend/**/*.py"
-  - "py/**/*.py"
+- backend/**/*.py
+- py/**/*.py
 triggers:
-  keywords: [Redis, redis_pool, cache_key, TTL, ex=]
+  keywords:
+  - Redis
+  - redis_pool
+  - cache_key
+  - TTL
+  - ex=
+  - 格式
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Python · Redis Key 格式
 
 ## 规则

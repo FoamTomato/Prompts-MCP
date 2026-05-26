@@ -1,16 +1,21 @@
 ---
 name: antd-validator-pattern
-description: Form 自定义校验器模板
+description: antd Form 自定义校验器（validator）模板 — 字段联动 / 异步校验
 parent: ./index.md
 paths:
-  - "frontend/src/**/*.tsx"
+- frontend/src/**/*.tsx
 triggers:
-  keywords: [Form, validator, rules]
+  keywords:
+  - Form
+  - validator
+  - rules
+  - 自定义校
+  - 定义校验
+  - 义校验器
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # antd · Form 自定义校验
 
 ## 规则

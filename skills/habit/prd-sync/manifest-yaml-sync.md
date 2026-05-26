@@ -3,15 +3,19 @@ name: prd-manifest-sync
 description: artifacts 增删 → 同步 manifest.yaml submodule.artifacts
 parent: ./index.md
 paths:
-  - "project-index/manifest.yaml"
-  - "project-index/modules/**"
+- project-index/manifest.yaml
+- project-index/modules/**
 triggers:
-  keywords: [manifest.yaml, artifacts, submodule]
+  keywords:
+  - manifest.yaml
+  - artifacts
+  - submodule
+  - 增删
+  - 同步
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # PRD Sync · manifest.yaml 同步
 
 ## 规则

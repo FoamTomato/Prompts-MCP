@@ -1,16 +1,18 @@
 ---
 name: java-controller-thin
-description: Spring Controller 薄壳
+description: '语言规则 · java: Spring Controller 薄壳'
 parent: ./index.md
 paths:
-  - "*.java"
+- '*.java'
 triggers:
-  keywords: ["@RestController", Controller]
+  keywords:
+  - '@RestController'
+  - Controller
+  - 薄壳
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # Java · Controller 薄
 
 ## 规则

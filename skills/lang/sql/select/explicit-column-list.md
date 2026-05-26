@@ -1,18 +1,24 @@
 ---
 name: sql-explicit-column-list
-description: SELECT 必须显式列出列名 — 禁 SELECT *
+description: '语言规则 · sql: SELECT 必须显式列出列名 — 禁 SELECT *'
 parent: ./index.md
 paths:
-  - "py/**/*.py"
-  - "backend/**/*.py"
-  - "**/*.sql"
+- py/**/*.py
+- backend/**/*.py
+- '**/*.sql'
 triggers:
-  keywords: [SELECT, query, raw_query, fetch]
+  keywords:
+  - SELECT
+  - query
+  - raw_query
+  - fetch
+  - 必须显式
+  - 须显式列
+  - 显式列出
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # SQL · SELECT 显式列出列名
 
 ## 规则

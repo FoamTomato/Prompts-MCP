@@ -1,17 +1,19 @@
 ---
 name: ddd-service-orchestration
-description: Service 编排层 — 注释驱动的流水线方法
+description: '设计模式 · ddd-layering: Service 编排层 — 注释驱动的流水线方法'
 parent: ./index.md
 paths:
-  - "backend/services/**/*.py"
-  - "py/services/**/*.py"
+- backend/services/**/*.py
+- py/services/**/*.py
 triggers:
-  keywords: [Service, 编排, 流水线]
+  keywords:
+  - Service
+  - 编排
+  - 流水线
 effort: medium
 context: inline
-version: "1.0"
+version: '1.0'
 ---
-
 # DDD · Service 编排
 
 ## 规则
