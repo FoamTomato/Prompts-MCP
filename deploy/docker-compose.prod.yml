@@ -2,23 +2,20 @@
 # the production server. Same network (app-net → opt_app-net) and same
 # `deploy.resources.limits` style as the rest of the file.
 #
-# Image is built **locally on the dev machine** then transferred to the server:
-#   docker build -t prompts-mcp:0.1.0 -t prompts-mcp:latest .
-#   docker save prompts-mcp:0.1.0 prompts-mcp:latest -o /tmp/prompts-mcp.tar
-#   scp /tmp/prompts-mcp.tar root@117.72.182.195:/tmp/
-#   ssh root@117.72.182.195 'docker load -i /tmp/prompts-mcp.tar'
+# IMAGE SOURCE — pulled from a GHCR mirror (南京大学开源镜像站) because
+# direct ghcr.io pulls from this server's CN egress are very slow / unreliable.
+# Both ghcr.nju.edu.cn and ghcr.mirrorify.net mirror github.com/foamtomato/
+# prompts-mcp/pkgs/container — switch hosts in this line if one is down.
+# Pull time observed: ~40s vs. >10min for direct ghcr.io.
 #
-# The GitHub Actions workflow (.github/workflows/docker.yml) also publishes the
-# same tags to ghcr.io/foamtomato/prompts-mcp for any host with reliable
-# outbound internet. The production server here has no outbound proxy, so the
-# scp-and-load path is the canonical one.
+# Fallback path (zero external dependency): build locally + scp + docker load.
+# See scripts/deploy_image.sh — useful when both mirrors are down.
 #
 # Apply with:
-#   cd /opt && docker compose up -d prompts-mcp
-#   docker compose exec nginx nginx -s reload   # AFTER applying nginx-snippet.conf
+#   cd /opt && docker compose pull prompts-mcp && docker compose up -d prompts-mcp
 
   prompts-mcp:
-    image: prompts-mcp:latest
+    image: ghcr.nju.edu.cn/foamtomato/prompts-mcp:latest
     container_name: prompts-mcp
     restart: always
     expose:
