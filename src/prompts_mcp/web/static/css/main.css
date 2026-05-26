@@ -65,7 +65,15 @@
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; height: 100%; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  /* Page is a fixed shell — sidebar + content scroll independently.
+     Without this, the body adds a second scrollbar on top of the
+     content's own, producing the "two scrollbars side by side" glitch. */
+  overflow: hidden;
+}
 body {
   font-family: var(--font);
   color: var(--fg);
@@ -189,14 +197,25 @@ pre code {
 .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 .sidebar::-webkit-scrollbar-thumb:hover { background: var(--fg-ghost); }
 
+/* Centered scrollable column. The content area itself is the only
+   vertical scroller in the page body (sidebar has its own). We center
+   the inner column via padding-inline rather than max-width + margin auto
+   so the scrollbar sits at the right edge of the viewport, not at the
+   right edge of a centered narrow column. */
 .content {
   flex: 1;
   overflow-y: auto;
-  padding: 36px 48px 96px;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
+  overflow-x: hidden;
+  padding: 36px max(48px, calc((100% - 1200px) / 2)) 96px;
 }
+.content::-webkit-scrollbar { width: 10px; }
+.content::-webkit-scrollbar-track { background: transparent; }
+.content::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 5px;
+  border: 2px solid var(--bg-app);
+}
+.content::-webkit-scrollbar-thumb:hover { background: var(--fg-ghost); }
 
 /* ─── Tree ──────────────────────────────────────────────────────────── */
 .tree, .tree ul { list-style: none; padding-left: 0; margin: 0; }
