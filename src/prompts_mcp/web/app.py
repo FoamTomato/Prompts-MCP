@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Query
@@ -47,6 +48,25 @@ def create_web_app(state) -> FastAPI:
         if fwd:
             return fwd.rstrip("/")
         return "/web"
+
+    def _body_is_redundant_with_children(body_md: str) -> bool:
+        """An index file body is "redundant" if it only contains a heading
+        and one markdown table — the same info the children-card already
+        renders structured. We hide such bodies to avoid duplication.
+
+        Conservative check: strip blank lines and a leading H1, then
+        whatever remains must be a single GFM table (lines starting with `|`
+        and a separator row). If any other content (prose, list, code, more
+        headings) is present, keep the body.
+        """
+        lines = [l for l in body_md.splitlines() if l.strip()]
+        # Strip leading H1
+        if lines and lines[0].lstrip().startswith("# "):
+            lines = lines[1:]
+        if not lines:
+            return True
+        # Every remaining line must be a table line (starts with `|`).
+        return all(l.lstrip().startswith("|") for l in lines)
 
     def _build_children_view(rec, idx, base: str) -> list[dict]:
         """For an index/root skill, resolve its frontmatter.children into
@@ -111,10 +131,19 @@ def create_web_app(state) -> FastAPI:
         if rec is None:
             raise HTTPException(404, f"skill not found: {skill_path}")
 
-        rendered = md_renderer.render(rec.body_markdown)
-        tree = idx.tree.to_dict(include_descriptions=True, max_depth=10)
         base = _base_path(request)
-        children_view = _build_children_view(rec, idx, base) if rec.kind in {"index", "root"} else []
+        is_index = rec.kind in {"index", "root"}
+        children_view = _build_children_view(rec, idx, base) if is_index else []
+
+        # On an index page, if the markdown body is just a duplicate of the
+        # children-card (heading + table), skip rendering it entirely.
+        # Otherwise (the body has extra prose/decision-tables/links), render.
+        if is_index and children_view and _body_is_redundant_with_children(rec.body_markdown):
+            rendered = ""
+        else:
+            rendered = md_renderer.render(rec.body_markdown)
+
+        tree = idx.tree.to_dict(include_descriptions=True, max_depth=10)
         return TEMPLATES.TemplateResponse(
             request,
             "layout.html",

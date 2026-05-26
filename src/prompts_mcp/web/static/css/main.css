@@ -201,7 +201,10 @@ pre code { background: transparent; padding: 0; }
   margin: 2px 0 0 0;
 }
 .child-desc {
-  font-size: 11px;
-  color: var(--fg-dim);
-  margin-top: 1px;
+  /* Primary blurb for each child (prefers the child's own description,
+     falls back to parent's children[].note). Make it readable, not faint. */
+  font-size: 12.5px;
+  color: var(--fg);
+  margin-top: 4px;
+  line-height: 1.5;
 }

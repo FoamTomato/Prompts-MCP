@@ -24,7 +24,7 @@
 
   {% if children_view %}
   <section class="children-card">
-    <h2 class="children-title">子项</h2>
+    <h2 class="children-title">子项索引</h2>
     <ul class="children-list">
       {% for ch in children_view %}
       <li class="child-row {% if not ch.exists %}child-missing{% endif %}">
@@ -33,17 +33,21 @@
           {% if ch.tag %}<span class="child-tag">{{ ch.tag }}</span>{% endif %}
           {% if not ch.exists %}<span class="child-badge-missing">缺失</span>{% endif %}
         </a>
-        {% if ch.note %}<div class="child-note">{{ ch.note }}</div>{% endif %}
-        {% if ch.description and ch.description != ch.note %}<div class="child-desc">{{ ch.description }}</div>{% endif %}
+        {# Prefer the child's own (richer) description; fall back to the
+           shorter note declared in the parent's children[] entry. #}
+        {% set blurb = ch.description if ch.description else ch.note %}
+        {% if blurb %}<div class="child-desc">{{ blurb }}</div>{% endif %}
       </li>
       {% endfor %}
     </ul>
   </section>
   {% endif %}
 
+  {% if rendered_html %}
   <div class="markdown-body">
     {{ rendered_html|safe }}
   </div>
+  {% endif %}
 
   <footer class="skill-foot">
     <span>MCP URI: <code>{{ skill.uri }}</code></span>
