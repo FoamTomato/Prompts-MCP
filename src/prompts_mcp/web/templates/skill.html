@@ -22,6 +22,25 @@
     {% endif %}
   </header>
 
+  {% if children_view %}
+  <section class="children-card">
+    <h2 class="children-title">子项</h2>
+    <ul class="children-list">
+      {% for ch in children_view %}
+      <li class="child-row {% if not ch.exists %}child-missing{% endif %}">
+        <a href="{{ ch.href }}" class="child-link">
+          <span class="child-name">{{ ch.name }}</span>
+          {% if ch.tag %}<span class="child-tag">{{ ch.tag }}</span>{% endif %}
+          {% if not ch.exists %}<span class="child-badge-missing">缺失</span>{% endif %}
+        </a>
+        {% if ch.note %}<div class="child-note">{{ ch.note }}</div>{% endif %}
+        {% if ch.description and ch.description != ch.note %}<div class="child-desc">{{ ch.description }}</div>{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
   <div class="markdown-body">
     {{ rendered_html|safe }}
   </div>
