@@ -1,74 +1,57 @@
 # Deployment to 117.72.182.195
 
-The production server pulls from a **GHCR mirror** (`ghcr.nju.edu.cn`,
-南京大学开源镜像站) because direct `ghcr.io` pulls from this server's CN
-egress are unreliably slow (>10 minutes observed). The mirror cuts that to
-~40s for a cold pull and ~3s when layers are cached.
+**Default flow: fully automated via GitHub Actions.**
 
-GitHub Actions still publishes to `ghcr.io/foamtomato/prompts-mcp:latest`;
-the mirror re-serves the same image transparently — no extra publishing
-step. Both mirrors below are interchangeable:
-
-| Mirror | Speed observed |
-|--------|----------------|
-| `ghcr.nju.edu.cn/foamtomato/prompts-mcp:latest` | ~40s cold (primary) |
-| `ghcr.mirrorify.net/foamtomato/prompts-mcp:latest` | ~40s cold (backup) |
-| `ghcr.io/foamtomato/prompts-mcp:latest` | >10min (do not use) |
-
-Swap the host prefix in `/opt/docker-compose.yml`'s `image:` line if the
-primary is down. The `latest` tag and image digest match across mirrors.
-
-If both mirrors fail, fall back to **build-locally + scp + docker load** —
-fully automated by `scripts/deploy_image.sh`. This requires the dev
-machine to be able to reach Docker Hub (proxy configured).
-
-A working copy of the repo is also cloned to `/opt/prompts-mcp/` because
-the **skills directory** (`/opt/prompts-mcp/skills`) is bind-mounted into
-the container read-only. Updating skill content alone is a `git pull` +
-restart, no image rebuild needed.
-
-## One-time setup
-
-```bash
-# 1. clone the repo on the server (for skills/ volume + reference manifests)
-ssh root@117.72.182.195 'cd /opt && git clone https://github.com/FoamTomato/Prompts-MCP.git prompts-mcp'
-
-# 2. append the prompts-mcp service block from deploy/docker-compose.prod.yml
-#    into /opt/docker-compose.yml (inside the existing top-level services: map,
-#    before networks:). Back up first:
-ssh root@117.72.182.195 'cp /opt/docker-compose.yml /opt/docker-compose.yml.bak.$(date +%Y%m%d-%H%M%S)'
-
-# 3. append deploy/nginx-snippet.conf into the
-#    `server { listen 443 ssl; server_name xiaohang.site; ... }`
-#    block of /opt/nginx/conf.d/default.conf. Back up similarly.
-
-# 4. pull image + bring up:
-ssh root@117.72.182.195 'cd /opt && docker compose pull prompts-mcp && docker compose up -d prompts-mcp'
-
-# 5. reload nginx:
-ssh root@117.72.182.195 'cd /opt && docker compose exec nginx nginx -t && docker compose exec nginx nginx -s reload'
+```
+git push  ──►  Actions builds amd64 image (~40s)
+              ▼
+              ghcr.io/foamtomato/prompts-mcp:latest
+              ▼
+              Actions SSHes into prod, runs `docker pull` from
+              ghcr.nju.edu.cn mirror (CN egress is unreliable
+              against ghcr.io direct), tags as prompts-mcp:latest,
+              recreates the container, probes /health internally
+              and externally.
+              ▼
+              live at https://xiaohang.site/mcp/sse  (total ~80s)
 ```
 
-## Verify
+Workflow: `.github/workflows/docker.yml`.
+Required GitHub Secrets:
 
-```bash
-ssh root@117.72.182.195 'docker exec nginx curl -fsS http://prompts-mcp:8080/health'
-curl -fsS https://xiaohang.site/mcp/health
-curl -fsSI https://xiaohang.site/skills/ | head -3
-```
+| Secret | Value | How |
+|---|---|---|
+| `PROD_SSH_HOST` | `117.72.182.195` | `gh secret set PROD_SSH_HOST --repo …` |
+| `PROD_SSH_USER` | `root` | same |
+| `PROD_SSH_KEY` | full OpenSSH private key | **use `gh secret set PROD_SSH_KEY --repo … < ~/.ssh/your_key`** — paste into the web UI textarea sometimes corrupts the newlines and breaks ed25519 parsing |
 
-## Update flow
+The public half of `PROD_SSH_KEY` must be in the server's
+`~/.ssh/authorized_keys`. Either reuse your personal key, or generate
+a deploy-only key with `ssh-keygen -t ed25519 -f ~/.ssh/<name>` and
+append the `.pub` to the server.
 
-### Code change (rebuild image)
+## What the deploy step actually does
 
-```bash
-git push                       # CI builds + publishes to GHCR (mirrored automatically)
-ssh root@117.72.182.195 'cd /opt && docker compose pull prompts-mcp && docker compose up -d prompts-mcp'
-```
+After SSH-ing into the prod server, the script:
 
-Typical end-to-end: 60s for Actions build + ~40s mirror pull on cold start ≈ **under 2 minutes**.
+1. Tries `ghcr.nju.edu.cn` first, then `ghcr.mirrorify.net` as fallback.
+2. Up to 3 attempts per mirror, 300s timeout per attempt.
+3. Between attempts, `docker rmi` the half-pulled image (CN mirror's
+   habit of EOF-truncating a layer otherwise leaves a poisoned cache).
+4. On success, retags as `prompts-mcp:latest` (compose file references
+   the plain tag so a `docker compose up -d` doesn't re-pull on restart).
+5. `docker compose up -d --force-recreate prompts-mcp`.
+6. Probes the container's `/health` endpoint internally; then the
+   Actions runner probes the public `https://xiaohang.site/mcp/health`
+   externally with 5 retries.
 
-### Skill content only (no code change)
+Total time: ~40s build + ~40s mirror pull + ~5s restart ≈ **80s end-to-end**.
+
+## Skill content updates (no code change)
+
+For skill data edits only — `skills/*.md` — you don't need a rebuild.
+The skills directory is bind-mounted into the running container; pulling
+fresh skill files on the server and restarting is enough:
 
 ```bash
 # locally edit skills/*.md
@@ -78,26 +61,60 @@ ssh root@117.72.182.195 \
   "cd /opt/prompts-mcp && git pull && cd /opt && docker compose restart prompts-mcp"
 ```
 
-Restart takes <2s; the in-memory index rebuilds on boot. No image pull needed.
+Restart takes <2s. Index rebuilds on boot.
 
-### Emergency fallback — direct scp
+If you don't want to think about the two-flow distinction, `git push`
+is always safe — Actions will rebuild and redeploy, which costs a
+minute but produces the same outcome.
 
-If both mirrors are down:
+## Emergency fallback: local build + scp
+
+If GitHub is down, or both GHCR mirrors are EOF-broken, or you need to
+deploy without going through Actions:
 
 ```bash
 ./scripts/deploy_image.sh
 ```
 
-Builds amd64 locally (needs working proxy to Docker Hub), saves a 200MB
-tar, scps it up, docker-loads it, and recreates the container. Slower
-(~5min total) but completely independent of GHCR.
+This builds amd64 locally (requires Docker Hub reachable via your dev
+machine's proxy), saves a ~200MB tar, scps it to the server, docker-
+loads it, recreates the container. Slower (~5min total) but completely
+independent of Actions, GHCR, and mirrors.
+
+After scp deploy the compose file ends up referencing `prompts-mcp:latest`
+locally. The next Actions deploy will pull from the mirror, retag to
+the same name, and `--force-recreate`, which is a clean no-op switch.
+
+## One-time setup (if redeploying from scratch)
+
+```bash
+ssh root@117.72.182.195 'cd /opt && git clone https://github.com/FoamTomato/Prompts-MCP.git prompts-mcp'
+ssh root@117.72.182.195 'cp /opt/docker-compose.yml /opt/docker-compose.yml.bak.$(date +%Y%m%d-%H%M%S)'
+# Append the snippet from deploy/docker-compose.prod.yml into /opt/docker-compose.yml
+# Append deploy/nginx-snippet.conf into /opt/nginx/conf.d/default.conf, then `nginx -s reload`
+```
+
+After that, a `git push` to main is the only command you need.
+
+## Verify
+
+```bash
+curl -fsS https://xiaohang.site/mcp/health | jq
+ssh root@117.72.182.195 'docker inspect prompts-mcp --format "{{.Image}}  created={{.Created}}"'
+```
+
+The `Created` timestamp on the container should be within a couple
+of minutes of your last `git push`.
 
 ## Troubleshooting
 
-- `docker compose logs prompts-mcp` — startup errors show the failing skill path
-- `docker exec prompts-mcp python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8080/health').read())"`
-- Nginx upstream resolution: containers must share `opt_app-net`. Verify with
-  `docker inspect prompts-mcp --format '{{json .NetworkSettings.Networks}}'`.
-- Mirror down: edit `/opt/docker-compose.yml`, swap `ghcr.nju.edu.cn` →
-  `ghcr.mirrorify.net`, re-run `docker compose pull && up -d`.
-- Both mirrors down: run `./scripts/deploy_image.sh` from the dev machine.
+- **Deploy step fails at "Set up SSH" with libcrypto error** —
+  PROD_SSH_KEY was corrupted by the web textarea. Re-upload with
+  `gh secret set PROD_SSH_KEY --repo … < ~/.ssh/your_key`.
+- **Deploy step fails with "All mirrors failed"** — Both nju and
+  mirrorify ate it today. Run `./scripts/deploy_image.sh` locally.
+- **Container up but `/mcp/health` 502** — Nginx upstream resolution.
+  Check `docker inspect prompts-mcp --format '{{json .NetworkSettings.Networks}}'`
+  has `opt_app-net` in it.
+- **Container restart loop** — `docker compose logs prompts-mcp`; the
+  failing skill path is usually in the last 5 lines.
