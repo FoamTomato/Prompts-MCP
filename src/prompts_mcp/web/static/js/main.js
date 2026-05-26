@@ -58,3 +58,24 @@ document.addEventListener('keydown', e => {
     doSearch();
   }
 });
+
+// Tree folder triangle: expand/collapse without navigating.
+// The folder *name* is a separate <a> link that jumps to its index page.
+document.querySelectorAll('.tree .folder-toggle').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const li = btn.closest('.folder');
+    if (!li) return;
+    const ul = li.querySelector(':scope > .folder-children');
+    if (!ul) return;
+    const open = li.classList.toggle('open');
+    if (open) {
+      ul.removeAttribute('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+    } else {
+      ul.setAttribute('hidden', '');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+});

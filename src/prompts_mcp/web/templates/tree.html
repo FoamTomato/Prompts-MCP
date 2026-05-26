@@ -4,15 +4,19 @@
       <a href="{{ base }}/skill/{{ node.path|replace('.md', '') }}" title="{{ node.description or '' }}">{{ node.name }}</a>
     </li>
   {% else %}
-    <li class="folder">
-      <details {% if depth < 2 or (active_path and active_path.startswith(node.path)) %}open{% endif %}>
-        <summary>{{ node.name }}</summary>
-        {% if node.children %}
-          <ul>
-            {% for ch in node.children %}{{ render_node(ch, depth + 1, base, active_path) }}{% endfor %}
-          </ul>
-        {% endif %}
-      </details>
+    {# folder: triangle toggles expand, name links to its index #}
+    {% set is_open = depth < 2 or (active_path and active_path.startswith(node.path)) %}
+    {% set is_active = active_path and (active_path == node.path + '/index.md' or active_path == node.path) %}
+    <li class="folder {% if is_open %}open{% endif %} {% if is_active %}active{% endif %}">
+      <div class="folder-row">
+        <button type="button" class="folder-toggle" aria-label="expand" aria-expanded="{{ 'true' if is_open else 'false' }}">▸</button>
+        <a class="folder-link" href="{{ base }}/skill/{{ node.path }}/index" title="{{ node.description or '' }}">{{ node.name }}</a>
+      </div>
+      {% if node.children %}
+        <ul class="folder-children" {% if not is_open %}hidden{% endif %}>
+          {% for ch in node.children %}{{ render_node(ch, depth + 1, base, active_path) }}{% endfor %}
+        </ul>
+      {% endif %}
     </li>
   {% endif %}
 {%- endmacro %}

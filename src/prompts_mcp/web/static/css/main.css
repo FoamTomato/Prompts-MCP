@@ -51,16 +51,53 @@ pre code { background: transparent; padding: 0; }
 .tree, .tree ul { list-style: none; padding-left: 0; margin: 0; }
 .tree ul { padding-left: 14px; border-left: 1px dashed var(--border); margin: 2px 0 4px 8px; }
 .tree li { margin: 1px 0; }
-.tree .folder > details > summary {
-  cursor: pointer; padding: 2px 6px; border-radius: 4px;
-  font-weight: 500; color: var(--fg);
+
+/* Folder row: triangle button (expand/collapse) + link (navigate to index page) */
+.tree .folder-row {
+  display: flex; align-items: center; gap: 4px;
+  border-radius: 4px;
 }
-.tree .folder > details > summary:hover { background: var(--leaf-hover); }
+.tree .folder-row:hover { background: var(--leaf-hover); }
+.tree .folder-toggle {
+  flex: 0 0 16px;
+  width: 16px; height: 18px;
+  padding: 0; margin: 0;
+  border: none; background: transparent;
+  cursor: pointer;
+  color: var(--fg-dim);
+  font-size: 10px;
+  transition: transform 0.12s ease;
+}
+.tree .folder.open > .folder-row > .folder-toggle { transform: rotate(90deg); }
+.tree .folder-link {
+  flex: 1;
+  display: block;
+  padding: 2px 6px 2px 0;
+  border-radius: 4px;
+  font-weight: 500; color: var(--fg);
+  text-decoration: none;
+  font-size: 13px;
+}
+.tree .folder-link:hover { color: var(--accent); text-decoration: none; }
+.tree .folder.active > .folder-row > .folder-link {
+  background: var(--active);
+  color: var(--fg);
+  font-weight: 600;
+  padding-left: 6px;
+}
+.tree .folder-children { /* collapsed handled by [hidden] attribute */ }
+
 .tree .leaf a {
   display: block; padding: 2px 8px; border-radius: 4px;
   color: var(--fg); font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
 }
-.tree .leaf a:hover { background: var(--leaf-hover); text-decoration: none; }
+.tree .leaf a:hover {
+  background: var(--leaf-hover);
+  color: var(--accent);
+  text-decoration: none;
+}
 .tree .leaf.active a { background: var(--active); color: var(--fg); font-weight: 600; }
 
 #search-results { padding: 8px 6px 14px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
