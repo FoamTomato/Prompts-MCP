@@ -99,8 +99,8 @@ code {
   border: 1px solid var(--border-soft);
 }
 pre {
-  background: #0f172a;                /* dark code block — 高对比，给工程师看舒服 */
-  color: #e2e8f0;
+  background: var(--bg-sunken);       /* slate-100 — light theme 代码块，与整体一致 */
+  color: var(--fg);
   padding: 16px 18px;
   border-radius: var(--r-md);
   overflow-x: auto;
@@ -108,6 +108,7 @@ pre {
   font-size: 13px;
   line-height: 1.6;
   margin: 14px 0;
+  border: 1px solid var(--border-soft);
 }
 pre code {
   background: transparent;
@@ -116,6 +117,11 @@ pre code {
   color: inherit;
   font-size: inherit;
 }
+/* Custom scrollbar inside code blocks (light theme) */
+pre::-webkit-scrollbar { height: 8px; }
+pre::-webkit-scrollbar-track { background: transparent; }
+pre::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+pre::-webkit-scrollbar-thumb:hover { background: var(--fg-ghost); }
 
 /* ─── Topbar ────────────────────────────────────────────────────────── */
 .topbar {
