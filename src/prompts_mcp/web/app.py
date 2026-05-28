@@ -229,14 +229,39 @@ def create_web_app(state) -> FastAPI:
     @web.get("/api/search")
     def api_search(
         q: str = Query("", description="search query"),
+        # Comma-separated lists for sub-agent / curl use:
+        #   ?paths=frontend/src/Card.tsx,frontend/src/App.tsx
+        #   ?keywords=Card,hover,onClick
+        paths: str | None = Query(None, description="comma-separated artifact paths"),
+        keywords: str | None = Query(None, description="comma-separated keywords"),
         dimension: str | None = None,
-        top_k: int = 20,
+        effort: str | None = None,
+        kinds: str | None = Query(None, description="comma-separated kinds (leaf/index/root)"),
+        top_k: int = 10,
     ) -> JSONResponse:
+        """Search endpoint usable both by the Web UI (q only) and by external
+        callers like the Quill quill-dev sub-agent (paths × keywords two-D
+        reverse lookup, no MCP client needed — just curl).
+        """
         idx = _require_index()
-        q = q.strip()
-        if not q:
+        q = (q or "").strip()
+        paths_list = [s.strip() for s in (paths or "").split(",") if s.strip()] or None
+        kw_list = [s.strip() for s in (keywords or "").split(",") if s.strip()] or None
+        kinds_list = [s.strip() for s in (kinds or "").split(",") if s.strip()] or None
+
+        if not q and not paths_list and not kw_list:
             return JSONResponse({"matches": []})
-        matches = search(idx, query=q, dimension=dimension, top_k=top_k)
+
+        matches = search(
+            idx,
+            query=q or None,
+            keywords=kw_list,
+            paths=paths_list,
+            dimension=dimension,
+            effort=effort,
+            top_k=top_k,
+            kinds=kinds_list,
+        )
         return JSONResponse(
             {
                 "matches": [
@@ -245,6 +270,7 @@ def create_web_app(state) -> FastAPI:
                         "name": m.record.name,
                         "description": m.record.description,
                         "dimension": m.record.dimension,
+                        "effort": m.record.effort,
                         "score": round(m.score, 3),
                         "matched_by": m.matched_by,
                     }
@@ -252,5 +278,61 @@ def create_web_app(state) -> FastAPI:
                 ]
             }
         )
+
+    @web.get("/api/skill/{skill_path:path}")
+    def api_get_skill(skill_path: str, include: str = Query("body", description="frontmatter|body|raw")) -> JSONResponse:
+        """Return one skill's content as JSON. Mirrors the MCP get_skill
+        tool — easier to consume from a sub-agent's `Bash` curl call than
+        an MCP stdio client.
+
+        ?include=body (default) returns just the markdown body for direct
+        pasting into context. include=raw returns the full file content
+        including frontmatter. include=frontmatter returns parsed yaml only.
+        Multiple values can be comma-separated.
+        """
+        idx = _require_index()
+        normalized = skill_path if skill_path.endswith(".md") else skill_path + ".md"
+        rec = idx.by_path.get(normalized)
+        if rec is None:
+            raise HTTPException(404, f"skill not found: {skill_path}")
+        want = {p.strip() for p in include.split(",") if p.strip()}
+        out: dict = {
+            "name": rec.name,
+            "path": rec.path,
+            "kind": rec.kind,
+            "dimension": rec.dimension,
+            "uri": rec.uri,
+        }
+        if "frontmatter" in want:
+            out["frontmatter"] = rec.frontmatter
+        if "body" in want:
+            out["body_markdown"] = rec.body_markdown
+        if "raw" in want:
+            out["raw_markdown"] = rec.raw_markdown
+        return JSONResponse(out)
+
+    @web.get("/api/bundle")
+    def api_bundle(paths: str = Query("", description="comma-separated skill paths")) -> JSONResponse:
+        """Batch fetch full body markdown for multiple skills. Mirrors the
+        MCP get_skill_bundle tool. Usage:
+          curl 'https://xiaohang.site/skills/api/bundle?paths=habit/x.md,habit/y.md'
+        """
+        idx = _require_index()
+        path_list = [p.strip() for p in paths.split(",") if p.strip()]
+        out_skills, missing = [], []
+        for p in path_list:
+            normalized = p if p.endswith(".md") else p + ".md"
+            rec = idx.by_path.get(normalized)
+            if rec is None:
+                missing.append(p)
+                continue
+            out_skills.append({
+                "path": rec.path,
+                "name": rec.name,
+                "kind": rec.kind,
+                "description": rec.description,
+                "body_markdown": rec.body_markdown,
+            })
+        return JSONResponse({"skills": out_skills, "missing": missing})
 
     return web
