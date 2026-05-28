@@ -1,0 +1,148 @@
+name: Build and publish skill bundle
+
+# Strategy
+# --------
+# Each push to main and each `v*` tag rebuilds the static skill bundle
+# (skills/ → bundle.tar.gz + version.txt + manifest.json + SHA256SUMS),
+# then publishes it two ways:
+#   1. GitHub Actions artifact (always — short-retention fallback for plugin)
+#   2. SCP-pushed to /var/www/skills-bundle/ on the prod server, served at
+#      https://xiaohang.site/skills/bundle/ (when PROD_SSH_* secrets are set)
+#
+# Plugin (quill-plugin) is the consumer:
+#   - default source : https://xiaohang.site/skills/bundle/bundle.tar.gz
+#   - update check   : GET https://xiaohang.site/skills/bundle/version.txt
+#   - fallback       : https://github.com/foamtomato/prompts-mcp/archive/refs/heads/main.tar.gz
+#
+# This is intentionally separate from docker.yml — bundle changes happen on
+# every skill-content commit (cheap), while docker rebuilds happen only when
+# the server-side code changes. Decoupling keeps each pipeline ~30s instead
+# of 80s+.
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths:
+      - "skills/**"
+      - "scripts/build_bundle.sh"
+      - ".github/workflows/bundle.yml"
+  workflow_dispatch:
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # for `git describe --tags`
+
+      - name: Build bundle
+        run: |
+          chmod +x scripts/build_bundle.sh
+          bash scripts/build_bundle.sh
+
+      - name: Upload as Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: skill-bundle-${{ github.sha }}
+          path: dist/
+          retention-days: 30
+
+      - name: Set up SSH
+        id: ssh
+        env:
+          SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
+          SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          SSH_USER: ${{ secrets.PROD_SSH_USER }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SSH_KEY:-}" ] || [ -z "${SSH_HOST:-}" ]; then
+            echo "::warning::PROD_SSH_* secrets not set — bundle published as Actions artifact only."
+            echo "skip_upload=1" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          {
+            printf '%s' "$SSH_KEY"
+            [ "$(printf '%s' "$SSH_KEY" | tail -c1 | od -An -c | tr -d ' ')" = "\\n" ] || printf '\n'
+          } > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keygen -y -f ~/.ssh/id_deploy > /dev/null 2>&1 || { echo "::error::PROD_SSH_KEY parse failed"; exit 1; }
+          ssh-keyscan -t ed25519,rsa "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          cat >> ~/.ssh/config <<EOF
+          Host prod
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/id_deploy
+            IdentitiesOnly yes
+          EOF
+
+      - name: Upload bundle to server
+        if: env.skip_upload != '1'
+        # Atomic deploy: scp to a versioned filename, then symlink-swap.
+        # If a plugin client is mid-curl when we update, it either sees the
+        # old file (already streaming) or the new file (next request),
+        # never a half-written file.
+        run: |
+          set -euo pipefail
+          VERSION=$(cat dist/version.txt)
+          STAMP=$(date +%Y%m%d-%H%M%S)
+          REMOTE_DIR=/var/www/skills-bundle
+
+          ssh prod "mkdir -p $REMOTE_DIR/releases/$STAMP"
+
+          scp \
+            dist/bundle.tar.gz \
+            dist/bundle.tar.gz.sha256 \
+            dist/SHA256SUMS \
+            dist/version.txt \
+            dist/manifest.json \
+            "prod:$REMOTE_DIR/releases/$STAMP/"
+
+          # Atomic symlink swap (ln -sfn = no race, no down-time)
+          ssh prod bash -se <<EOF
+            set -euo pipefail
+            cd $REMOTE_DIR
+            ln -sfn releases/$STAMP/bundle.tar.gz        bundle.tar.gz.new
+            ln -sfn releases/$STAMP/bundle.tar.gz.sha256 bundle.tar.gz.sha256.new
+            ln -sfn releases/$STAMP/SHA256SUMS           SHA256SUMS.new
+            ln -sfn releases/$STAMP/version.txt          version.txt.new
+            ln -sfn releases/$STAMP/manifest.json        manifest.json.new
+            mv -Tf bundle.tar.gz.new        bundle.tar.gz
+            mv -Tf bundle.tar.gz.sha256.new bundle.tar.gz.sha256
+            mv -Tf SHA256SUMS.new           SHA256SUMS
+            mv -Tf version.txt.new          version.txt
+            mv -Tf manifest.json.new        manifest.json
+
+            # Keep last 10 releases, prune older
+            ls -1dt releases/*/ | tail -n +11 | xargs -r rm -rf
+
+            echo "Published $VERSION at $STAMP"
+            ls -la $REMOTE_DIR
+          EOF
+
+      - name: Verify external endpoint
+        if: env.skip_upload != '1'
+        run: |
+          EXPECTED_SHA=$(cat dist/bundle.tar.gz.sha256)
+          for i in 1 2 3 4 5; do
+            if curl -fsSL "https://xiaohang.site/skills/bundle/version.txt" > /tmp/remote_version.txt 2>/dev/null \
+              && curl -fsSL "https://xiaohang.site/skills/bundle/bundle.tar.gz.sha256" > /tmp/remote_sha.txt 2>/dev/null; then
+              REMOTE_SHA=$(cat /tmp/remote_sha.txt | awk '{print $1}')
+              REMOTE_VER=$(cat /tmp/remote_version.txt)
+              if [ "$REMOTE_SHA" = "$EXPECTED_SHA" ]; then
+                echo "✅ Bundle live at https://xiaohang.site/skills/bundle/ (version=$REMOTE_VER, sha=$REMOTE_SHA)"
+                exit 0
+              fi
+              echo "Attempt $i: sha mismatch (expected $EXPECTED_SHA, got $REMOTE_SHA), retry"
+            else
+              echo "Attempt $i: endpoint not reachable yet, retry"
+            fi
+            sleep 4
+          done
+          echo "::error::Bundle not visible at xiaohang.site/skills/bundle/ — check nginx /skills/bundle/ location block."
+          exit 1
