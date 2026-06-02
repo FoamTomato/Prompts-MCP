@@ -166,5 +166,5 @@ class TextbookAssertCode(Enum):
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`principle.md`](./principle.md) · [`validator-vs-assertion.md`](./validator-vs-assertion.md)
-- 配套：[`../../lang/python/naming/class-naming.md`](../../lang/python/naming/class-naming.md)
+- 配套：[`../../lang/python/naming/index.md`](../../lang/python/naming/index.md)
 - 实战代码：`py/asserts/textbook.py` / `outline.py` / `session.py` / ...

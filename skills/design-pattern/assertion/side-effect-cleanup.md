@@ -1,7 +1,7 @@
 ---
-name: assertion-post-tool-pattern
+name: assertion-side-effect-cleanup
 description: 与 ApiException 三件套配合的边界 try/except — 何时需要捕获 ApiException 做副作用清理。Use when
-  写 Python 后端代码 / 评审涉及 `post-tool-pattern` 的 PR。
+  写 Python 后端代码 / 评审涉及 `side-effect-cleanup` 的 PR。
 parent: ./index.md
 paths:
 - py/services/**/*.py

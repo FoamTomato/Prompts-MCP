@@ -1,6 +1,6 @@
 ---
 name: design-pattern-index
-description: 设计模式索引（Repository / Factory / Strategy / DDD 分层 / Pipeline / Assertion）
+description: 设计模式索引 — 实战模式(Repository/Factory/Strategy/DDD/Pipeline/Assertion) + GoF 通用(SOLID/单例/建造者/代理/行为型)。Use when 做结构性设计决策 / 评审抽象与分层时。
 parent: ../index.md
 children:
   - { name: repository, path: repository/index.md, tag: folder, note: 持久化薄壳，禁业务 }
@@ -8,7 +8,12 @@ children:
   - { name: strategy, path: strategy/index.md, tag: folder, note: 导出器 / 渲染策略可替换 }
   - { name: ddd-layering, path: ddd-layering/index.md, tag: folder, note: Controller 薄 / Service 编排 / Domain 纯 }
   - { name: pipeline, path: pipeline/index.md, tag: folder, note: Step 方法链命名 }
-  - { name: assertion, path: assertion/index.md, tag: folder, note: 断言式异常处理 — Asserts 类 + ApiException + 边界 try/except（W3.5 新增） }
+  - { name: assertion, path: assertion/index.md, tag: folder, note: 断言式异常处理 — Asserts 类 + ApiException + 边界 try/except }
+  - { name: solid, path: solid/index.md, tag: folder, note: SOLID 五原则（SRP/OCP/LSP/ISP/DIP） }
+  - { name: singleton, path: singleton/index.md, tag: folder, note: 线程安全单例（枚举/静态内部类/DCL） }
+  - { name: builder, path: builder/index.md, tag: folder, note: 建造者（@Builder / 链式） }
+  - { name: proxy, path: proxy/index.md, tag: folder, note: 代理（JDK 动态代理 vs CGLIB / Spring AOP） }
+  - { name: behavioral, path: behavioral/index.md, tag: folder, note: 行为型（模板方法 / 责任链 / 观察者 / 适配器） }
 when_to_descend: |
   任务涉及"结构性决策"：分层、抽象、可替换实现、多步流程编排、异常处理设计。
 ---
@@ -26,7 +31,12 @@ when_to_descend: |
 | strategy | 文件夹 | 导出器 / 渲染策略可替换 |
 | ddd-layering | 文件夹 | Controller 薄 / Service 编排 / Domain 纯 |
 | pipeline | 文件夹 | 多步流程的 Step 方法命名 |
-| **assertion** | 文件夹 | **W3.5 新增**：断言式异常处理（Asserts 类 + ApiException + 边界 try/except） |
+| assertion | 文件夹 | 断言式异常处理（Asserts 类 + ApiException + 边界 try/except） |
+| solid | 文件夹 | SOLID 五原则 SRP/OCP/LSP/ISP/DIP（5 子项） |
+| singleton | 文件夹 | 线程安全单例：枚举/静态内部类/DCL（1 子项） |
+| builder | 文件夹 | 建造者 @Builder/链式（1 子项） |
+| proxy | 文件夹 | JDK 动态代理 vs CGLIB / Spring AOP（1 子项） |
+| behavioral | 文件夹 | 模板方法 / 责任链 / 观察者 / 适配器（4 子项） |
 
 ## 何时下钻
 
@@ -48,4 +58,4 @@ when_to_descend: |
 ## 链接
 
 - 上层：[`../index.md`](../index.md)
-- 平行维度：[`../lang/index.md`](../lang/index.md) · [`../framework/index.md`](../framework/index.md) · [`../habit/index.md`](../habit/index.md)
+- 平行维度：[`../lang/index.md`](../lang/index.md) · [`../framework/index.md`](../framework/index.md) · [`../habit/index.md`](../habit/index.md) · [`../tech-selection/index.md`](../tech-selection/index.md) · [`../ai/index.md`](../ai/index.md) · [`../fundamentals/index.md`](../fundamentals/index.md)

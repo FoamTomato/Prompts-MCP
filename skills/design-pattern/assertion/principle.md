@@ -108,5 +108,5 @@ Asserts.inRange(form.slideCount, 3, 20, { code: "D002", message: "幻灯片数 3
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`asserts-class.md`](./asserts-class.md) · [`validator-vs-assertion.md`](./validator-vs-assertion.md) · [`post-tool-pattern.md`](./post-tool-pattern.md)
+- 兄弟：[`asserts-class.md`](./asserts-class.md) · [`validator-vs-assertion.md`](./validator-vs-assertion.md) · [`side-effect-cleanup.md`](./side-effect-cleanup.md)
 - 配套：[`../../lang/python/error-handling/api-exception.md`](../../lang/python/error-handling/api-exception.md)

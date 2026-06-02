@@ -132,5 +132,5 @@ async def find_with_owner(self, oid):
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`controller-thin.md`](./controller-thin.md) · [`service-orchestration.md`](./service-orchestration.md) · [`domain-pure.md`](./domain-pure.md)
-- 配套：[`../repository/usage-rule.md`](../repository/usage-rule.md) · [`../repository/no-business-in-repo.md`](../repository/no-business-in-repo.md)
+- 配套：[`../repository/crud-contract.md`](../repository/crud-contract.md) · [`../repository/no-business-in-repo.md`](../repository/no-business-in-repo.md)
 

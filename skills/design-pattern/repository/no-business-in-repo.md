@@ -90,5 +90,5 @@ async def find_by_owner(
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`usage-rule.md`](./usage-rule.md)
+- 兄弟：[`crud-contract.md`](./crud-contract.md)
 

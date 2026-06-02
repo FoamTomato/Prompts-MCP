@@ -6,7 +6,7 @@ children:
   - { name: principle, path: principle.md, tag: skill, note: 三条精髓 + 12 个通用断言方法 }
   - { name: asserts-class, path: asserts-class.md, tag: skill, note: 场景化 Asserts 类命名约定 + 真实示范 }
   - { name: validator-vs-assertion, path: validator-vs-assertion.md, tag: skill, note: Pydantic 与 Asserts 各自的边界 + 5 个反例 }
-  - { name: post-tool-pattern, path: post-tool-pattern.md, tag: skill, note: 与 ApiException 三件套配合的边界 try/except 模式 }
+  - { name: side-effect-cleanup, path: side-effect-cleanup.md, tag: skill, note: 与 ApiException 三件套配合的边界 try/except 模式 }
 when_to_descend: |
   写业务校验代码 / 设计错误处理 / Code Review 时看到散落 if + raise / 评估新业务的 Asserts 类设计。
 ---
@@ -27,7 +27,7 @@ when_to_descend: |
 |------|---------|
 | 新业务模块想加 Asserts 类 | asserts-class |
 | 不确定 Asserts 与 Pydantic 怎么分工 | validator-vs-assertion |
-| 在 service / pipeline 写 try/except | post-tool-pattern |
+| 在 service / pipeline 写 try/except | side-effect-cleanup |
 | 想了解整体思想 | principle |
 
 ## 典型落点
