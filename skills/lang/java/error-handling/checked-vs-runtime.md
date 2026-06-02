@@ -1,20 +1,24 @@
 ---
 name: java-checked-vs-runtime
-description: Checked vs Runtime 异常使用边界。Use when 写 Java 代码 / 评审涉及 `checked-vs-runtime`
-  的 PR。
+description: 该抛 Checked 还是 Runtime 异常的选型边界 — 业务异常用 RuntimeException 子类，调用方必须处理的失败用 Checked。Use when 设计 Java 异常类型 / 写 throws 签名 / 评审异常分类时。
 parent: ./index.md
 paths:
 - '*.java'
 triggers:
   keywords:
-  - Exception
+  - Checked Exception
   - RuntimeException
   - 异常使用边界
+  - 异常选型
+  - BusinessException
+  - throws
 effort: medium
 context: inline
 version: '1.0'
 ---
 # Java · Checked vs Runtime 异常
+
+> 本条只管「该抛哪一类异常」。catch 到之后怎么处理见 [`catch-block-rules.md`](./catch-block-rules.md)；资源释放见 [`resource-management.md`](./resource-management.md)。
 
 ## 规则
 
@@ -54,55 +58,18 @@ if (user.getBalance() < amount) {
 public Config loadConfig(Path path) throws IOException {
     return objectMapper.readValue(path.toFile(), Config.class);
 }
-
-// 调用方
-try {
-    Config c = loadConfig(path);
-} catch (IOException e) {
-    log.error("config load failed", e);
-    System.exit(1);
-}
 ```
 
-## 反例
-
-```java
-// ❌ 把 IOException 包装成 RuntimeException 后吞掉
-try {
-    return loadConfig(path);
-} catch (IOException e) {
-    return null;   // 静默失败，调用方以为成功
-}
-
-// ✅ 包装但保留信息
-try {
-    return loadConfig(path);
-} catch (IOException e) {
-    throw new ConfigLoadException("无法加载配置: " + path, e);
-}
-```
-
-## try-with-resources 必用
-
-```java
-// ❌ 手动 close 容易遗漏
-InputStream in = new FileInputStream(file);
-try { ... } finally { in.close(); }
-
-// ✅
-try (InputStream in = new FileInputStream(file)) {
-    ...
-}   // 自动 close
-```
+`throws IOException` 把「这里会失败」写进方法签名，编译器强制调用方决定怎么处理（catch 的写法见 [`catch-block-rules.md`](./catch-block-rules.md)）。
 
 ## 自检
 
 - [ ] 业务异常用 `RuntimeException` 子类（如 `BusinessException`）？
 - [ ] Checked 异常表达调用方必须处理的合约？
-- [ ] 不空 catch（必须 log + 重抛或包装）？
-- [ ] 资源用 try-with-resources？
+- [ ] 框架不允许 throws 的位置改用 RuntimeException？
 
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-
+- 兄弟：[`catch-block-rules.md`](./catch-block-rules.md)（catch 到之后怎么办）
+- 兄弟：[`resource-management.md`](./resource-management.md)（资源怎么释放）
