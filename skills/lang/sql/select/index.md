@@ -4,7 +4,6 @@ description: SELECT 语句硬约束
 parent: ../index.md
 children:
   - { name: explicit-column-list, path: explicit-column-list.md, tag: skill, note: 显式列名，禁 SELECT * }
-  - { name: must-have-where, path: must-have-where.md, tag: skill, note: UPDATE/DELETE 必带 WHERE }
   - { name: partition-required, path: partition-required.md, tag: skill, note: SELECT * 必带 partition 字段 }
 when_to_descend: 写 SELECT 查询 / Tortoise raw / Alembic data migration
 ---
@@ -14,5 +13,4 @@ when_to_descend: 写 SELECT 查询 / Tortoise raw / Alembic data migration
 | 子项 | 一句话 |
 |------|-------|
 | explicit-column-list | 显式列名，禁 SELECT * |
-| must-have-where | UPDATE/DELETE 必带 WHERE |
 | partition-required | SELECT * 必带 partition 字段 |

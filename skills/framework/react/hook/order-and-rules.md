@@ -108,5 +108,5 @@ useEffect(() => {
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`custom-hook-naming.md`](./custom-hook-naming.md) · [`no-business-in-useEffect.md`](./no-business-in-useEffect.md)
+- 兄弟：[`custom-hook-naming.md`](./custom-hook-naming.md) · [`no-fetch-in-use-effect.md`](./no-fetch-in-use-effect.md)
 

@@ -94,6 +94,6 @@ home_page:
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`write-prd-7-sections.md`](./write-prd-7-sections.md) · [`split-prd-method.md`](./split-prd-method.md)
+- 兄弟：[`write-7-sections.md`](./write-7-sections.md) · [`split-method.md`](./split-method.md)
 - 配套：`project-index/conventions.md` 第 2-4 节
 

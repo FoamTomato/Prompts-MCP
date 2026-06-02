@@ -71,5 +71,5 @@ scripts/pr-sync-done --dry-run      # 先看会动哪些
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`pr-start-usage.md`](./pr-start-usage.md) · [`pr-create-and-close.md`](./pr-create-and-close.md) · [`conflict-resolution.md`](./conflict-resolution.md)
+- 兄弟：[`start-usage.md`](./start-usage.md) · [`create-and-close.md`](./create-and-close.md) · [`conflict-resolution.md`](./conflict-resolution.md)
 

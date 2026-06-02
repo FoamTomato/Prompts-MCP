@@ -111,7 +111,7 @@ Story <MODULE_ID>: 生成 CTA
   → 子模块：<MODULE_ID>.button GenerateButton
 ```
 
-详见 [`split-prd-method.md`](./split-prd-method.md)。
+详见 [`split-method.md`](./split-method.md)。
 
 ## 反例
 
@@ -137,5 +137,5 @@ Story <MODULE_ID>: 生成 CTA
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`map-requirements-method.md`](./map-requirements-method.md) · [`split-prd-method.md`](./split-prd-method.md)
+- 兄弟：[`map-requirements.md`](./map-requirements.md) · [`split-method.md`](./split-method.md)
 

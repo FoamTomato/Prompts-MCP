@@ -1,0 +1,94 @@
+---
+name: commit-claim-issue
+description: commit 消息里 claim Issue。Use when 评审涉及 `claim-issue` 的 PR。
+parent: ./index.md
+paths:
+- .git/**
+- '**'
+triggers:
+  keywords:
+  - Issue
+  - '#N'
+  - claim
+  - feat
+  - 消息里
+effort: medium
+context: inline
+version: '1.0'
+---
+# Commit · 在消息里 claim Issue
+
+## 规则
+
+实施任务的 commit 在 message body 或 footer **关联 Issue 编号**：
+
+```
+feat(feature-x):实现 InvoiceCard 卡片
+
+- 三类按钮命名遵循 react/component/button-naming
+- antd Table 配合卡片缩略图
+
+Closes #78
+```
+
+## 关键词
+
+| 关键词 | 行为 |
+|--------|------|
+| `Closes #N` | merge 后自动 close Issue（推荐用 close） |
+| `Fixes #N` | 同上（bug 修复语境） |
+| `Refs #N` | 仅关联不关闭（中间提交） |
+| `See #N` | 弱关联（讨论里提到） |
+
+## 一 PR 一 Issue 原则
+
+详见 [`../pr/index.md`](../pr/index.md)（PR 流程总入口，含一 PR 一子模块原则）。
+
+一个 PR 关闭一个子模块的 Issue。中间多个 commit 用 `Refs #N`，最后合并时 PR description 用 `Closes #N`。
+
+## 子模块编号映射
+
+详见项目自有的 `manifest.yaml`：
+
+```yaml
+home_page:
+  submodules:
+    <MODULE_ID>: {issue: 54, ...}
+    <MODULE_ID2>: {issue: 55, ...}
+```
+
+commit 时 commit message body 写 `Refs #54`，scope 用 `<MODULE_ID>`。
+
+## 反例
+
+```
+# ❌ 无关联
+feat:实现登录
+
+# ❌ 仅 Issue 号无关键词
+feat:实现登录
+#54
+
+# ❌ 错的关键词（github 不认）
+feat:实现登录
+Linked to #54
+
+# ✅
+feat(feature-x):实现登录页
+
+Closes #54
+```
+
+## 自检
+
+- [ ] commit / PR 关联了 Issue #N？
+- [ ] 用 GitHub 识别的关键词（Closes / Fixes / Refs）？
+- [ ] 一 PR 一子模块？
+- [ ] scope 用子模块编号？
+
+## 相关
+
+- 父：[`./index.md`](./index.md)
+- 兄弟：[`conventional-commit.md`](./conventional-commit.md)
+- 配套：[`../pr/start-usage.md`](../pr/start-usage.md)
+

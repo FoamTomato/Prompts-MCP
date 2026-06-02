@@ -41,4 +41,4 @@ when_to_descend: |
 ## 链接
 
 - 上层：[`../index.md`](../index.md)
-- 平行维度：[`../framework/index.md`](../framework/index.md) · [`../design-pattern/index.md`](../design-pattern/index.md) · [`../habit/index.md`](../habit/index.md)
+- 平行维度：[`../framework/index.md`](../framework/index.md) · [`../design-pattern/index.md`](../design-pattern/index.md) · [`../habit/index.md`](../habit/index.md) · [`../tech-selection/index.md`](../tech-selection/index.md) · [`../ai/index.md`](../ai/index.md) · [`../fundamentals/index.md`](../fundamentals/index.md)

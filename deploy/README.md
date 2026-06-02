@@ -67,6 +67,88 @@ If you don't want to think about the two-flow distinction, `git push`
 is always safe — Actions will rebuild and redeploy, which costs a
 minute but produces the same outcome.
 
+## Skill bundle (static download for quill-plugin)
+
+Plugin clients (e.g. [quill-plugin](https://github.com/foamtomato/quill-plugin))
+need a plain `curl`-able tarball of `skills/` for first-run and auto-update.
+That's served at `https://xiaohang.site/skills/bundle/` and built by a
+**separate** workflow: `.github/workflows/bundle.yml`.
+
+```
+git push (skills/*.md or scripts/build_bundle.sh)
+   │
+   ▼
+Actions: scripts/build_bundle.sh →
+   dist/{bundle.tar.gz, bundle.tar.gz.sha256, version.txt, manifest.json, SHA256SUMS}
+   │
+   ▼
+SCP to prod:/var/www/skills-bundle/releases/<timestamp>/
+   │
+   ▼  (atomic symlink swap inside that dir)
+nginx serves /skills/bundle/<file>  →  alias /var/www/skills-bundle/
+   │
+   ▼
+plugin: curl https://xiaohang.site/skills/bundle/bundle.tar.gz
+```
+
+### Why a separate workflow
+
+Skill content commits are frequent and cheap (no docker build). Coupling
+the bundle into `docker.yml` would force a 60s container rebuild on every
+typo fix. `bundle.yml` runs in ~15s and only touches `skills/`-relevant
+paths (see `on.push.paths`).
+
+### One-time server setup (do this once, then `git push` is enough)
+
+```bash
+# 1. Create the static dir & seed the symlink targets so nginx has something to alias on first request.
+ssh root@117.72.182.195 'mkdir -p /var/www/skills-bundle/releases && touch /var/www/skills-bundle/version.txt'
+
+# 2. Append the nginx block (see deploy/nginx-bundle-snippet.conf) into
+#    /opt/nginx/conf.d/default.conf, inside the xiaohang.site server block,
+#    BEFORE the existing `location /skills/` so the more specific prefix wins.
+ssh root@117.72.182.195
+cd /opt
+cp nginx/conf.d/default.conf nginx/conf.d/default.conf.bak.$(date +%Y%m%d-%H%M%S)
+vi nginx/conf.d/default.conf   # paste deploy/nginx-bundle-snippet.conf content
+docker compose exec nginx nginx -t
+docker compose exec nginx nginx -s reload
+exit
+
+# 3. Trigger the bundle workflow (or push any skills/ commit) so the first
+#    bundle lands on disk.
+gh workflow run bundle.yml --repo foamtomato/Prompts-MCP
+
+# 4. Verify
+curl -fsS https://xiaohang.site/skills/bundle/version.txt
+curl -fsS https://xiaohang.site/skills/bundle/manifest.json | jq
+curl -fsSI https://xiaohang.site/skills/bundle/bundle.tar.gz | head -5
+```
+
+### Atomic publish semantics
+
+Each push lands in `/var/www/skills-bundle/releases/<YYYYMMDD-HHMMSS>/`,
+then `ln -sfn` + `mv -Tf` swap the top-level pointers atomically. A
+client mid-`curl` either:
+
+- Already started streaming the old tarball — finishes against the old
+  file (the inode is still alive until its fd closes).
+- Hasn't connected yet — next request reads the new symlink.
+
+There's no partial-file race; the plugin's `sha256` check is belt-and-
+suspenders against transit corruption only.
+
+Releases older than the 10 most recent are auto-pruned by the workflow.
+
+### Local bundle build (emergency / dry-run)
+
+```bash
+bash scripts/build_bundle.sh
+ls -la dist/    # bundle.tar.gz, version.txt, manifest.json, SHA256SUMS
+# scp dist/* root@117.72.182.195:/var/www/skills-bundle/releases/manual-$(date +%Y%m%d-%H%M%S)/
+# (and then ln -sfn + mv -Tf the symlinks by hand)
+```
+
 ## Emergency fallback: local build + scp
 
 If GitHub is down, or both GHCR mirrors are EOF-broken, or you need to
