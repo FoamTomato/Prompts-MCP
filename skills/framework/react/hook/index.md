@@ -5,7 +5,7 @@ parent: ../index.md
 children:
   - { name: order-and-rules, path: order-and-rules.md, tag: skill, note: hooks 顺序：state→ref→derived→effect→anim→callback }
   - { name: custom-hook-naming, path: custom-hook-naming.md, tag: skill, note: 自定义 hook 命名 useXxx }
-  - { name: no-business-in-useEffect, path: no-business-in-useEffect.md, tag: skill, note: 禁在 useEffect 拉数据，用 TanStack Query }
+  - { name: no-fetch-in-use-effect, path: no-fetch-in-use-effect.md, tag: skill, note: 禁在 useEffect 拉数据，用 TanStack Query }
 when_to_descend: 写 hook / Review useEffect 用法
 ---
 
@@ -15,4 +15,4 @@ when_to_descend: 写 hook / Review useEffect 用法
 |------|-------|
 | order-and-rules | hooks 顺序：state→ref→derived→effect→anim→callback |
 | custom-hook-naming | 自定义 hook 命名 useXxx |
-| no-business-in-useEffect | 禁在 useEffect 拉数据，用 TanStack Query |
+| no-fetch-in-use-effect | 禁在 useEffect 拉数据，用 TanStack Query |

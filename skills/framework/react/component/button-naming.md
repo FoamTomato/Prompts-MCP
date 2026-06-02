@@ -70,5 +70,5 @@ export function GenerateButton() { ... }
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 配套：antd MCP（写 antd Button 前必查）：[`../../antd/mcp-first/antd-mcp-usage.md`](../../antd/mcp-first/antd-mcp-usage.md)
+- 配套：antd MCP（写 antd Button 前必查）：[`../../antd/antd-mcp-usage.md`](../../antd/antd-mcp-usage.md)
 

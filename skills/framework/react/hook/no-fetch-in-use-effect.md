@@ -1,7 +1,7 @@
 ---
-name: react-no-business-in-useEffect
+name: react-no-fetch-in-use-effect
 description: 禁在 useEffect 拉数据 — 用 TanStack Query；useEffect 仅做 DOM 同步/订阅。Use when 写
-  React 组件 / 改 .tsx 文件 / 评审涉及 `no-business-in-useEffect` 的 PR。
+  React 组件 / 改 .tsx 文件 / 评审涉及 `no-fetch-in-use-effect` 的 PR。
 parent: ./index.md
 paths:
 - frontend/src/**/*.tsx

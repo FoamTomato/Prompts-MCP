@@ -60,7 +60,7 @@ version: '1.0'
 | Form / Modal / Table / DatePicker / Select | 课件卡 / 试卷卡 / 三级联动 / 编辑器画布 |
 | message / notification / Tooltip | 主页 Hero / 控制台 CTA |
 
-通用走 antd，业务差异化大的自研。详见 [`../../antd/boundary/when-antd-vs-custom.md`](../../antd/boundary/when-antd-vs-custom.md)。
+通用走 antd，业务差异化大的自研。详见 [`../../antd/when-antd-vs-custom.md`](../../antd/when-antd-vs-custom.md)。
 
 ## 反例
 

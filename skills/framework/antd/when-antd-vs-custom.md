@@ -1,5 +1,5 @@
 ---
-name: antd-vs-custom-boundary
+name: antd-when-antd-vs-custom
 description: 决策：通用 primitive 一律 antd / 业务高度差异化的组件自研。Use when 写 React 组件 / 改 .tsx 文件
   / 评审涉及 `when-antd-vs-custom` 的 PR。
 parent: ./index.md
@@ -109,5 +109,5 @@ function CustomSelect() {
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 配套：[`../../react/component/flat-ui-principles.md`](../../react/component/flat-ui-principles.md)
+- 配套：[`../react/component/flat-ui-principles.md`](../react/component/flat-ui-principles.md)
 
