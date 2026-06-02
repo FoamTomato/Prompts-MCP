@@ -97,5 +97,5 @@ Closes #54
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`claim-issue-in-message.md`](./claim-issue-in-message.md)
+- 兄弟：[`claim-issue.md`](./claim-issue.md)
 

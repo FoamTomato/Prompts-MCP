@@ -1,5 +1,5 @@
 ---
-name: sql-must-have-where
+name: sql-dml-must-have-where
 description: UPDATE / DELETE 必须带 WHERE 子句。Use when 写 Python 后端代码 / 评审涉及 `must-have-where`
   的 PR。
 parent: ./index.md

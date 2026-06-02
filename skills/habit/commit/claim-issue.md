@@ -1,6 +1,6 @@
 ---
 name: commit-claim-issue
-description: commit 消息里 claim Issue。Use when 评审涉及 `claim-issue-in-message` 的 PR。
+description: commit 消息里 claim Issue。Use when 评审涉及 `claim-issue` 的 PR。
 parent: ./index.md
 paths:
 - .git/**
@@ -42,7 +42,7 @@ Closes #78
 
 ## 一 PR 一 Issue 原则
 
-详见 [`../pr/one-submodule-per-pr.md`](../pr/one-submodule-per-pr.md)（如不存在则参考 agent_workflow.md）。
+详见 [`../pr/index.md`](../pr/index.md)（PR 流程总入口，含一 PR 一子模块原则）。
 
 一个 PR 关闭一个子模块的 Issue。中间多个 commit 用 `Refs #N`，最后合并时 PR description 用 `Closes #N`。
 
@@ -90,5 +90,5 @@ Closes #54
 
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`conventional-commit.md`](./conventional-commit.md)
-- 配套：[`../pr/pr-start-usage.md`](../pr/pr-start-usage.md)
+- 配套：[`../pr/start-usage.md`](../pr/start-usage.md)
 

@@ -1,6 +1,6 @@
 ---
 name: prd-split-method
-description: 拆 PRD 方法 — 子模块按字母前缀编号 + 三件套。Use when 改子模块 PRD / 评审涉及 `split-prd-method`
+description: 拆 PRD 方法 — 子模块按字母前缀编号 + 三件套。Use when 改子模块 PRD / 评审涉及 `split-method`
   的 PR。
 parent: ./index.md
 paths:
@@ -96,5 +96,5 @@ H5: TextbookCascader（三级联动筛选）
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`triplet-rule.md`](./triplet-rule.md) · [`map-requirements-method.md`](./map-requirements-method.md) · [`user-story-template.md`](./user-story-template.md) · [`write-prd-7-sections.md`](./write-prd-7-sections.md)
+- 兄弟：[`triplet-rule.md`](./triplet-rule.md) · [`map-requirements.md`](./map-requirements.md) · [`user-story-template.md`](./user-story-template.md) · [`write-7-sections.md`](./write-7-sections.md)
 

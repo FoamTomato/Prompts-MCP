@@ -1,6 +1,6 @@
 ---
 name: prd-map-requirements
-description: 需求映射方法 — 用户需求 → 模块 + 子模块 + artifacts。Use when 改子模块 PRD / 评审涉及 `map-requirements-method`
+description: 需求映射方法 — 用户需求 → 模块 + 子模块 + artifacts。Use when 改子模块 PRD / 评审涉及 `map-requirements`
   的 PR。
 parent: ./index.md
 paths:
@@ -116,5 +116,5 @@ version: '1.0'
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`split-prd-method.md`](./split-prd-method.md) · [`user-story-template.md`](./user-story-template.md)
+- 兄弟：[`split-method.md`](./split-method.md) · [`user-story-template.md`](./user-story-template.md)
 

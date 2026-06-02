@@ -1,7 +1,7 @@
 ---
 name: prd-review-checklist
 description: Review PRD 清单 — 章节完整 / 边界清晰 / artifacts 可追溯。Use when 改子模块 PRD / 评审涉及
-  `review-prd-checklist` 的 PR。
+  `review-checklist` 的 PR。
 parent: ./index.md
 paths:
 - project-index/modules/**
@@ -108,5 +108,5 @@ PRD 通过 Review 必须满足以下全部：
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`write-prd-7-sections.md`](./write-prd-7-sections.md) · [`triplet-rule.md`](./triplet-rule.md)
+- 兄弟：[`write-7-sections.md`](./write-7-sections.md) · [`triplet-rule.md`](./triplet-rule.md)
 

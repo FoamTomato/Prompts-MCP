@@ -1,6 +1,6 @@
 ---
 name: prd-summarize-text
-description: 文本摘要方法 — 长文档 → 关键决策 + 行动项。Use when 改子模块 PRD / 评审涉及 `summarize-text-method`
+description: 文本摘要方法 — 长文档 → 关键决策 + 行动项。Use when 改子模块 PRD / 评审涉及 `summarize-text`
   的 PR。
 parent: ./index.md
 paths:
@@ -120,10 +120,10 @@ PM：OK，加错误列表。
 
 | 阶段 | Skill |
 |------|-------|
-| 摘要长文档 | summarize-text-method（本文件） |
-| 拆解为子模块 | split-prd-method |
-| 翻译为 User Story | user-story-template + map-requirements-method |
-| 写 PRD 7 章节 | write-prd-7-sections |
+| 摘要长文档 | summarize-text（本文件） |
+| 拆解为子模块 | split-method |
+| 翻译为 User Story | user-story-template + map-requirements |
+| 写 PRD 7 章节 | write-7-sections |
 
 ## 反例
 
@@ -143,5 +143,5 @@ PM：OK，加错误列表。
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`map-requirements-method.md`](./map-requirements-method.md) · [`split-prd-method.md`](./split-prd-method.md)
+- 兄弟：[`map-requirements.md`](./map-requirements.md) · [`split-method.md`](./split-method.md)
 

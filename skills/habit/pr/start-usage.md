@@ -1,7 +1,7 @@
 ---
-name: pr-start-usage
+name: start-usage
 description: scripts/pr-start <MODULE_ID/Issue#> — 反查 manifest + 建分支 + assign。Use
-  when 评审涉及 `pr-start-usage` 的 PR。
+  when 评审涉及 `start-usage` 的 PR。
 parent: ./index.md
 paths:
 - scripts/pr-start
@@ -93,4 +93,4 @@ CLAUDE.md Step 2 在用户消息中识别到 MODULE_ID / Issue 号 / URL → 直
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`status-lifecycle.md`](./status-lifecycle.md) · [`pr-create-and-close.md`](./pr-create-and-close.md)
+- 兄弟：[`status-lifecycle.md`](./status-lifecycle.md) · [`create-and-close.md`](./create-and-close.md)

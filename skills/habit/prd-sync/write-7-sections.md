@@ -1,7 +1,7 @@
 ---
 name: prd-write-7-sections
 description: PRD 7 章节标准 — Overview / Inputs / Outputs / Assets / Deps / Execution
-  / Success。Use when 改子模块 PRD / 评审涉及 `write-prd-7-sections` 的 PR。
+  / Success。Use when 改子模块 PRD / 评审涉及 `write-7-sections` 的 PR。
 parent: ./index.md
 paths:
 - project-index/modules/**
@@ -126,5 +126,5 @@ status: spec-ready
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`triplet-rule.md`](./triplet-rule.md) · [`split-prd-method.md`](./split-prd-method.md)
+- 兄弟：[`triplet-rule.md`](./triplet-rule.md) · [`split-method.md`](./split-method.md)
 

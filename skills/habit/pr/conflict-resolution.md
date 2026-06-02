@@ -104,5 +104,5 @@ git push --force-with-lease
 ## 相关
 
 - 父：[`./index.md`](./index.md)
-- 兄弟：[`status-lifecycle.md`](./status-lifecycle.md) · [`pr-start-usage.md`](./pr-start-usage.md) · [`pr-create-and-close.md`](./pr-create-and-close.md)
+- 兄弟：[`status-lifecycle.md`](./status-lifecycle.md) · [`start-usage.md`](./start-usage.md) · [`create-and-close.md`](./create-and-close.md)
 
