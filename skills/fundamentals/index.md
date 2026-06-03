@@ -1,6 +1,6 @@
 ---
 name: fundamentals-index
-description: 程序员内功维度（写成规约+决策，非八股）— JVM / 并发原理 / 集合源码 / 虚拟线程 / 线上排查 / 分布式理论。Use when 做 GC 调优 / 选锁 / 排查线上问题 / 分布式方案决策时。
+description: 程序员内功维度（规约+决策非八股）— Java/JVM + 前端浏览器/HTTP/构建原理。Use when 做 GC 调优 / 选锁 / 排查线上问题 / 分布式决策 / 前端性能原理决策时。
 parent: ../index.md
 children:
   - { name: jvm, path: jvm/index.md, tag: folder, note: "GC 选型 / 堆参数 / OOM 排查 / 类加载" }
@@ -9,8 +9,10 @@ children:
   - { name: virtual-threads, path: virtual-threads/index.md, tag: folder, note: "虚拟线程何时用 / pinning 陷阱 / 与线程池关系（JDK21）" }
   - { name: troubleshooting, path: troubleshooting/index.md, tag: folder, note: "CPU 高 / 内存泄漏 / Arthas / 排查决策树" }
   - { name: distributed-theory, path: distributed-theory/index.md, tag: folder, note: "CAP 取舍 / 分布式事务选型 / 幂等 / 分布式 ID" }
+  - { name: frontend, path: frontend/index.md, tag: folder, note: "浏览器渲染 / 事件循环 / HTTP 缓存 / 跨域 / 防抖节流 / 模块化 / 构建 / 状态管理思想" }
 when_to_descend: |
-  任务涉及「内功决策」：选 GC / 调堆参数 / 排查 OOM、CPU 飙高、内存泄漏 / 选 synchronized 还是 Lock / 用不用虚拟线程 / 分布式事务与一致性方案选型 / 幂等与分布式 ID 设计。
+  Java/JVM 侧：选 GC / 调堆参数 / 排查 OOM、CPU 飙高、内存泄漏 / 选 synchronized 还是 Lock / 用不用虚拟线程 / 分布式事务与一致性方案选型 / 幂等与分布式 ID 设计。
+  前端侧：碰到渲染卡顿 / 异步顺序混乱 / 缓存不更新 / 跨域报错 / 打包体积过大 / 需要理解原理做决策。
 ---
 
 # Fundamentals · 程序员内功维度
@@ -29,6 +31,7 @@ when_to_descend: |
 | virtual-threads | 文件夹 | 虚拟线程何时用 / pinning / 与线程池（3 子项） |
 | troubleshooting | 文件夹 | CPU 高 / 内存泄漏 / Arthas / 决策树（4 子项） |
 | distributed-theory | 文件夹 | CAP / 分布式事务选型 / 幂等 / 分布式 ID（4 子项） |
+| frontend | 文件夹 | 浏览器渲染 / 事件循环 / HTTP 缓存 / 跨域 / 防抖节流 / 模块化 / 构建 / 状态管理思想（8 子项） |
 
 ## 下钻决策表
 

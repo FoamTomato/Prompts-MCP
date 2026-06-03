@@ -9,7 +9,11 @@ children:
   - { name: state-completeness, path: state-completeness.md, tag: skill, note: 8 种状态完备 }
   - { name: button-naming, path: button-naming.md, tag: skill, note: 按钮三类命名（antd/品牌CTA/业务包装） }
   - { name: spacing-typography, path: spacing-typography.md, tag: skill, note: 间距与字号 }
-when_to_descend: 新增 .tsx 组件 / Review React 代码
+  - { name: key-stability, path: key-stability.md, tag: skill, note: 列表 key 用稳定 id，禁 index/random }
+  - { name: re-render-minimization, path: re-render-minimization.md, tag: skill, note: 消除多余 re-render / memo / React19 Compiler }
+  - { name: derived-state, path: derived-state.md, tag: skill, note: 派生值渲染期算，禁 useState+useEffect 同步 }
+  - { name: controlled-uncontrolled, path: controlled-uncontrolled.md, tag: skill, note: value 必 defined，避免受控/非受控警告 }
+when_to_descend: 新增 .tsx 组件 / 渲染坑（key / re-render / 派生 state）/ 受控输入 / Review React 代码
 ---
 
 # Component · 子项索引
@@ -22,3 +26,7 @@ when_to_descend: 新增 .tsx 组件 / Review React 代码
 | state-completeness | 8 种状态完备 |
 | button-naming | 按钮三类命名（antd/品牌CTA/业务包装） |
 | spacing-typography | 间距与字号 |
+| key-stability | 列表 key 用稳定 id，禁 index/random |
+| re-render-minimization | 消除多余 re-render / memo / React19 Compiler |
+| derived-state | 派生值渲染期算，禁 useState+useEffect 同步 |
+| controlled-uncontrolled | value 必 defined，避免受控/非受控警告 |

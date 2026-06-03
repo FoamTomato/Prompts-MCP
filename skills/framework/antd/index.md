@@ -7,6 +7,7 @@ children:
   - { name: form, path: form/index.md, tag: folder, note: Form 表单与校验模式 }
   - { name: modal, path: modal/index.md, tag: folder, note: Modal / Drawer 用法与懒挂载 }
   - { name: table, path: table/index.md, tag: folder, note: Table 表格 / 分页 / 滚动 }
+  - { name: selection, path: selection/index.md, tag: folder, note: 选哪个 antd 组件承载某 UX 任务（浮层/输入/展示/反馈/导航） }
   - { name: when-antd-vs-custom, path: when-antd-vs-custom.md, tag: skill, note: 何时用 antd / 何时自研 }
   - { name: antd-mcp-usage, path: antd-mcp-usage.md, tag: skill, note: 通过 antd MCP 工具查 API / 例子 / token }
 when_to_descend: |
@@ -23,6 +24,7 @@ when_to_descend: |
 | form | 文件夹 | Form 表单与自定义校验 |
 | modal | 文件夹 | Modal / Drawer 懒挂载与销毁 |
 | table | 文件夹 | Table 列定义 / 分页 / 虚拟滚动 |
+| selection | 文件夹 | 选哪个 antd 组件承载某 UX 任务 |
 | when-antd-vs-custom | skill | antd vs 自研组件边界 |
 | antd-mcp-usage | skill | 优先用 antd MCP 工具查组件 API |
 
@@ -33,6 +35,7 @@ when_to_descend: |
 - 写表单 → `form/index.md`
 - 写弹窗 → `modal/index.md`
 - 写表格 → `table/index.md`
+- 不确定用哪个 antd 组件承载某 UX 任务 → `selection/index.md`
 - 不确定 API 用法 → `antd-mcp-usage.md` 优先调 MCP
 
 ## 链接

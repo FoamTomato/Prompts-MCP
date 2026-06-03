@@ -14,8 +14,6 @@ when_to_descend: |
 
 # Lang · 语言级规则
 
-> 状态：**W1 占位** —— 子目录 W2 起从 `.ai/skills/{py,frontend}/` 迁移并细分。
-
 ## 本层包含
 
 | 名称 | 类型 | 一句话 |

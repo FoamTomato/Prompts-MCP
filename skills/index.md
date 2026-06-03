@@ -1,6 +1,6 @@
 ---
 name: skills-root-index
-description: Agent 技能的根索引 — 7 维度入口（lang / framework / design-pattern / habit / tech-selection / ai / fundamentals）
+description: Agent 技能的根索引 — 8 维度入口（lang / framework / design-pattern / habit / tech-selection / ai / fundamentals / design）
 parent: null
 children:
   - { name: lang, path: lang/index.md, tag: folder, note: 语言级规则（python / typescript / java / sql / js） }
@@ -10,6 +10,7 @@ children:
   - { name: tech-selection, path: tech-selection/index.md, tag: folder, note: 技术选型对比（消息队列 / 数据库 / 缓存 / 搜索-OLAP） }
   - { name: ai, path: ai/index.md, tag: folder, note: AI 应用开发（向量库 / RAG / LLM 调用 / Agent-MCP / 框架） }
   - { name: fundamentals, path: fundamentals/index.md, tag: folder, note: 程序员内功（JVM / 并发原理 / 集合源码 / 虚拟线程 / 排查 / 分布式理论） }
+  - { name: design, path: design/index.md, tag: folder, note: UI 设计（通用规范 a11y/间距/字体/配色 + 主题风格 bento/flat/wes-anderson + 设计语言 token + 组件模式） }
 when_to_descend: |
   CLAUDE.md Step 5（B/C 档）必读起点。所有 skill 加载都从这里开始下钻，不允许跳过本层直读叶子。
 ---
@@ -17,24 +18,25 @@ when_to_descend: |
 # Agent Skills · 顶层路标
 
 > 这是 [`/CLAUDE.md`](../CLAUDE.md) Step 5 的下钻起点。
-> 状态：**内容持续扩充中**——7 维度，frontmatter 均含 `paths` / `triggers`，支持双向检索（顶层下钻 + 路径反查）。Java 生态已成体系：lang（JDK 原生 + 流水线风格）、framework（Spring 全家桶/MyBatis(-Plus)/MySQL/Redis/Redisson/MQ/ES/Security/调度/测试/可观测等）、fundamentals（JVM/并发/集合/虚拟线程/排查/分布式理论内功）、tech-selection（选型对比）、ai（AI 应用开发）。
+> 8 维度，frontmatter 均含 `paths` / `triggers`，支持双向检索（顶层下钻 + 路径反查）。
 
 ## 规模一览
 
-| 维度 | 中层 index | 叶子 skill | 状态 |
-|------|---------|---------|------|
-| lang | 36 | 83 | 实写 |
-| framework | 45 | 157 | 实写 |
-| design-pattern | 6 | 15 | 实写 |
-| habit | 6 | 23 | 实写 |
-| tech-selection | 4 | 8 | 实写 |
-| ai | 5 | 18 | 实写 |
-| fundamentals | 6 | 22 | 实写 |
-| **合计** | **108** | **326** | **326 实写** |
+| 维度 | 中层 index | 叶子 skill |
+|------|---------|---------|
+| lang | 46 | 141 |
+| framework | 49 | 177 |
+| design-pattern | 11 | 27 |
+| habit | 7 | 24 |
+| tech-selection | 4 | 8 |
+| ai | 5 | 18 |
+| fundamentals | 6 | 22 |
+| design | 4 | 15 |
+| **合计** | **132** | **432** |
 
 所有叶子均有 frontmatter（含 `paths` / `triggers`）通过 YAML 解析校验，可被反向检索。
 
-## 7 大维度
+## 8 大维度
 
 | 维度 | 入口 | 一句话 | 何时进 |
 |------|------|--------|--------|
@@ -45,6 +47,7 @@ when_to_descend: |
 | **tech-selection** | [tech-selection/index.md](tech-selection/index.md) | 技术选型对比 | 选消息队列 / 数据库 / 缓存 / 搜索-OLAP 时 |
 | **ai** | [ai/index.md](ai/index.md) | AI 应用开发 | 做 RAG / 调 LLM / 写 Agent / 选向量库或 AI 框架时 |
 | **fundamentals** | [fundamentals/index.md](fundamentals/index.md) | 程序员内功（规约+决策） | 调 GC / 排查线上问题 / 选锁 / 分布式方案与一致性决策时 |
+| **design** | [design/index.md](design/index.md) | UI 设计规范 + 主题风格 | 写前端页面 / 选视觉风格（默认 bento）/ 定项目设计系统 token 时 |
 
 ## 两种下钻方式
 
@@ -55,7 +58,10 @@ when_to_descend: |
 | 任务上下文信号 | 进哪个维度 | 通常下钻深度 |
 |--------------|-----------|----------|
 | 改某个 .py 文件 | lang/python + framework/fastapi + design-pattern/ddd-layering | 3-4 层 |
-| 写新 .tsx 组件 | framework/react/component + lang/typescript + framework/antd（如有） | 3 层 |
+| 写新 .tsx 组件 | framework/react/component + lang/typescript + design/foundations | 3 层 |
+| 写前端页面 / 还原设计稿 | design/foundations + design/theme（默认 bento） + framework/react | 3 层 |
+| 选用什么视觉风格 / 切主题 | design/theme/theme-selection | 2 层 |
+| 给项目定一套设计系统 / token / 换肤 | design/design-language | 2-3 层 |
 | 写 SQL / migration | lang/sql + framework/tortoise | 3 层 |
 | 改 PRD / 同步 manifest | habit/prd-sync | 2 层 |
 | 设计新 Service | design-pattern/ddd-layering + design-pattern/repository | 3 层 |
@@ -82,7 +88,7 @@ when_to_descend: |
 - `design-pattern/repository/crud-contract.md`（如果文件在 repositories/）
 - `framework/fastapi/router/zero-logic-principle.md`（如果文件在 routers/）
 
-PostToolUse hook 在 W3 升级后会自动 echo 命中的 skill 到 stderr，提醒"你写完这段代码应该回头看一眼某 skill"。
+PostToolUse hook 会自动 echo 命中的 skill 到 stderr，提醒"你写完这段代码应该回头看一眼某 skill"。
 
 ## 跨切面主题速查（一个主题散在多维度时，从这里找入口）
 
@@ -99,6 +105,10 @@ PostToolUse hook 在 W3 升级后会自动 echo 命中的 skill 到 stderr，提
 | 错误码体系 | [habit/error-code](habit/error-code/index.md) | lang/java/error-handling（异常分类）/ design-pattern/assertion |
 | 缓存一致性 | [framework/redis/cache-patterns](framework/redis/cache-patterns.md) | tech-selection/cache（选型）/ framework/observability |
 | 线上问题排查 | [fundamentals/troubleshooting](fundamentals/troubleshooting/index.md) | fundamentals/jvm/oom-troubleshooting / framework/mysql/diagnosis |
+| 设计 token / 换肤 | [design/design-language/tokens-and-theming](design/design-language/tokens-and-theming.md)（框架无关三层模型） | lang/typescript/style/design-tokens（antd ConfigProvider 落地）/ framework/react/theming/css-token-system（tokens.css 镜像） |
+| 视觉风格（默认 bento） | [design/theme/theme-selection](design/theme/theme-selection.md) | design/theme/{bento,flat-design,wes-anderson,other-styles} |
+| 动效 / 动画（时长曲线/底线） | [design/component-patterns/motion-and-animation](design/component-patterns/motion-and-animation.md)（时长/曲线/stagger 规约）+ [design/foundations/accessibility](design/foundations/accessibility.md)（reduced-motion 底线） | framework/gsap（GSAP 实现落地） |
+| 组件入场（每类组件用哪种） | [design/component-patterns/entrance-patterns](design/component-patterns/entrance-patterns.md)（modal/drawer/toast/dropdown/list/tab… 速查） | framework/gsap/{scrolltrigger,split-text,timeline-organization}（进视口/文字/序列落地） |
 
 > 原则：跨切面主题以「权威入口」为准，各维度的落点只讲自己那部分的落地，**不重复给方案**。新写这类 skill 时务必回链权威入口（见 [`/.claude/skills-philosophy.md`](../.claude/skills-philosophy.md) 信条 3）。
 
@@ -108,12 +118,11 @@ PostToolUse hook 在 W3 升级后会自动 echo 命中的 skill 到 stderr，提
 2. 每个维度下钻**最多 3 层** index 跳转（叶子层不算下钻）
 3. 读完 index.md 后**必须**继续下钻到具体规则文件 — 只读 index 不算「加载了技能」
 4. 下钻前若发现某 skill `paths:` 字段匹配当前文件路径 → 强制进入
-5. 叶子文件 ≤ 100 行（W3 填充时严格遵守，超就拆）
+5. 叶子文件 ≤ 100 行（严格遵守，超就拆）
 
 ## 链接
 
 - 上层：（顶层，无）
 - 调用方：[`/CLAUDE.md`](../CLAUDE.md) Step 5
 - 流程总图：[`/design/claude-md-flow-sketch.html`](../../design/claude-md-flow-sketch.html)
-- 旧版 skills（W3 末删除）：`.ai/skills/`
 - 方法论参考：`/Users/foam/个人项目/docs/Creative_Ideation/harness/skills/`

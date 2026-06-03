@@ -1,6 +1,6 @@
 ---
 name: gsap-draggable
-description: Draggable 插件 — 画布拖拽 / 自定义拖拽组件。Use when 写 TS 业务代码 / 评审 PR 时。
+description: Draggable 插件 — 编辑器画布元素拖拽 / 自定义滑动控件，性能优于手写 mousemove handler。Use when 给画布元素加拖拽 / 需 bounds 限制拖拽范围 / 评审 Draggable.create 用法时。
 parent: ./index.md
 paths:
 - frontend/src/animations/**/*.ts
@@ -106,7 +106,7 @@ Draggable.create(targets, {   // 数组 → 每个元素独立 drag
 | `false` | 编辑器（要精确停在松手位置） |
 | `true`  | 卡片轻量滑动（如演示模式画笔） |
 
-`inertia: true` 需要安装 InertiaPlugin（付费）或 GSAP Public 的 ThrowProps 替代。
+`inertia: true` 需要 InertiaPlugin（`gsap/InertiaPlugin`）或用 ThrowPropsPlugin 替代。
 
 ## 自检
 

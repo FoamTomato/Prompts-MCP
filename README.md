@@ -2,7 +2,7 @@
 
 把一份结构化的 markdown 规约库做成 MCP server，让任意 LLM（Claude Desktop / Cursor / Cline / 自建 agent / 跨电脑跨项目）都能用同一套约定写代码。
 
-> 灵感来自 Matt Pocock 的 [skills repo](https://github.com/mattpocock/skills)，但他用 Claude Code 原生 SKILL.md（always-on description 注入系统提示），我们用 MCP 工具按需检索 —— 因为我们的库是 200 条规约级粒度的，不是 14 条流程脚本。
+> 灵感来自 Matt Pocock 的 [skills repo](https://github.com/mattpocock/skills)，但他用 Claude Code 原生 SKILL.md（always-on description 注入系统提示），我们用 MCP 工具按需检索 —— 因为我们的库是 500+ 条规约级粒度的，不是 14 条流程脚本。
 
 **公开端点**
 - MCP: `https://xiaohang.site/mcp/sse`
@@ -32,9 +32,9 @@
 
 ### 问题 3：规约太多，写在 README 里没人看
 
-我的 Quill 项目有 200 条规约。塞进 CLAUDE.md → 系统提示爆 30K token，每个会话首 token 就要刷新缓存。塞进 README → 人读完都难。
+我的 Quill 项目有 500+ 条规约。塞进 CLAUDE.md → 系统提示爆 30K token，每个会话首 token 就要刷新缓存。塞进 README → 人读完都难。
 
-**解法**：把 200 条按 (lang / framework / design-pattern / habit) 4 维度切，靠 `search_skills(paths=..., keywords=...)` 反向命中（dev 正在改 `.tsx` + 任务关键字含 `Table`，自动推送 antd table 相关的 3 条 skill）。agent 拿到 ≤5 条精准规则即可。
+**解法**：把 500+ 条按 (lang / framework / design-pattern / habit / tech-selection / ai / fundamentals / design) 8 维度切，靠 `search_skills(paths=..., keywords=...)` 反向命中（dev 正在改 `.tsx` + 任务关键字含 `Table`，自动推送 antd table 相关的 3 条 skill）。agent 拿到 ≤5 条精准规则即可。
 
 ### 问题 4：写规约的人也需要规约
 

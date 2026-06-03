@@ -132,5 +132,6 @@ export const E = {
 ## 相关
 
 - 父：[`./index.md`](./index.md)
+- 模型权威（框架无关三层 token / 换肤 / light-dark）：[`../../../design/design-language/tokens-and-theming.md`](../../../design/design-language/tokens-and-theming.md)
 - 配套：[`../../../framework/antd/setup/config-provider.md`](../../../framework/antd/setup/config-provider.md) · [`../../../framework/react/theming/css-token-system.md`](../../../framework/react/theming/css-token-system.md)
 

@@ -102,4 +102,5 @@ version: '1.0'
 ## 相关
 
 - 父：[`./index.md`](./index.md)
+- 配色比例与角色权威（框架无关 60-30-10 / 语义角色）：[`../../../design/foundations/color-usage.md`](../../../design/foundations/color-usage.md)
 - 兄弟：[`palette-types.md`](./palette-types.md) · [`css-token-system.md`](./css-token-system.md)

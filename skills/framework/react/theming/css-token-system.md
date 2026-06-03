@@ -71,5 +71,6 @@ tokens.css  (唯一定义点)
 ## 相关
 
 - 父：[`./index.md`](./index.md)
+- 模型权威（框架无关三层 token / 换肤 / light-dark）：[`../../../design/design-language/tokens-and-theming.md`](../../../design/design-language/tokens-and-theming.md)
 - 兄弟：[`palette-principles.md`](./palette-principles.md) · [`palette-types.md`](./palette-types.md)
 - 配套：[`../../antd/setup/config-provider.md`](../../antd/setup/config-provider.md)

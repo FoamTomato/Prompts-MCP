@@ -44,8 +44,6 @@ class ApiException(HTTPException):
         )
 ```
 
-**与历史命名差异**：早期叫 `BusinessError`，W3.5 重命名为 `ApiException`，`BusinessError` 保留为过渡别名一周。
-
 ## 三件套（边界处理模式）
 
 ```python
@@ -68,7 +66,7 @@ async def process_document(req: ProcessReq) -> Result:
 2. **业务异常**：原样传播给中间件统一处理（不二次包装）
 3. **未知异常**：记录 `exc_info=True` 后兜底为 X009
 
-## 配合断言模式（W3.5+ 优先）
+## 配合断言模式（优先）
 
 业务层**首选断言**而非手写 if + raise：
 
@@ -106,7 +104,7 @@ async def list_chapters(textbook_id: str):
 | G | textbooks / chapters |
 | H | settings |
 | I | papers |
-| J | knowledge（W3.5 新增） |
+| J | knowledge |
 | R | referral |
 | S | session / 积分 |
 | X | 通用 / 内部 |
@@ -157,4 +155,4 @@ if textbook is None:
 - 父：[`./index.md`](./index.md)
 - 兄弟：[`logger-exc-info.md`](./logger-exc-info.md) · [`no-bare-except.md`](./no-bare-except.md)
 - 配套：[`../../../framework/fastapi/middleware/error-handler.md`](../../../framework/fastapi/middleware/error-handler.md)
-- **W3.5 断言模式**：[`../../../design-pattern/assertion/index.md`](../../../design-pattern/assertion/index.md)
+- **断言模式**：[`../../../design-pattern/assertion/index.md`](../../../design-pattern/assertion/index.md)

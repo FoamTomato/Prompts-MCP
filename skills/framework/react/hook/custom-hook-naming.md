@@ -8,11 +8,11 @@ paths:
 - frontend/src/features/**/use*.ts
 triggers:
   keywords:
-  - custom hook
-  - useXxx
-  - 自定义
-  - 命名
-  - 文件
+  - hook 命名
+  - use 前缀
+  - useXxx 文件名
+  - 一文件一 hook
+  - hook naming
 effort: medium
 context: inline
 version: '1.0'

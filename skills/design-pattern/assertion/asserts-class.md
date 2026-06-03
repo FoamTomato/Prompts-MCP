@@ -151,7 +151,7 @@ class TextbookAssertCode(Enum):
 2. 新建 `py/asserts/<domain>.py`
 3. 在 `py/asserts/__init__.py` re-export
 4. 更新 `py/asserts/README.md` 占用表
-5. 编写业务侧使用（W3.5-2 模板示范）
+5. 编写业务侧使用（参照模板示范）
 
 ## 自检
 

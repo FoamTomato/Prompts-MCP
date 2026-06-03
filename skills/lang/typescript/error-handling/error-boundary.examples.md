@@ -80,7 +80,7 @@ app/
 
 ```typescript
 useEffect(() => {
-  // W3.5 阶段：console；后期接 Sentry
+  // 先用 console；后期接 Sentry
   console.error("[ErrorBoundary]", error);
 
   // 含业务 code 的可单独上报

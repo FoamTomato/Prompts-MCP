@@ -117,7 +117,7 @@ async def generate(req: OutlineCreateReq):
     OutlineAsserts.chapter_ids_belong_to(req.chapter_ids, chapters)
 ```
 
-### 反例 6（W3.5 sweep 经验）：内部不变量
+### 反例 6：内部不变量
 
 ```python
 # ❌ 把"客户端不该传脏数据"当业务异常

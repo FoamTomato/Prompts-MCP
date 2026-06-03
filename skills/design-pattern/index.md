@@ -1,6 +1,6 @@
 ---
 name: design-pattern-index
-description: 设计模式索引 — 实战模式(Repository/Factory/Strategy/DDD/Pipeline/Assertion) + GoF 通用(SOLID/单例/建造者/代理/行为型)。Use when 做结构性设计决策 / 评审抽象与分层时。
+description: 设计模式索引 — 实战模式(Repository/Factory/Strategy/DDD/Pipeline/Assertion) + GoF 通用(SOLID/单例/建造者/代理/行为型) + 前端 React 组件模式。Use when 做结构性设计决策 / 评审抽象与分层 / 设计 React 组件 API 与逻辑复用时。
 parent: ../index.md
 children:
   - { name: repository, path: repository/index.md, tag: folder, note: 持久化薄壳，禁业务 }
@@ -14,13 +14,12 @@ children:
   - { name: builder, path: builder/index.md, tag: folder, note: 建造者（@Builder / 链式） }
   - { name: proxy, path: proxy/index.md, tag: folder, note: 代理（JDK 动态代理 vs CGLIB / Spring AOP） }
   - { name: behavioral, path: behavioral/index.md, tag: folder, note: 行为型（模板方法 / 责任链 / 观察者 / 适配器） }
+  - { name: react-patterns, path: react-patterns/index.md, tag: folder, note: React 组件设计模式（复合组件 / Hook 抽逻辑 / Render Props / Provider / 容器展示分离） }
 when_to_descend: |
-  任务涉及"结构性决策"：分层、抽象、可替换实现、多步流程编排、异常处理设计。
+  任务涉及"结构性决策"：分层、抽象、可替换实现、多步流程编排、异常处理设计。前端 React 组件 API 设计 / 逻辑复用 / 状态共享 → react-patterns。
 ---
 
 # Design Pattern · 设计模式
-
-> 状态：**W1 占位** —— 子目录 W2 起新写（项目当前无对应 skill）。
 
 ## 本层包含
 
@@ -37,6 +36,7 @@ when_to_descend: |
 | builder | 文件夹 | 建造者 @Builder/链式（1 子项） |
 | proxy | 文件夹 | JDK 动态代理 vs CGLIB / Spring AOP（1 子项） |
 | behavioral | 文件夹 | 模板方法 / 责任链 / 观察者 / 适配器（4 子项） |
+| react-patterns | 文件夹 | React 组件设计模式：复合组件 / Hook 抽逻辑 / Render Props / Provider / 容器展示分离 |
 
 ## 何时下钻
 

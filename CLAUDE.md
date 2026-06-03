@@ -19,7 +19,7 @@
 
 ## skills 结构速览
 
-四个正交维度(详见 [`skills/index.md`](skills/index.md)):
+八个正交维度(详见 [`skills/index.md`](skills/index.md)):
 
 | 维度 | 管什么 |
 |------|--------|
@@ -30,6 +30,7 @@
 | [`tech-selection/`](skills/tech-selection/index.md) | 技术选型对比(消息队列 / 数据库 / 缓存 / 搜索-OLAP) |
 | [`ai/`](skills/ai/index.md) | AI 应用开发(向量库 / RAG / LLM 调用 / Agent-MCP / 框架) |
 | [`fundamentals/`](skills/fundamentals/index.md) | 程序员内功·规约+决策(JVM / 并发原理 / 集合源码 / 虚拟线程 / 线上排查 / 分布式理论) |
+| [`design/`](skills/design/index.md) | UI 设计(通用规范 a11y/间距/字体/配色 + 主题风格 bento/flat/wes-anderson + 设计语言 token + 组件模式) |
 
 一个任务通常横跨多个维度下钻;关联但独立的规约拆成兄弟叶子,靠各层 `index.md` 路由。
 

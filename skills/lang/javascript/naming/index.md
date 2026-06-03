@@ -1,10 +1,10 @@
 ---
 name: lang-javascript-naming-index
-description: JS 命名（保留扩展点）
+description: JS 命名规范（函数 camelCase 动词开头）。Use when 写 / 改 JavaScript（Node/Express）服务的函数命名时。
 parent: ../index.md
 children:
   - { name: function-naming, path: function-naming.md, tag: skill, note: 函数 camelCase 动词 }
-when_to_descend: Node/Express 服务（若引入）
+when_to_descend: 写 / 改 JavaScript（Node/Express）服务的函数命名时。
 ---
 
 # Naming · 子项索引

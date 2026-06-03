@@ -1,10 +1,12 @@
 ---
 name: framework-index
-description: 框架/库使用约定索引 — 前端(React/antd/GSAP) / Python(FastAPI/Tortoise) / Java(Spring 全家桶/MyBatis(-Plus)/MySQL/Redis/MQ/Security/调度/测试等)。Use when 写具体框架代码 / 用第三方库 / 评审框架用法时。
+description: 框架/库使用约定索引 — 前端(React/antd/Vue3/Element Plus/GSAP) / Python(FastAPI/Tortoise) / Java(Spring 全家桶/MyBatis(-Plus)/MySQL/Redis/MQ/Security/调度/测试等)。Use when 写具体框架代码 / 用第三方库 / 评审框架用法时。
 parent: ../index.md
 children:
-  - { name: react, path: react/index.md, tag: folder, note: 组件 / hook / state / SSR }
-  - { name: antd, path: antd/index.md, tag: folder, note: Form / Modal / Table / MCP 用法 }
+  - { name: react, path: react/index.md, tag: folder, note: 组件 / hook / state / 布局 / 性能 / 安全 / React19 }
+  - { name: antd, path: antd/index.md, tag: folder, note: Form / Modal / Table / 组件选型 }
+  - { name: vue, path: vue/index.md, tag: folder, note: Vue3 组合式 API / 响应式 / SFC / Pinia / Router }
+  - { name: element-plus, path: element-plus/index.md, tag: folder, note: ElForm / ElTable / 主题 / 消息反馈 }
   - { name: fastapi, path: fastapi/index.md, tag: folder, note: router / schema / middleware }
   - { name: tortoise, path: tortoise/index.md, tag: folder, note: model 类模板 / 事务上下文 }
   - { name: gsap, path: gsap/index.md, tag: folder, note: FLIP / Draggable 动画 }
@@ -39,14 +41,14 @@ when_to_descend: |
 
 # Framework · 框架使用约定
 
-> 状态：**W1 占位** —— 子目录 W2 起从 `.ai/skills/frontend/` 和 `.ai/skills/py/` 迁移并细分。
-
 ## 本层包含
 
 | 名称 | 类型 | 一句话 |
 |------|------|-------|
-| react | 文件夹 | 组件 / hook / state / SSR 4 类 |
-| antd | 文件夹 | Form / Modal / Table / MCP 用法 |
+| react | 文件夹 | 组件 / hook / state / 布局 / 性能 / 安全 / React19 |
+| antd | 文件夹 | Form / Modal / Table / 组件选型 |
+| vue | 文件夹 | Vue3 组合式 API / 响应式 / SFC / Pinia / Router（6 子项） |
+| element-plus | 文件夹 | ElForm / ElTable / 主题配置 / 消息反馈（4 子项） |
 | fastapi | 文件夹 | router / schema / middleware 3 类 |
 | tortoise | 文件夹 | model 模板 / 事务 |
 | gsap | 文件夹 | FLIP / Draggable |
@@ -79,6 +81,7 @@ when_to_descend: |
 ## 何时下钻
 
 - 新增 / 修改 `frontend/src/**/*.tsx` → `react/` + 视具体 UI 决定要不要进 `antd/`
+- 新增 / 修改 `frontend/src/**/*.vue` → `vue/` + 视具体 UI 决定要不要进 `element-plus/`
 - 新增 / 修改 `backend/routers/*.py` 或 `backend/schemas/*.py` → `fastapi/`
 - 操作 ORM Model 或写 migration → `tortoise/`
 - 写动画相关代码（`*.animations.ts` / `useGSAP` 等）→ `gsap/`
