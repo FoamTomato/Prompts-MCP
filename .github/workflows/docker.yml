@@ -162,24 +162,67 @@ jobs:
             fi
 
             docker compose up -d --force-recreate prompts-mcp
-            sleep 5
             docker compose ps prompts-mcp
 
-            # Health probe from inside the container — independent of nginx.
-            docker exec prompts-mcp python -c "import urllib.request,sys; r=urllib.request.urlopen('http://localhost:8080/health',timeout=5); print(r.read().decode()); sys.exit(0 if r.status==200 else 1)"
+            # --- Internal health probe (independent of nginx) ---
+            # --force-recreate restarts the container; the app then loads ~700
+            # skill files before binding, so a single fixed sleep races the
+            # startup. Poll for up to ~60s instead of one-shot probing.
+            echo "Waiting for container /health ..."
+            ok=""
+            for i in \$(seq 1 30); do
+              if docker exec prompts-mcp python -c "import urllib.request,sys; r=urllib.request.urlopen('http://localhost:8080/health',timeout=3); sys.exit(0 if r.status==200 else 1)" 2>/dev/null; then
+                ok="1"
+                echo "container healthy after \${i} probe(s)"
+                docker exec prompts-mcp python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8080/health',timeout=3).read().decode())"
+                break
+              fi
+              sleep 2
+            done
+            if [ -z "\$ok" ]; then
+              echo "::error::container /health never came up after 60s"
+              docker compose logs --tail 60 prompts-mcp
+              exit 1
+            fi
+
+            # --- Reload nginx so it re-resolves the upstream ---
+            # --force-recreate gives the container a NEW internal IP; nginx
+            # caches the old upstream address and keeps returning 502 until it
+            # re-resolves. A reload (graceful, no downtime for other vhosts)
+            # picks up the new IP. This was the root cause of a past outage.
+            if docker ps --format '{{.Names}}' | grep -qx nginx; then
+              if docker exec nginx nginx -t 2>/dev/null; then
+                docker exec nginx nginx -s reload && echo "nginx reloaded"
+              else
+                echo "::warning::nginx -t failed; skipped reload"
+              fi
+            else
+              echo "::warning::no container named 'nginx'; skipped reload"
+            fi
           EOF
 
       - name: Verify external endpoint
         if: env.skip_deploy != '1'
         run: |
-          for i in 1 2 3 4 5; do
-            if curl -fsS "https://xiaohang.site/mcp/health" >/dev/null; then
-              echo "External health OK"
-              curl -fsS "https://xiaohang.site/mcp/health"
-              exit 0
-            fi
-            echo "Attempt $i failed, retrying..."
-            sleep 4
-          done
-          echo "::error::External /mcp/health never came up"
-          exit 1
+          # Probe both surfaces this service exposes through nginx:
+          #   /mcp/health  — MCP protocol entry
+          #   /skills/     — the web viewer (what recent changes touch)
+          # Poll up to ~48s to absorb nginx reload settle + TLS handshakes.
+          check() {
+            local url="$1" ok=""
+            for i in $(seq 1 8); do
+              if curl -fsS -o /dev/null "$url"; then echo "OK: $url"; return 0; fi
+              echo "  ($url) attempt $i failed, retrying..."
+              sleep 6
+            done
+            return 1
+          }
+          rc=0
+          check "https://xiaohang.site/mcp/health" || rc=1
+          check "https://xiaohang.site/skills/"    || rc=1
+          if [ "$rc" != 0 ]; then
+            echo "::error::External endpoint(s) never came up"
+            exit 1
+          fi
+          echo "--- /mcp/health body ---"
+          curl -fsS "https://xiaohang.site/mcp/health" || true
