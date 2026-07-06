@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if skill %}{{ skill.name }} · {% endif %}Prompts-MCP</title>
+  {% if skill and skill.description %}<meta name="description" content="{{ skill.description|truncate(160, true, '…') }}">{% endif %}
+  {% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
   <link rel="icon" type="image/svg+xml" href="{{ base }}/static/favicon.svg">
   <link rel="stylesheet" href="{{ base }}/static/css/main.css">
   <script>window.__base = {{ base|tojson }};</script>

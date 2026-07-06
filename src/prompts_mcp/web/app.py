@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import datetime as _dt
 import logging
 import re
 from pathlib import Path
+from xml.sax.saxutils import escape as _xml_escape
 
 from fastapi import FastAPI, HTTPException, Query
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, PlainTextResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from markdown_it import MarkdownIt
@@ -100,6 +102,23 @@ def create_web_app(state) -> FastAPI:
             return fwd.rstrip("/")
         return "/web"
 
+    def _origin(request: Request) -> str:
+        """Absolute scheme://host as seen by the browser, honoring the
+        X-Forwarded-* headers nginx sets. Needed for sitemap <loc> which must
+        be fully-qualified URLs.
+        """
+        proto = request.headers.get("x-forwarded-proto") or request.url.scheme
+        host = (
+            request.headers.get("x-forwarded-host")
+            or request.headers.get("host")
+            or request.url.netloc
+        )
+        return f"{proto}://{host}"
+
+    def _skills_root() -> Path | None:
+        settings = getattr(state, "settings", None)
+        return getattr(settings, "skills_root", None) if settings else None
+
     def _body_is_redundant_with_children(body_md: str) -> bool:
         """An index file body is "redundant" if it only contains a heading
         and one markdown table — the same info the children-card already
@@ -175,6 +194,7 @@ def create_web_app(state) -> FastAPI:
     def index(request: Request) -> HTMLResponse:
         idx = _require_index()
         tree = idx.tree.to_dict(include_descriptions=True, max_depth=10)
+        base = _base_path(request)
         return TEMPLATES.TemplateResponse(
             request,
             "layout.html",
@@ -186,7 +206,8 @@ def create_web_app(state) -> FastAPI:
                 "children_view": [],
                 "dimensions": sorted(idx.by_dimension),
                 "total": len(idx.records),
-                "base": _base_path(request),
+                "base": base,
+                "canonical": f"{_origin(request)}{base}/",
             },
         )
 
@@ -211,6 +232,7 @@ def create_web_app(state) -> FastAPI:
             rendered = md_renderer.render(rec.body_markdown)
 
         tree = idx.tree.to_dict(include_descriptions=True, max_depth=10)
+        canonical = f"{_origin(request)}{base}/skill/{rec.path.removesuffix('.md')}"
         return TEMPLATES.TemplateResponse(
             request,
             "layout.html",
@@ -223,8 +245,76 @@ def create_web_app(state) -> FastAPI:
                 "dimensions": sorted(idx.by_dimension),
                 "total": len(idx.records),
                 "base": base,
+                "canonical": canonical,
             },
         )
+
+    @web.get("/sitemap.xml")
+    def sitemap(request: Request) -> Response:
+        """Dynamic sitemap of every skill page, for search-engine discovery.
+
+        Emits fully-qualified URLs under the external prefix (prod:
+        https://xiaohang.site/skills/…, local: /web/…). Every SkillRecord maps
+        to a browsable page:
+          - root (path == "index.md")      -> {base}/            (viewer home)
+          - everything else (index/leaf)   -> {base}/skill/{path-without-.md}/
+        <lastmod> uses the source markdown file's mtime when resolvable.
+        """
+        idx = _require_index()
+        base = _base_path(request)          # e.g. /skills
+        origin = _origin(request)           # e.g. https://xiaohang.site
+        root = _skills_root()
+
+        def _lastmod(rel_path: str) -> str | None:
+            if not root:
+                return None
+            try:
+                ts = (root / rel_path).stat().st_mtime
+                return _dt.datetime.utcfromtimestamp(ts).strftime("%Y-%m-%d")
+            except OSError:
+                return None
+
+        urls: list[str] = []
+        seen: set[str] = set()
+        for rec in idx.records:
+            if rec.kind == "root" or rec.path == "index.md":
+                loc = f"{origin}{base}/"
+            else:
+                href_path = rec.path.removesuffix(".md")
+                # NO trailing slash — the FastAPI `{skill_path:path}` route only
+                # matches the slash-less form; the trailing-slash variant 404s.
+                # This matches viewer internal links and existing GSC indexing.
+                loc = f"{origin}{base}/skill/{href_path}"
+            if loc in seen:
+                continue
+            seen.add(loc)
+            entry = f"  <url>\n    <loc>{_xml_escape(loc)}</loc>\n"
+            lm = _lastmod(rec.path)
+            if lm:
+                entry += f"    <lastmod>{lm}</lastmod>\n"
+            entry += "    <changefreq>weekly</changefreq>\n    <priority>0.6</priority>\n  </url>"
+            urls.append(entry)
+
+        body = (
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            + "\n".join(urls)
+            + "\n</urlset>\n"
+        )
+        return Response(content=body, media_type="application/xml")
+
+    @web.get("/robots.txt")
+    def robots(request: Request) -> PlainTextResponse:
+        """Robots for the /skills app. Points crawlers at the skills sitemap.
+
+        Note the site-root /robots.txt is served by the Hexo blog and also
+        lists this sitemap; this one is a convenience for direct hits on
+        /skills/robots.txt.
+        """
+        origin = _origin(request)
+        base = _base_path(request)
+        body = f"User-agent: *\nAllow: /\nSitemap: {origin}{base}/sitemap.xml\n"
+        return PlainTextResponse(body)
 
     @web.get("/api/search")
     def api_search(
